@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string Notif = ViewBag.Notif;
+}
+
+<div class="container">
+    <div class="account_grid">
+        @if (Notif != null)
+        {
+            <div class="alert alert-danger">@Notif</div>
+        }
+        <div class="login-left">
+            <h3>ĐĂNG NHẬP</h3>
+            <p>Nếu bạn đã có tài khoản, vui lòng đăng nhập</p>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <form action="/User/login" method="post">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Tên đăng nhập</label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="username" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Mật khẩu</label>
+                                    <div class="col-md-8">
+                                        <input type="password" name="password" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class=" col-md-offset-4 col-md-10">
+                                        <input type="submit" value="Đăng nhập" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="login-left">
+            <h3 style="margin-top: 0">Khách hàng mới</h3>
+            <p>Bằng cách tạo tài khoản, bạn có thể thanh toán nhanh hơn, lưu trữ nhiều địa chỉ giao hàng, xem và kiểm tra các đơn hàng và hơn thế nữa .</p>
+            <a class="btn btn-primary" href="/dang-ki/">Tạo tài khoản</a>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <div class="sub-cate">
+        @{ Html.RenderAction("LeftMenu", "Home");}
+        <!--initiate accordion-->
+        <script type="text/javascript">
+            $(function () {
+                var menu_ul = $('.menu > li > ul'),
+                       menu_a = $('.menu > li > a');
+                menu_ul.hide();
+                menu_a.click(function (e) {
+                    e.preventDefault();
+                    var link = $(this).attr('href');
+                    if (link != '#') {
+                        window.location.href = link;
+                    }
+                    else if (!$(this).hasClass('active')) {
+                        menu_a.removeClass('active');
+                        menu_ul.filter(':visible').slideUp('normal');
+                        $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                    } else {
+                        $(this).removeClass('active');
+                        $(this).next().stop(true, true).slideUp('normal');
+                    }
+                });
+
+            });
+        </script>
+    </div>
+    <div class="clearfix"> </div>
+</div>

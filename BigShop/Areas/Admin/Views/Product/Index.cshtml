@@ -1,0 +1,189 @@
+﻿@model List<Model.EF.Product>
+@using Model.EF
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Product temp_product = ViewBag.temp_product;
+}
+@section jsProduct{
+    <script src="/Assets/admin/js/Product.js"></script>
+    
+}
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sản phẩm</h4>
+            </div>
+            <form action="/Admin/Product/Insert" method="post">
+                <div class="modal-body">
+                    <div>
+                        Tên sản phẩm
+                        <span><input type="text" name="name"></span>
+                    </div>
+                    <div>
+                        Code
+                        <span><input type="text" name="code"></span>
+                    </div>
+                    <div>
+                        Metakeyword
+                        <span><input type="text" name="metakeyword"></span>
+                    </div>
+                    <div>
+                        Giá
+                        <span><input type="text" name="price"></span>
+                    </div>
+                    <div>
+                        Số lượng
+                        <span><input type="text" name="quantity"></span>
+                    </div>
+                    <div>
+                        Ảnh
+                        <span><input type="file" name="image"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Lưu" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Quản lý sản phẩm @temp_product.Name</h1>
+        </div>
+        <div id="row_filter">
+            <label>
+                Lọc
+                <span>
+                    <select>
+                        <option selected="">Loại hàng</option>
+                    </select>
+                    <select>
+                        <option selected="">Hãng</option>
+                    </select>
+                </span>
+            </label>
+            <span>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Thêm sản phẩm</button>
+            </span>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Sản phẩm
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Mã sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Ảnh</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Code</td>
+                                    <td class="center">@item.Price.GetValueOrDefault(0).ToString("N0")</td>
+                                    <td class="center">@item.Quantity</td>
+                                    <td style="width: 100px; height: auto"><img src="@item.Image" class="img-responsive" /></td>
+                                    <td><button class="btn btn-primary editadminproduct" onclick="return getDetailProduct(@item.ID)">Sửa</button> | <a class="btn btn-danger deleteadminproduct" data-id="@item.ID" id="adminDelete">Xóa</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+</div>
+
+<div class="modal fade" id="editModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sản phẩm</h4>
+            </div>
+            <form action="/Admin/Product/Edit" method="post">
+                <div class="modal-body">
+                    <div>
+                        Tên sản phẩm
+                        <span><input type="text" name="name" id="input1"></span>
+                    </div>
+                    <div>
+                        Metatitle
+                        <span><input type="text" name="metatitle" id="input2"></span>
+                    </div>
+                    <div>
+                        Metakeyword
+                        <span><input type="text" name="metakeyword" id="input3"></span>
+                    </div>
+                    <div>
+                        Giá
+                        <span><input type="text" name="price" id="input4"></span>
+                    </div>
+                    <div>
+                        Số lượng
+                        <span><input type="text" name="quantity" id="input5"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Lưu" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    function getDetailProduct(id) {
+        $.ajax({
+            url: '/Admin/Product/Get/' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $("#input1").val(data.Name);
+                $("#input2").val(data.Metatitle);
+                $("#input3").val(data.Metakeyword);
+                $("#input4").val(data.Price);
+                $("#input5").val(data.Quantity);
+                $("#editModel").modal('show');
+            },
+            error: function (err) {
+                alert("Error: " + err.responseText);
+            }
+        });
+    }
+</script>

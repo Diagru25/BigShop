@@ -1,0 +1,160 @@
+﻿@model Model.EF.Product
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Model.EF.Product> RelatedProduct = ViewBag.RelatedProduct;
+}
+<script>
+    jQuery(document).ready(function ($) {
+
+        $('#etalage').etalage({
+            thumb_image_width: 300,
+            thumb_image_height: 400,
+            source_image_width: 900,
+            source_image_height: 1200,
+            show_hint: true,
+            click_callback: function (image_anchor, instance_id) {
+                alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
+            }
+        });
+
+    });
+</script>
+<div class="container">
+
+    <div class=" single_top">
+        <div class="single_grid">
+            <div class="grid images_3_of_2">
+                <ul id="etalage">
+                    <li>
+                        <a href="optionallink.html">
+                            <img class="etalage_thumb_image" src="@Model.Image" class="img-responsive" />
+                            <img class="etalage_source_image" src="@Model.Image" class="img-responsive" title="" />
+                        </a>
+                    </li>
+                    <li>
+                        <img class="etalage_thumb_image" src="/Assets/client/images/TV_BigPic/Pic2.jpg" class="img-responsive" />
+                        <img class="etalage_source_image" src="/Assets/client/images/TV_BigPic/Pic2.jpg" class="img-responsive" title="" />
+                    </li>
+                    <li>
+                        <img class="etalage_thumb_image" src="/Assets/client/images/TV_BigPic/Pic3.jpg" class="img-responsive" />
+                        <img class="etalage_source_image" src="/Assets/client/images/TV_BigPic/Pic3.jpg" class="img-responsive" />
+                    </li>
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="desc1 span_3_of_2">
+
+
+                <h4>@Model.Name</h4>
+                <div class="cart-b">
+                    <div class="left-n ">@Model.Price₫</div>
+                    <a class="now-get get-cart-in" onclick="return GetQuantityCartItem(@Model.ID)">Đặt ngay</a>
+                    <div class="clearfix"></div>
+                </div>
+                <h6>Còn hàng</h6>
+                <p>
+                    • Vi xử lý hình ảnh X-Reality PRO.<br>
+                    • Độ phân giải Full HD, HDR tương phản cao.<br>
+                    • Công nghệ quét hình MotionflowX R200 Hz.<br>
+                    • Sử dụng công nghệ đèn nền Edge LED.<br>
+                    • Màu sắc sống động Dynamic Color.<br>
+                    • Ứng dụng phong phú Opera TV Store. <br>
+                </p>
+                <div class="share">
+                    <h5>Share Product :</h5>
+                    <ul class="share_nav">
+                        <li><a href="#"><img src="/Assets/client/images/facebook.png" title="facebook"></a></li>
+                        <li><a href="#"><img src="/Assets/client/images/twitter.png" title="Twiiter"></a></li>
+                        <li><a href="#"><img src="/Assets/client/images/rss.png" title="Rss"></a></li>
+                        <li><a href="#"><img src="/Assets/client/images/gpluse.png" title="Google+"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <ul id="flexiselDemo1">
+            @foreach (var item in RelatedProduct)
+            {
+                <li><img src="@item.Image" /><div class="grid-flex"><a href="#">@item.Name</a><p>@item.Price₫</p></div></li>
+            }
+        </ul>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $("#flexiselDemo1").flexisel({
+                    visibleItems: 5,
+                    animationSpeed: 1000,
+                    autoPlay: true,
+                    autoPlaySpeed: 3000,
+                    pauseOnHover: false,
+                    enableResponsiveBreakpoints: true,
+                    responsiveBreakpoints: {
+                        portrait: {
+                            changePoint: 480,
+                            visibleItems: 1
+                        },
+                        landscape: {
+                            changePoint: 640,
+                            visibleItems: 2
+                        },
+                        tablet: {
+                            changePoint: 768,
+                            visibleItems: 3
+                        }
+                    }
+                });
+
+            });
+        </script>
+        <script type="text/javascript" src="/Assets/client/js/jquery.flexisel.js"></script>
+
+        <div class="toogle">
+            <h3 class="m_3">Chi tiết sản phẩm</h3>
+            <p class="m_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+        </div>
+    </div>
+
+    <!---->
+    <div class="sub-cate">
+        @{ Html.RenderAction("LeftMenu", "Home");}
+        <!--initiate accordion-->
+        <script type="text/javascript">
+            function GetQuantityCartItem(productid) {
+                $.ajax({
+                    url: '/Cart/Add_Item/' + productid,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert('Thêm vào giỏ hàng thành công');
+                    }
+                });
+            }
+            $(function () {
+                var menu_ul = $('.menu > li > ul'),
+			           menu_a = $('.menu > li > a');
+                menu_ul.hide();
+                menu_a.click(function (e) {
+                    e.preventDefault();
+                    var link = $(this).attr('href');
+                    if (link != '#') {
+                        window.location.href = link;
+                    }
+                    else if (!$(this).hasClass('active')) {
+                        menu_a.removeClass('active');
+                        menu_ul.filter(':visible').slideUp('normal');
+                        $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                    } else {
+                        $(this).removeClass('active');
+                        $(this).next().stop(true, true).slideUp('normal');
+                    }
+                });
+
+            });
+        </script>
+        <div class=" chain-grid menu-chain">
+            <a href="single.html"><img class="img-responsive " src="/Assets/client/images/Hot.png" alt=" " /></a>
+        </div>
+        <a class="view-all all-product" href="product.html">Xem tất cả sản phẩm<span> </span></a>
+    </div>
+    <div class="clearfix"> </div>
+</div>

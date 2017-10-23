@@ -1,0 +1,50 @@
+﻿@model List<BigShop.Models.CartItem>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsCart{
+
+    <script src="/Assets/client/js/Cart.js"></script>
+}
+<div class="container">
+    @if (Model.Count > 0)
+    {
+        <div id="cart_title">
+            <h4>GIỎ HÀNG CỦA TÔI </h4>
+            <span style="padding-left: 40px;">@Model.Sum(x => x.Quantity) sản phẩm</span>
+            <span style="padding-left: 400px;">Giá</span>
+            <span style="padding-left: 145px;">Số lượng</span>
+        </div>
+        <div id="shopping_cart">
+            @foreach (var item in Model)
+            {
+                <div class="row_cart_item">
+                    <div class="img_cart_item"><img class="img-responsive" src="@item.Product.Image"></div>
+                    <div class="col_info">
+                        <a class="name" style="text-decoration: none;">@item.Product.Name</a><br>
+                        <button type="button" class="btn btn-danger" data-id="@item.Product.ID" id="aDelete">Xóa</button>
+                    </div>
+                    <div class="col_price"><p style=" ">@item.Product.Price.GetValueOrDefault(0).ToString("N0")₫</p></div>
+                    <div class="btn_quantity">
+                        <span><button type="button" class="btn btn-default" data-id="@item.Product.ID" id="btnDes">-</button></span>
+                        <span><input type="text" name="quantity" value="@item.Quantity" disabled /></span>
+                        <span><button type="button" class="btn btn-default" data-id="@item.Product.ID" id="btnIden">+</button></span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="payment">
+            <div class="pay_info">
+                Tổng tiền
+                <span style="padding-left: 100px;">@Model.Sum(x => x.Product.Price * x.Quantity).GetValueOrDefault(0).ToString("N0")₫</span>
+            </div>
+            <a href="/Cart/Payment" class="btn btn-primary btn-block" id="btnPayment">Tiến hành đặt hàng</a>
+            <button type="button" class="btn btn-primary btn-block" id="btnContinue">Tiếp tục mua hàng</button>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">Giỏ hàng của bạn chưa có sản phẩm nào</div>
+    }
+</div>

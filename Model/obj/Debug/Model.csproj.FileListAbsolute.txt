@@ -1,0 +1,9 @@
+D:\Lap Trinh\visual\BigShop\Model\bin\Debug\Model.dll.config
+D:\Lap Trinh\visual\BigShop\Model\bin\Debug\Model.dll
+D:\Lap Trinh\visual\BigShop\Model\bin\Debug\Model.pdb
+D:\Lap Trinh\visual\BigShop\Model\bin\Debug\EntityFramework.dll
+D:\Lap Trinh\visual\BigShop\Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\Lap Trinh\visual\BigShop\Model\bin\Debug\EntityFramework.xml
+D:\Lap Trinh\visual\BigShop\Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\Lap Trinh\visual\BigShop\Model\obj\Debug\Model.dll
+D:\Lap Trinh\visual\BigShop\Model\obj\Debug\Model.pdb

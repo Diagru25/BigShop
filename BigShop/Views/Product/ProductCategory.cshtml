@@ -1,0 +1,103 @@
+﻿@model List<Model.EF.Product>
+@{
+    ViewBag.Title = "ProductCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string CategoryName = ViewBag.CategoryName;
+}
+
+<div class="container">
+    <div class="women-product">
+        <div class=" w_content">
+            <div class="women">
+                <a href="#"><h4>@CategoryName</h4></a>
+                <ul class="w_nav">
+                    <li>Sort : </li>
+                    <li><a class="active" href="#">popular</a></li> |
+                    <li><a href="#">new </a></li> |
+                    <li><a href="#">discount</a></li> |
+                    <li><a href="#">price: Low High </a></li>
+                    <div class="clearfix"> </div>
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="product" style="margin-bottom: 5px"></div>
+        <div class="product-left">
+            @foreach (var item in Model)
+            {
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                <div class="col-md-4 chain-grid">
+                    <a href="@url"><img class="img-responsive chain" src="@item.Image" alt=" " /></a>
+                    <span class="star"> </span>
+                    <div class="grid-chain-bottom">
+                        <h6><a href="@url" style="font-size: 15px;">Samsung Galaxy J7 Pro</a></h6>
+                        <div class="star-price">
+                            <div class="dolor-grid">
+                                <span style="font-size: 15px;color: #c10017; height: 20px;">7.900.000₫</span>
+                            </div>
+                            <a href="#" title="Thêm vào giỏ hàng"><span style="background: url(/Assets/client/images/img-sprite.png) -172px -28px;width: 26px;height: 26px;display: inline-block;vertical-align: middle; float: right;"></span></a>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--<div class="clearfix"> </div>-->
+        </div>
+        <!-- grids_of_4
+        @foreach (var item in Model)
+        {
+            <div class="grid-product">
+                <div class="  product-grid">
+                    <div class="content_box">
+                        <a href="chi-tiet/@item.MetaTitle-@item.ID">
+                            <div class="left-grid-view grid-view-left">
+                                <img src="@item.Image" class="img-responsive watch-right" alt="" />
+                                <div class="mask">
+                                    <div class="info">Quick View</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <h4><a href="#">@item.Name</a></h4>
+                    <p>It is a long established fact that a reader</p>
+                    Rs. 499
+                </div>
+            </div>
+        }
+        -->
+        <div class="clearfix"> </div>
+    </div>
+
+    <div class="sub-cate">
+        @{ Html.RenderAction("LeftMenu", "Home");}
+        <!--initiate accordion-->
+        <script type="text/javascript">
+        $(function () {
+            var menu_ul = $('.menu > li > ul'),
+                   menu_a = $('.menu > li > a');
+            menu_ul.hide();
+            menu_a.click(function (e) {
+                e.preventDefault();
+                var link = $(this).attr('href');
+                if (link != '#') {
+                    window.location.href = link;
+                }
+                else if (!$(this).hasClass('active')) {
+                    menu_a.removeClass('active');
+                    menu_ul.filter(':visible').slideUp('normal');
+                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                } else {
+                    $(this).removeClass('active');
+                    $(this).next().stop(true, true).slideUp('normal');
+                }
+            });
+
+        });
+        </script>
+        <div class=" chain-grid menu-chain">
+            <a href="single.html"><img class="img-responsive " src="images/Hot.png" alt=" " /></a>
+        </div>
+        <a class="view-all all-product" href="product.html">Xem tất cả sản phẩm<span> </span></a>
+    </div>
+    <div class="clearfix"> </div>
+</div>

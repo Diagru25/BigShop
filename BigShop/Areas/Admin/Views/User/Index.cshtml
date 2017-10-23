@@ -1,0 +1,119 @@
+﻿@model List<Model.EF.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsUser{
+    <script src="/Assets/admin/js/User.js"></script>
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Quản lý người dùng</h1>
+        </div>
+        <div id="row_filter">
+            <span>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Thêm sản phẩm</button>
+            </span><!-- /.col-lg-12 -->
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Người dùng
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Tên đăng nhập</th>
+                                <th>Tên người dùng</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Quyền truy cập</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                string temp = item.Type == true ? "Admin" : "User";
+                                string temp_block = item.Status == true ? "Khóa" : "Kích hoạt";
+                                <tr>
+                                    <td>@item.UserName</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Email</td>
+                                    <td class="center">@item.Phone</td>
+                                    <td class="center">
+                                        @temp |
+                                        @if (item.Type == false)
+                                        {
+                                            <a class="btn btn-primary lvupuser" data-id="@item.ID">Thăng cấp</a>
+                                        }
+                                    </td>
+                                    <td><a class="btn btn-danger deleteUser" data-id="@item.ID">Xóa</a> | <a class="btn btn-primary manipulation" data-id="@item.ID">@temp_block</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sản phẩm</h4>
+            </div>
+            <form action="/Admin/User/Insert" method="post">
+                <div class="modal-body">
+                    <div>
+                        Tên đăng nhập
+                        <span><input type="text" name="username"></span>
+                    </div>
+                    <div>
+                        Mật khẩu
+                        <span><input type="password" name="password"></span>
+                    </div>
+                    <div>
+                        Xác nhận mật khẩu
+                        <span><input type="password" name="confirmpassword"></span>
+                    </div>
+                    <div>
+                        Họ tên
+                        <span><input type="text" name="name"></span>
+                    </div>
+                    <div>
+                        Email
+                        <span><input type="text" name="email"></span>
+                    </div>
+                    <div>
+                        Số điện thoại
+                        <span><input type="text" name="phone"></span>
+                    </div>
+                    <div>
+                        Địa chỉ
+                        <span><input type="text" name="address"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Lưu" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

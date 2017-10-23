@@ -1,0 +1,98 @@
+﻿@{
+    var session = (BigShop.Models.LoginModel)Session[BigShop.Common.CommonConst.UserSession];
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link href="/Assets/client/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!--theme-style-->
+    <link href="/Assets/client/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="/Assets/client/css/etalage.css" type="text/css" media="all" />
+    <link href="/Assets/client/css/cartstyle.css" rel="stylesheet" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--fonts-->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'> -->
+    <!--//fonts-->
+    <script src="/Assets/client/js/jquery.min.js"></script>
+
+    <script src="/Assets/client/js/jquery.etalage.min.js"></script>
+
+</head>
+<body>
+    <!--header-->
+    <div class="header">
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-left">
+                    <ul class="support">
+                        <li><a href="#"><label> </label></a></li>
+                        <li><a href="#">Hỗ trợ trực tuyến<span class="live"> 24/7</span></a></li>
+                    </ul>
+                    <ul class="support">
+                        <li class="van"><a href="#"><label> </label></a></li>
+                        <li><a href="#">Freeship <span class="live">đơn hàng trên 500.000đ</span></a></li>
+                    </ul>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="top-header-right">
+                    <div class="down-top top-down">
+                        <select class="in-drop">
+                            <option value="Dollar" class="in-of">Dollar</option>
+                            <option value="Yen" class="in-of">Yen</option>
+                            <option value="Euro" class="in-of">Euro</option>
+                        </select>
+                    </div>
+                    <!---->
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="bottom-header">
+            <div class="container">
+                <div class="header-bottom-left">
+                    <div class="logo">
+                        <a href="/"><img src="/Assets/client/images/logo.png" alt=" " /></a>
+                    </div>
+                    <div class="search">
+                        <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                        <input type="submit" value="Tìm kiếm">
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="header-bottom-right">
+                    <div class="account"><a href="login.html"><span> </span>Tài khoản</a></div>
+                    @if (session == null)
+                    {
+                        <ul class="login">
+                            <li><a href="/dang-nhap/"><span> </span>Đăng nhập</a></li> |
+                            <li><a href="/dang-ki/">Đăng ký</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="login">
+                            <li><a href="#"><span> </span>@session.UserName</a></li> |
+                            <li><a href="/dang-xuat">Đăng xuất</a></li>
+                        </ul>
+                    }
+                    <div class="cart"><a href="/gio-hang"><span> </span>Giỏ hàng</a></div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+    @RenderBody()
+    <!---->
+    @{ Html.RenderAction("Footer", "Home");}
+
+    @RenderSection("jsCart", required: false)
+    @RenderSection("jsRegister", required: false)
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿
+@model List<Model.EF.Menu>
+@{
+    List<Model.EF.ProductCategory> productCategory = ViewBag.ProductCategory;
+}
+<div class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="latter">
+                <h6>BẢNG TIN</h6>
+                <div class="sub-left-right">
+                    <form>
+                        <input type="text" value="Địa chỉ email của bạn" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Địa chỉ email của bạn';}" />
+                        <input type="submit" value="Đăng ký" />
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="latter-right">
+                <p>Kết nối</p>
+                <ul class="face-in-to">
+                    <li><a href="#"><span> </span></a></li>
+                    <li><a href="#"><span class="facebook-in"> </span></a></li>
+                    <div class="clearfix"> </div>
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="footer-bottom-cate">
+                <h6>Danh mục sản phẩm</h6>
+                <ul>
+                    @foreach (var item in productCategory)
+                    {
+                        <li><a href="/san-pham/@item.MetaTitle-@item.ID-0">@item.Name</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="footer-bottom-cate bottom-grid-cat">
+                <h6>Chính sách</h6>
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        if (item.TypeID == 1)
+                        {
+                            <li><a href="@item.Link">@item.Text</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="footer-bottom-cate">
+                <h6>Top thương hiệu</h6>
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        if (item.TypeID == 2)
+                        {
+                            <li><a href="@item.Link">@item.Text</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="footer-bottom-cate cate-bottom">
+                <h6>Trụ sở</h6>
+                <ul>
+                    <li>HVKTQS </li>
+                    <li>236 Hoàng Quốc Việt</li>
+                    <li> Hà Nội</li>
+                    <li class="phone">PH : 0916325632</li>
+                    <li class="temp"> <p class="footer-class">Redesign by <a href="#" target="_blank">HHG_VTS_LMH_TH50</a> </p></li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+﻿@model List<BigShop.Models.CartItem>
+@using Model.EF
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    User user = ViewBag.User;
+    var list_province = (List<Model.EF_province.province>)ViewBag.province;
+}
+@section jsCart{
+    <script src="/Assets/client/js/Validate.js"></script>
+    <script src="/Assets/client/js/Events.js"></script>
+}
+<div class="container">
+    <div id="view_step">
+        <!-- Bảng thông tin -->
+    </div>
+    <div id="submit_info">
+        <div class="form_title">Địa chỉ giao hàng của quý khách</div>
+        <form action="/Cart/Payment" method="post">
+            <div class="form_info">
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Email</label>
+                    </div>
+                    <div class="field_box" id="tg_mail">
+                        <input id="tb_mail" type="text" name="email" class="form-control" value="@user.Email" />
+                    </div>
+                    <div id="status_mail" class="status"></div>
+                    <div id="check_mail" class="field_check"></div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Tên</label>
+                    </div>
+                    <div class="field_box" id="tg_name">
+                        <input id="tb_name" type="text" name="name" class="form-control" value="@user.Name" />
+                    </div>
+                    <div id="status_name" class="status"></div>
+                    <div id="check_name" class="field_check"></div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Tỉnh/Thành phố </label>
+                    </div>
+                    <div class="field_box" id="tg_prov">
+                        <select id="province" class="form-control" name="city">
+                            @foreach (var item in list_province)
+                            {
+                                <option class="tesst" value="@item.provinceid">@item.name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="field_check">
+
+                    </div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Huyện/Quận</label>
+                    </div>
+                    <div class="field_box" id="tg_dist">
+                        <select id="distric" class="form-control" name="district">
+                            <option selected>-------</option>
+                        </select>
+                    </div>
+                    <div class="field_check">
+
+                    </div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Xã/Phường </label>
+                    </div>
+                    <div class="field_box" id="tg_ward">
+                        <select id="ward" class="form-control" name="commune">
+                            <option selected>-------</option>
+                        </select>
+                    </div>
+                    <div class="field_check">
+
+                    </div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Vui lòng điền CHÍNH XÁC "tầng, số nhà, đường" để tránh trường hợp đơn hàng bị hủy ngoài ý muốn </label>
+                    </div>
+                    <div class="field_box" id="tg_addr">
+                        <textarea id="add" style="height: 80px;" class="form-control" name="address"></textarea>
+                    </div>
+                    <div class="field_check">
+
+                    </div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Điện thoại di động </label>
+                    </div>
+                    <div class="field_box" id="tg_phone">
+                        <input id="tb_phone" type="text" name="phone" class="form-control" value="@user.Phone" />
+                    </div>
+                    <div id="status_phone" class="status"></div>
+                    <div id="check_phone" class="field_check"></div>
+                </div>
+
+                <div id="check_term">
+                    <input type="checkbox" id="confirm_pay"> Xác nhận đặt hàng
+                </div>
+                <input type="submit" class="btn btn-success" value="THANH TOÁN" name="btn_pay" id="btn_pay" disabled>
+        </form>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- Thông tin thanh toán -->
+<div id="payment_info">
+    <div class="form_title">Thông tin sản phẩm <span>(1 sản phẩm)</span></div>
+    <div class="title_in">
+        <div class="col_sp">Sản phẩm</div>
+        <div class="col_num">Số lượng</div>
+        <div class="col_cost">Giá</div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row_pay">
+            <div class="col_sp">@item.Product.Name</div>
+            <div class="col_num">@item.Quantity</div>
+            <div class="col_cost">@((item.Product.Price * item.Quantity).GetValueOrDefault(0).ToString("N0"))₫</div>
+        </div>
+    }
+    <div id="cl">Giao hàng tiêu chuẩn</div>
+    <div id="clg">Thứ Hai, 23 - Thứ Tư, 25 Tháng 10 2017</div>
+    <div class="title_in" style="height: 60px !important; border-bottom: 1px solid #daa6a6;">
+        <div id="row_temp">
+            <div class="title_payment">Tạm tính</div>
+            <div class="money_last" id="pro_cost">@Model.Sum(x => x.Product.Price * x.Quantity).GetValueOrDefault(0).ToString("N0")₫</div>
+        </div>
+        <div id="row_trans">
+            <div class="title_payment">Phí vận chuyển</div>
+            <div class="money_last" id="trans_cost">15000</div>
+        </div>
+    </div>
+    <div class="title_in" style="height: 60px !important; ">
+        <table style="width: 100%; line-height: 30px; ">
+            <tr>
+                <td>
+                    <strong>Tổng tiền</strong> <br>
+                    <span>(Tổng số tiền thanh toán)</span>
+                </td>
+                <td colspan="2" id="total_pay" style="">@Model.Sum(x => x.Product.Price * x.Quantity).GetValueOrDefault(0).ToString("N0")₫</td>
+            </tr>
+        </table>
+    </div>
+</div>

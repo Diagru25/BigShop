@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string Notif = ViewBag.Notif;
+}
+@section jsRegister{
+    <script src="/Assets/client/js/Validate.js"></script>
+    <script src="/Assets/client/js/Events.js"></script>
+}
+<div class="container">
+    <div id="register_form">
+        <div id="base_info">
+           <div id="concard"></div>
+            <div class="form_title">Thông tin cơ bản</div>
+            <div class="main_form">
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Tên đăng nhập</label>
+                    </div>
+                    <div class="field_box" id="tg_user_name">
+                        <input id="tb_user_name" type="text" name="username" class="form-control" placeholder="Tên đăng nhập" />
+                    </div>
+                    <div id="status_user_name" class="status"></div>
+                    <div id="check_user_name" class="field_check"></div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Họ tên</label>
+                    </div>
+                    <div class="field_box" id="tg_name">
+                        <input id="tb_name" type="text" name="name" class="form-control" placeholder="Họ tên đầy đủ" />
+                    </div>
+                    <div id="status_name" class="status"></div>
+                    <div id="check_name" class="field_check"></div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title">
+                        <label>Email</label>
+                    </div>
+                    <div class="field_box" id="tg_mail">
+                        <input id="tb_mail" type="text" name="email" class="form-control" placeholder="Example@mail.com" />
+                    </div>
+                    <div id="status_mail" class="status"></div>
+                    <div id="check_mail" class="field_check"></div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title"><label>Ngày sinh</label></div>
+                    <div id="Day" class="short_input">
+                        <select class="form-control">
+                            <option selected>Ngày</option>
+                        </select>
+                    </div>
+                    <div id="Month" class="short_input">
+                        <select class="form-control">
+                            <option selected>Tháng</option>
+                        </select>
+                    </div>
+                    <div id="Year" class="short_input">
+                        <select class="form-control">
+                            <option selected>Năm</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title"><label>Mật khẩu</label></div>
+                    <div class="field_box" id="tg_pass"><input type="password" id="tb_pass" class="form-control" name="" placeholder="Từ 6-20 ký tự. Có cả chữ và số"></div>
+                    <div id="status_pass" class="status"></div>
+                    <div id="check_pass" class="field_check"></div>
+                </div>
+                <div class="field_row">
+                    <div class="field_title"><label>Nhập lại mật khẩu</label></div>
+                    <div class="field_box" id="tg_repass"><input type="password" id="tb_repass" class="form-control" name="" disabled></div>
+                    <div id="status_repass" class="status"></div>
+                    <div id="check_repass" class="field_check"></div>
+                </div>
+                <div id="check_term">
+                    <input type="checkbox" id="confirm"> Đăng ký thông tin thanh toán
+                </div>
+                <div>
+                    <div id="regis_payment">
+                        <div class="form_title">Thông tin thanh toán</div>
+                        <div class="field_row">
+                            <div class="field_title">
+                                <label>Tỉnh/Thành phố </label>
+                            </div>
+                            <div class="field_box" id="tg_prov">
+                                <select id="province" class="form-control">
+                                    <option selected>-------</option>
+                                    <option>Đã chọn</option>
+                                </select>
+                            </div>
+                            <div class="field_check">
+
+                            </div>
+                        </div>
+                        <div class="field_row">
+                            <div class="field_title">
+                                <label>Huyện/Quận</label>
+                            </div>
+                            <div class="field_box" id="tg_dist">
+                                <select id="distric" class="form-control">
+                                    <option selected>-------</option>
+                                    <option>Đã chọn</option>
+                                </select>
+                            </div>
+                            <div class="field_check">
+
+                            </div>
+                        </div>
+                        <div class="field_row">
+                            <div class="field_title">
+                                <label>Xã/Phường </label>
+                            </div>
+                            <div class="field_box" id="tg_ward">
+                                <select id="ward" class="form-control">
+                                    <option selected>-------</option>
+                                    <option>Đã chọn</option>
+                                </select>
+                            </div>
+                            <div class="field_check">
+
+                            </div>
+                        </div>
+                        <div class="field_row">
+                            <div class="field_title">
+                                <label>Vui lòng điền CHÍNH XÁC "tầng, số nhà, đường" để tránh trường hợp đơn hàng bị hủy ngoài ý muốn </label>
+                            </div>
+                            <div class="field_box" id="tg_addr">
+                                <textarea style="height: 80px;" class="form-control" id="add"></textarea>
+                            </div>
+                            <div class="field_check">
+
+                            </div>
+                        </div>
+                        <div class="field_row">
+                            <div class="field_title">
+                                <label>Điện thoại di động </label>
+                            </div>
+                            <div class="field_box" id="tg_phone">
+                                <input id="tb_phone" type="text" name="phone" class="form-control" />
+                            </div>
+                            <div id="status_phone" class="status"></div>
+                            <div id="check_phone" class="field_check"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <input type="checkbox" id="confirm_create" /> Tôi đồng ý với các điều khoản <br />
+                <input type="submit" class="btn btn-success" value="ĐĂNG KÝ" id="btn_register" disabled>
+            </div>
+        </div>
+    </div>
+</div>
