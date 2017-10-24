@@ -7,3 +7,13 @@ D:\Lap Trinh\visual\BigShop\Model\bin\Debug\EntityFramework.xml
 D:\Lap Trinh\visual\BigShop\Model\bin\Debug\EntityFramework.SqlServer.xml
 D:\Lap Trinh\visual\BigShop\Model\obj\Debug\Model.dll
 D:\Lap Trinh\visual\BigShop\Model\obj\Debug\Model.pdb
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\bin\Debug\Model.dll.config
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\bin\Debug\Model.dll
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\bin\Debug\Model.pdb
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\bin\Debug\EntityFramework.dll
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\bin\Debug\EntityFramework.xml
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\obj\Debug\Model.dll
+C:\Users\HuyGiang\Documents\GitHub\BigShop\BigShop\Model\obj\Debug\Model.pdb

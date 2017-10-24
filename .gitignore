@@ -1,10 +1,2 @@
-
-BigShop/Web.config
-
-Model/App.config
-BigShop/Web.config
-Model/App.config
-*.config
 *.cache
-*.config
 *.config

@@ -3,7 +3,7 @@
         cart.regEvents();
     },
     regEvents: function () {
-        $('#aDelete').off('click').on('click', function () {
+        $('.aDelete').off('click').on('click', function () {
             $.ajax({
                 data: { id: $(this).data('id') },
                 url: '/Cart/Delete',
