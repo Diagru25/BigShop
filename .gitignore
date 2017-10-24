@@ -6,3 +6,5 @@ BigShop/Web.config
 Model/App.config
 *.config
 *.cache
+*.config
+*.config
