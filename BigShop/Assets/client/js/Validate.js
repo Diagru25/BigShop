@@ -209,13 +209,13 @@ $('#confirm').click(function () {
 //Generate DateTime
 $(window).load(function () {
     var insert = $('#Day > select');
-    for (var i = 1; i < 31 ; i++) {
+    for (var i = 1; i <= 31 ; i++) {
         insert.append("<option value ='" + i + "'>" + i + "</option>");
     }
 })
 $(window).load(function () {
     var insert = $('#Month > select');
-    for (var i = 1; i < 12 ; i++) {
+    for (var i = 1; i <= 12 ; i++) {
         insert.append("<option value ='" + i + "'>" + i + "</option>");
     }
 })
