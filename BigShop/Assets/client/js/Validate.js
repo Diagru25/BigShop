@@ -205,3 +205,23 @@ $('#confirm').click(function () {
         $('#btn_register').attr("style", '');
         }
 })
+
+//Generate DateTime
+$(window).load(function () {
+    var insert = $('#Day > select');
+    for (var i = 1; i < 31 ; i++) {
+        insert.append("<option value ='" + i + "'>" + i + "</option>");
+    }
+})
+$(window).load(function () {
+    var insert = $('#Month > select');
+    for (var i = 1; i < 12 ; i++) {
+        insert.append("<option value ='" + i + "'>" + i + "</option>");
+    }
+})
+$(window).load(function () {
+    var insert = $('#Year > select');
+    for (var i = new Date().getFullYear() ; i >= 1930 ; i--) {
+        insert.append("<option value ='" + i + "'>" + i + "</option>");
+    }
+})
