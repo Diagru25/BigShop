@@ -121,7 +121,7 @@ namespace BigShop.Controllers
                     }
                     catch(Exception ex)
                     {
-                        data = "Lỗi không xác định";
+                        data = "Lỗi không xác định ( Bạn hãy kiểm tra lại ngày, tháng, năm )";
                     }
                 }
             }
