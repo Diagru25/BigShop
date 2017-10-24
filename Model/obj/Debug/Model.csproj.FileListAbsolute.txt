@@ -14,6 +14,5 @@ C:\Users\diagr\Desktop\New folder\BigShop\Model\bin\Debug\EntityFramework.dll
 C:\Users\diagr\Desktop\New folder\BigShop\Model\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\diagr\Desktop\New folder\BigShop\Model\bin\Debug\EntityFramework.xml
 C:\Users\diagr\Desktop\New folder\BigShop\Model\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\diagr\Desktop\New folder\BigShop\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
 C:\Users\diagr\Desktop\New folder\BigShop\Model\obj\Debug\Model.dll
 C:\Users\diagr\Desktop\New folder\BigShop\Model\obj\Debug\Model.pdb
