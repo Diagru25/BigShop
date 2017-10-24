@@ -23,7 +23,7 @@
                     <div class="img_cart_item"><img class="img-responsive" src="@item.Product.Image"></div>
                     <div class="col_info">
                         <a class="name" style="text-decoration: none;">@item.Product.Name</a><br>
-                        <button type="button" class="btn btn-danger" data-id="@item.Product.ID" id="aDelete">Xóa</button>
+                        <button type="button" class="btn btn-danger aDelete" data-id="@item.Product.ID">Xóa</button>
                     </div>
                     <div class="col_price"><p style=" ">@item.Product.Price.GetValueOrDefault(0).ToString("N0")₫</p></div>
                     <div class="btn_quantity">

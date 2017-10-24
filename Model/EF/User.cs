@@ -31,13 +31,7 @@ namespace Model.EF
 
         public DateTime? CreatedDate { get; set; }
 
-        [StringLength(50)]
-        public string CreatedBy { get; set; }
-
-        public DateTime? ModifesDate { get; set; }
-
-        [StringLength(50)]
-        public string ModifedBy { get; set; }
+        public DateTime? Dayofbirth { get; set; }
 
         public bool Status { get; set; }
 

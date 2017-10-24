@@ -183,14 +183,6 @@ namespace Model.EF
             modelBuilder.Entity<User>()
                 .Property(e => e.PassWord)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.CreatedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.ModifedBy)
-                .IsUnicode(false);
         }
     }
 }
