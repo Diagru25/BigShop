@@ -1996,3 +1996,8 @@ div.row_pay > div{
     margin: 10px 300px;
     padding: 5px 50px;
 }
+.star-price > button{
+    margin-left: 60px;
+    padding: 0;
+    background-color: #FFF;
+}
