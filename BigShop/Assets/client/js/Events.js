@@ -47,7 +47,7 @@ function GetDistrictByProvinceId(id) {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            var rows = '';
+            var rows = "<option>--------</option>";
             $.each(data, function (i, item) {
                 rows += "<option value='" + item.districtid + "'> " + item.name + " </option>";
                 $('#distric').html(rows);
@@ -61,7 +61,7 @@ function GetWardByDistrictId(id) {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            var rows = '';
+            var rows = "<option>--------</option>";
             $.each(data, function (i, item) {
                 rows += "<option value='" + item.wardid + "'> " + item.name + " </option>";
                 $('#ward').html(rows);
