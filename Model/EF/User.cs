@@ -36,5 +36,7 @@ namespace Model.EF
         public bool Status { get; set; }
 
         public bool Type { get; set; }
+
+        public DateTime? Dayofbirth { get; set; }
     }
 }
