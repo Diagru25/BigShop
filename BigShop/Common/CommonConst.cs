@@ -12,5 +12,7 @@ namespace BigShop.Common
         public static string AdminSession = "AdminSession";
 
         public static string CartSession = "CartSession";
+
+        public static string url = "/";
     }
 }

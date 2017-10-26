@@ -57,7 +57,7 @@
                     @if (session == null)
                     {
                         <ul class="login">
-                            <li><a href="/dang-nhap/"><span> </span>Đăng nhập</a></li> |
+                            <li><a id="btn_login"><span> </span>Đăng nhập</a></li> |
                             <li><a href="/dang-ki/">Đăng ký</a></li>
                         </ul>
                     }
@@ -82,5 +82,23 @@
 
     @RenderSection("jsCart", required: false)
     @RenderSection("jsRegister", required: false)
+
+    <script type="text/javascript">
+
+        $('#btn_login').click(function login_url() {
+            alert("hsdhfsdfsdfshjfgdhjgfsdhf");
+            var x = document.URL;
+            $.ajax({
+                url: '/User/GetUrl/',
+                data: { _url: x },
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = "/dang-nhap";
+                }
+            });
+        }
+        )
+    </script>
 </body>
 </html>

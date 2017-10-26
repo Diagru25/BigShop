@@ -4,7 +4,6 @@
     ViewBag.Title = "Payment";
     Layout = "~/Views/Shared/_Layout.cshtml";
     User user = ViewBag.User;
-    var list_province = (List<Model.EF_province.province>)ViewBag.province;
 }
 @section jsCart{
     <script src="/Assets/client/js/Validate.js"></script>
@@ -44,10 +43,6 @@
                     </div>
                     <div class="field_box" id="tg_prov">
                         <select id="province" class="form-control" name="city">
-                            @foreach (var item in list_province)
-                            {
-                                <option class="tesst" value="@item.provinceid">@item.name</option>
-                            }
                         </select>
                     </div>
                     <div class="field_check">
@@ -60,7 +55,6 @@
                     </div>
                     <div class="field_box" id="tg_dist">
                         <select id="distric" class="form-control" name="district">
-                            <option selected>-------</option>
                         </select>
                     </div>
                     <div class="field_check">
@@ -73,7 +67,6 @@
                     </div>
                     <div class="field_box" id="tg_ward">
                         <select id="ward" class="form-control" name="commune">
-                            <option selected>-------</option>
                         </select>
                     </div>
                     <div class="field_check">

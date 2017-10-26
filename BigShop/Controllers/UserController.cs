@@ -23,6 +23,11 @@ namespace BigShop.Controllers
             Session[CommonConst.CartSession] = null;
             return RedirectToAction("Index", "Home");
         }
+        public JsonResult GetUrl(string _url)
+        {
+            CommonConst.url = _url;
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public ActionResult Login()
         {
@@ -58,8 +63,7 @@ namespace BigShop.Controllers
                         cart_list.Add(cart_session);
                     }
                     Session[CommonConst.CartSession] = cart_list;*/
-
-                    return RedirectToAction("Index", "Home");
+                    return Redirect(CommonConst.url);
                 }
                 else if (result == 0)
                 {
@@ -86,7 +90,7 @@ namespace BigShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(string username, string password, string name, string email, string phone, string address, string province, string district, string ward, string day, string month, string year)
+        public JsonResult Register(string username, string password, string name, string email, string phone, string address, string province, string district, string ward, string day, string month, string year)
         {
             string data = "";
             if (ModelState.IsValid)
@@ -127,7 +131,7 @@ namespace BigShop.Controllers
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult check()
+        public JsonResult check()
         {
             string data = "";
             return Json(data, JsonRequestBehavior.AllowGet);

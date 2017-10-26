@@ -26,7 +26,6 @@ $('#btn_register').click(function () {
                 $('#concard').addClass('alert alert-danger');
                 $('#concard').html(data);
             }
-
         }
     });
 })
@@ -41,6 +40,20 @@ $('#btn_register').click(function () {
 //    }
 //})
 // sự kiện các select tỉnh / thành phố
+function GetProvince() {
+    $.ajax({
+        url: '/Cart/GetProvince',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var rows = "<option>--------</option>";
+            $.each(data, function (i, item) {
+                rows += "<option value='" + item.provinceid + "'> " + item.name + " </option>";
+                $('#province').html(rows);
+            })
+        }
+    });
+}
 function GetDistrictByProvinceId(id) {
     $.ajax({
         url: '/Cart/GetDistrictByProvinceId/' + "" + id + "",
@@ -69,11 +82,14 @@ function GetWardByDistrictId(id) {
         }
     });
 }
+$(window).load(function () {
+    GetProvince();
+})
 $('#province').click(function () {
     var id = $('#province option:selected').val();
     GetDistrictByProvinceId(id);
 })
-$('#distric').click(function () {
-    var id = $('#distric option:selected').val();
-    GetWardByDistrictId(id);
-})
+    $('#distric').click(function () {
+        var id = $('#distric option:selected').val();
+        GetWardByDistrictId(id);
+    })

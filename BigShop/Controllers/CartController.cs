@@ -189,13 +189,19 @@ namespace BigShop.Controllers
                 var result = new CartDao().Insert(_cart);
             }
         }
-        public ActionResult GetDistrictByProvinceId(string id)
+        public JsonResult GetProvince()
+        {
+            List<province> data = new ProvinceDao().LoadAll();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDistrictByProvinceId(string id)
         {
             List<district> data = new DistrictDao().GetListByProvinceId(id);
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetWardByDistrictId(string id)
+        public JsonResult GetWardByDistrictId(string id)
         {
             List<ward> data = new WardDao().GetListByDistrictId(id);
 
