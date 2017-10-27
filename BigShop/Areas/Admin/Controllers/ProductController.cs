@@ -70,6 +70,10 @@ namespace BigShop.Areas.Admin.Controllers
                 status = true
             });
         }
+        public ActionResult Category()
+        {
+            return View();
+        }
         public static string ConvertToUnSign(string text)
         {
             for (int i = 33; i < 48; i++)
