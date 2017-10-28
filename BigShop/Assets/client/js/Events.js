@@ -29,6 +29,32 @@ $('#btn_register').click(function () {
         }
     });
 })
+// sự kiện khi bấm submit của Payment
+$('#btn_pay').click(function () {
+    var name = $('#tb_name').val();
+    var phone = $('#tb_phone').val();
+    var address = $('#add').val();
+    var province = $('#province option:selected').text();
+    var district = $('#distric option:selected').text();
+    var ward = $('#ward option:selected').text();
+    var email = $('#tb_mail').val();
+    $.ajax({
+        url: '/Cart/Payment/',
+        data: { email: email, name: name, province: province, district: district, ward: ward, address: address, phone: phone },
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            if (data == "Đăng kí thành công") {
+                $('#concard').addClass('alert alert-success');
+                $('#concard').html(data);
+            }
+            else {
+                $('#concard').addClass('alert alert-danger');
+                $('#concard').html(data);
+            }
+        }
+    });
+})
 // sự kiện nút xác nhận thanh toán
 //$('#confirm_pay').click(function () {
 //    var check = $('#confirm_pay').is(":checked");
@@ -39,6 +65,7 @@ $('#btn_register').click(function () {
 //        $('#btn_pay').prop('disabled', true);
 //    }
 //})
+
 // sự kiện các select tỉnh / thành phố
 function GetProvince() {
     $.ajax({

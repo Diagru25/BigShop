@@ -14,6 +14,12 @@ namespace BigShop.Controllers
         // GET: Cart
         public ActionResult Index()
         {
+            var islogin = Session[CommonConst.UserSession];
+            var temp = (LoginModel)islogin;
+            if(temp != null)
+                ViewBag.Is_Login = temp.UserID;
+            else
+                ViewBag.Is_Login = 0;
             var cart = Session[CommonConst.CartSession];
             var list = new List<CartItem>();
             if (cart != null)
@@ -144,12 +150,12 @@ namespace BigShop.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Payment(string email, string name, string city, string district , string commune, string address, string phone)
+        public ActionResult Payment(string email, string name, string province, string district , string ward, string address, string phone)
         {
             var order = new Order();
             order.ShipName = name;
             order.ShipMobile = phone;
-            order.ShipAdress = address + "-" + commune + "-" + district + "-" + city;
+            order.ShipAdress = address + "-" + ward + "-" + district + "-" + province;
             order.ShipEmail = email;
 
             try

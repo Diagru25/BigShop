@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    long is_login = ViewBag.Is_Login;
 }
 @section jsCart{
 
@@ -39,7 +40,7 @@
                 Tổng tiền
                 <span style="padding-left: 100px;">@Model.Sum(x => x.Product.Price * x.Quantity).GetValueOrDefault(0).ToString("N0")₫</span>
             </div>
-            <a href="/Cart/Payment" class="btn btn-primary btn-block" id="btnPayment">Tiến hành đặt hàng</a>
+            <button class="btn btn-primary btn-block" id="btnPayment">Tiến hành đặt hàng</button>
             <button type="button" class="btn btn-primary btn-block" id="btnContinue">Tiếp tục mua hàng</button>
         </div>
     }
@@ -48,3 +49,26 @@
         <div class="alert alert-danger">Giỏ hàng của bạn chưa có sản phẩm nào</div>
     }
 </div>
+
+<script type="text/javascript">
+    // su kien kiem tra dang nhap cho trang thanh toan
+    $('#btnPayment').click(function () {
+        if(@is_login > 0)
+        {
+            window.location.href = "/thanh-toan";
+        }
+        else{
+            alert("dang chay den su kien chua dang nhap");
+            var x = document.URL;
+            $.ajax({
+                url: '/User/GetUrl/',
+                data: { _url: x },
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = "/dang-nhap";
+                }
+            });
+        }
+    })
+</script>
