@@ -4,10 +4,10 @@ $('#btn_register').click(function () {
     var password = $('#tb_repass').val();
     var name = $('#tb_name').val();
     var phone = $('#tb_phone').val();
-    var address = $('#tb_user_name').val();
-    var province = $('#province').val();
-    var district = $('#distric').val();
-    var ward = $('#ward').val();
+    var address = $('#add').val();
+    var province = $('#province option:selected').text();
+    var district = $('#distric option:selected').text();
+    var ward = $('#ward option:selected').text();
     var day = $('#s_day').val();
     var month = $('#s_month').val();
     var year = $('#s_year').val();
@@ -89,7 +89,7 @@ $('#province').click(function () {
     var id = $('#province option:selected').val();
     GetDistrictByProvinceId(id);
 })
-    $('#distric').click(function () {
-        var id = $('#distric option:selected').val();
-        GetWardByDistrictId(id);
-    })
+$('#distric').click(function () {
+    var id = $('#distric option:selected').val();
+    GetWardByDistrictId(id);
+})
