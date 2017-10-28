@@ -432,11 +432,12 @@ table.dataTable thead .sorting:after {
     border-left-width: 0;
   }
 }
-
-div#row_filter > label{
-  margin: 20px 0 30px 30px;
+#row_filter > label{
+  margin: 5px 0 30px 20px
 }
-
+#row_filter > div{
+  margin: 0 20px 0 0
+}
 div#row_filter > label > span > select{
   font-weight: 500;
   margin-left: 30px;
