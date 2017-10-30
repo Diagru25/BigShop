@@ -3,7 +3,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+@section jsIndex{
+    <script>
+        $('#btn_feedback').click(function () {
+            $('#panel-feedback').show();
+            $('#panel-order').hide();
+        })
+        $('#btn_order').click(function () {
+            $('#panel-feedback').hide();
+            $('#panel-order').show();
+        })
+    </script>
+}
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -26,9 +37,9 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a role="button">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left" id="btn_feedback">Chi tiết</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -48,9 +59,9 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a role="button">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">Chi tiết</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -70,9 +81,9 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a role="button">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left" id="btn_order">Chi tiết</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -94,7 +105,7 @@
                 </div>
                 <a href="#">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">Chi tiết</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -103,7 +114,144 @@
         </div>
     </div>
     <!-- /.row -->
-    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default" id="panel-feedback" hidden>
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Phản hồi
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a href="#">Hiển thị tất cả</a>
+                                </li>
+                                <li>
+                                    <a href="#">Mới nhất(Chưa đọc)</a>
+                                </li>
+                                <li>
+                                    <a href="#">Cũ hơn(đã đọc)</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">Đánh dấu tất cả đã đọc</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Người gửi</th>
+                                            <th>Nội dung</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" /></td>
+                                            <td>Vũ Tuấn Sơn</td>
+                                            <td>Đây là nội dung phản hồi 1 mà tao chưa làm. bây giờ ở bên client phải có 1 trang phản hồi nữa</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.col-lg-4 (nested) -->
+                    </div>
+                    <!-- /.row -->
+                    <div style="float: right">
+                        <button class="btn btn-danger">Xóa</button>
+                        <button class="btn btn-primary">Duyệt</button>
+                    </div>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+            <div class="panel panel-default" id="panel-order" hidden>
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Đơn hàng
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a href="#">Hiển thị tất cả</a>
+                                </li>
+                                <li>
+                                    <a href="#">Mới nhất(Chưa đọc)</a>
+                                </li>
+                                <li>
+                                    <a href="#">Cũ hơn(đã đọc)</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">Đánh dấu tất cả đã đọc</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Email</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" /></td>
+                                            <td>Vũ Tuấn Sơn</td>
+                                            <td>diagru2510@gmail.com</td>
+                                            <td>IP6</td>
+                                            <td>4 chiếc</td>
+                                            <td>6000000</td>
+                                            <td>24000000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.col-lg-4 (nested) -->
+                    </div>
+                    <!-- /.row -->
+                    <div style="float: right">
+                        <button class="btn btn-danger">Xóa</button>
+                        <button class="btn btn-primary">Duyệt</button>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-8 -->
+    </div>
     <!-- /.row -->
 </div>
 
