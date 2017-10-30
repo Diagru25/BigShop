@@ -62,25 +62,34 @@
             <h1 class="page-header">Quản lý sản phẩm @temp_product.Name</h1>
         </div>
         <div id="row_filter">
-            <label>
+            <label class="col-md-1">
                 Lọc
-                <span>
-                    <select>
-                        <option selected="">Loại hàng</option>
-                    </select>
-                    <select>
-                        <option selected="">Hãng</option>
-                    </select>
-                </span>
             </label>
-            <span>
+            <div>
+
+            </div>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option selected>Loại mặt hàng</option>
+                    <option selected>Loại mặt hàng</option>
+                    <option selected>Loại mặt hàng</option>
+                    <option selected>Loại mặt hàng</option>
+                    <option selected>Loại mặt hàng</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option selected>Hãng</option>
+                </select>
+            </div>
+            <div style="float: right">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Thêm sản phẩm</button>
-            </span>
+            </div>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-    <div class="row">
+    <div class="row" style="margin-top: 10px;">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -156,6 +165,13 @@
                         Số lượng
                         <span><input type="text" name="quantity" id="input5"></span>
                     </div>
+                    <div>
+                        Ảnh
+                        <span><input type="file" name="image"></span>
+                    </div>
+                    <div>
+                        <span><input type="text" name="ProductID" id="input7"></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value="Lưu" />
@@ -179,6 +195,7 @@
                 $("#input3").val(data.Metakeyword);
                 $("#input4").val(data.Price);
                 $("#input5").val(data.Quantity);
+                $("#input7").val(id).hide();
                 $("#editModel").modal('show');
             },
             error: function (err) {

@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Danh mục sản phẩm</h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Loại mặt hàng
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Tên mặt hàng</th>
+                                <th title="Thứ tự hiển thị trên menu">Số thứ tự</th>
+                                <th>Mô tả</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Hãng sản xuất
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Tên Hãng</th>
+                                <th title="Thứ tự hiển thị trên menu">Số thứ tự</th>
+                                <th>Mô tả</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>aaaaaaaaa</th>
+                                <th>aaaaaaaaa</th>
+                                <th>aaaaaaaaa</th>
+                                <th>aaaaaaaaa</th>
+                                <th>aaaaaaaaa</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+
+<div class="modal fade" id="Category_Modal_Insert" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sản phẩm</h4>
+            </div>
+            <form action="#" method="post">
+                <div class="modal-body">
+                    <div>
+                        Tên mặt hàng
+                        <span><input type="text" name=""></span>
+                    </div>
+                    <div>
+                        Số thứ tự
+                        <span><input type="password" name="" value="1"></span>
+                    </div>
+                    <div>
+                        Mô tả
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Lưu" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="Category_Modal_Edit" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sản phẩm</h4>
+            </div>
+            <form action="#" method="post">
+                <div class="modal-body">
+                    <div>
+                        Tên mặt hàng
+                        <span><input type="text" name=""></span>
+                    </div>
+                    <div>
+                        Số thứ tự
+                        <span><input type="password" name="" value="1"></span>
+                    </div>
+                    <div>
+                        Mô tả
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Lưu" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

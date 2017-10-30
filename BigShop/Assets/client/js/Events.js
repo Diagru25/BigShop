@@ -5,16 +5,51 @@ $('#btn_register').click(function () {
     var name = $('#tb_name').val();
     var phone = $('#tb_phone').val();
     var address = $('#add').val();
+<<<<<<< HEAD
     var province = $('#province :selected ').text();
     var district = $('#distric :selected').text();
     var ward = $('#ward :selected').text();
     var day = $('#s_day :selected').val();
     var month = $('#s_month :selected').val();
     var year = $('#s_year :selected').val();
+=======
+    var province = $('#province option:selected').text();
+    var district = $('#distric option:selected').text();
+    var ward = $('#ward option:selected').text();
+    var day = $('#s_day').val();
+    var month = $('#s_month').val();
+    var year = $('#s_year').val();
+>>>>>>> 8aa298ae433ec44d9d48b068d2140e07541594fd
     var email = $('#tb_mail').val();
     $.ajax({
         url: '/User/Register/',
         data: { username: username, password: password, name: name, email: email, phone: phone, address: address, province: province, district: district, ward: ward, day: day, month: month, year: year },
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            if (data == "Đăng kí thành công") {
+                $('#concard').addClass('alert alert-success');
+                $('#concard').html(data);
+            }
+            else {
+                $('#concard').addClass('alert alert-danger');
+                $('#concard').html(data);
+            }
+        }
+    });
+})
+// sự kiện khi bấm submit của Payment
+$('#btn_pay').click(function () {
+    var name = $('#tb_name').val();
+    var phone = $('#tb_phone').val();
+    var address = $('#add').val();
+    var province = $('#province option:selected').text();
+    var district = $('#distric option:selected').text();
+    var ward = $('#ward option:selected').text();
+    var email = $('#tb_mail').val();
+    $.ajax({
+        url: '/Cart/Payment/',
+        data: { email: email, name: name, province: province, district: district, ward: ward, address: address, phone: phone },
         type: 'POST',
         dataType: 'json',
         success: function (data) {
@@ -39,6 +74,7 @@ $('#btn_register').click(function () {
 //        $('#btn_pay').prop('disabled', true);
 //    }
 //})
+
 // sự kiện các select tỉnh / thành phố
 function GetProvince() {
     $.ajax({
@@ -89,7 +125,7 @@ $('#province').click(function () {
     var id = $('#province option:selected').val();
     GetDistrictByProvinceId(id);
 })
-    $('#distric').click(function () {
-        var id = $('#distric option:selected').val();
-        GetWardByDistrictId(id);
-    })
+$('#distric').click(function () {
+    var id = $('#distric option:selected').val();
+    GetWardByDistrictId(id);
+})

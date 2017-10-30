@@ -13,6 +13,5 @@ namespace BigShop.Areas.Admin.Controllers
         {
             return View();
         }
-
     }
 }

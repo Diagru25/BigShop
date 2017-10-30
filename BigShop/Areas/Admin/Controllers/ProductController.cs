@@ -17,19 +17,25 @@ namespace BigShop.Areas.Admin.Controllers
         {
             _context = new BigShopDbContext();
         }
+
         // GET: Admin/Product
+        // Danh sách các sản phẩm
         public ActionResult Index()
         {
             var model = new ProductDao().Products();
             ViewBag.temp_product = item;
             return View(model);
         }
+
+        // Lấy ra 1 sản phẩm theo ID để đấy lên Modal
         public ActionResult Get(long id)
         {
             var product = new ProductDao().GetById(id);
             return Json(product, JsonRequestBehavior.AllowGet);
         }
-        [HttpPost]
+
+
+        /*[HttpPost]
         public ActionResult Edit(Product product)
         {
             if(ModelState.IsValid)
@@ -38,7 +44,9 @@ namespace BigShop.Areas.Admin.Controllers
                 _context.SaveChanges();
             }
             return Json(product, JsonRequestBehavior.AllowGet);
-        }
+        }*/
+
+        // Thêm 1 sản phẩm
         [HttpPost]
         public ActionResult Insert(string name, string code, string metakeyword, string price, string quantity, string image)
         {
@@ -56,11 +64,25 @@ namespace BigShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
 
         }
+
         [HttpPost]
-        public ActionResult Edit(string name)
+        public ActionResult Edit(string name, string code, string metakeyword, string price, string quantity, string image, long ProductID)
         {
-            return View("Index");
+            var product = new ProductDao().GetById(ProductID);
+            product.Name = name;
+            product.Code = code;
+            product.MetaKeywords = System.Convert.ToInt64(metakeyword);
+            product.Price = System.Convert.ToDecimal(price);
+            product.Quantity = Convert.ToInt32(quantity);
+            // ảnh
+
+            // thích thì kiểm tra bên hàm của productDao()
+            var result = new ProductDao().Edit(product);
+
+            return View();
         }
+
+        // Xóa 1 sản phẩm
         public JsonResult Delete(long id)
         {
             var result = new ProductDao().Delete(id);
@@ -70,6 +92,39 @@ namespace BigShop.Areas.Admin.Controllers
                 status = true
             });
         }
+
+        // Trang danh mục sản phẩm
+        public ActionResult Category()
+        {
+            return View();
+        }
+
+        // Thống kê sản phẩm bán chạy nhất
+        public ActionResult HotProduct()
+        {
+            return View();
+        }
+
+        // Thống kê Doanh thu
+        public ActionResult Revenue()
+        {
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
         public static string ConvertToUnSign(string text)
         {
             for (int i = 33; i < 48; i++)
