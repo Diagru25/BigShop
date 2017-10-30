@@ -165,6 +165,13 @@
                         Số lượng
                         <span><input type="text" name="quantity" id="input5"></span>
                     </div>
+                    <div>
+                        Ảnh
+                        <span><input type="file" name="image"></span>
+                    </div>
+                    <div>
+                        <span><input type="text" name="ProductID" id="input7"></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value="Lưu" />
@@ -188,6 +195,7 @@
                 $("#input3").val(data.Metakeyword);
                 $("#input4").val(data.Price);
                 $("#input5").val(data.Quantity);
+                $("#input7").val(id).hide();
                 $("#editModel").modal('show');
             },
             error: function (err) {

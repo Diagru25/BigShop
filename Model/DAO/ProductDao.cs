@@ -65,6 +65,15 @@ namespace Model.DAO
             db.SaveChanges();
             return item.ID;
         }
+        public bool Edit(Product item)
+        {
+            // hôm sau m chỉnh cho nó hết điều kiện :))
+
+            var product = db.Products.Find(item.ID);
+            product = item;
+            db.SaveChanges();
+            return true;
+        }
         public bool Delete(long id)
         {
             var item = db.Products.Find(id);

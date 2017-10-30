@@ -4,16 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section jsIndex{
-    <script>
-        $('#btn_feedback').click(function () {
-            $('#panel-feedback').show();
-            $('#panel-order').hide();
-        })
-        $('#btn_order').click(function () {
-            $('#panel-feedback').hide();
-            $('#panel-order').show();
-        })
-    </script>
+    <script src="/Assets/admin/js/Event.js"></script>
 }
 <div id="page-wrapper">
     <div class="row">
@@ -118,7 +109,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default" id="panel-feedback" hidden>
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> Phản hồi
+                    <i class="fa fa-comments fa-fw"></i> Phản hồi
                     <div class="pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -181,7 +172,7 @@
             <!-- /.panel -->
             <div class="panel panel-default" id="panel-order" hidden>
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> Đơn hàng
+                    <i class="fa fa-book fa-fw"></i> Đơn hàng
                     <div class="pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
