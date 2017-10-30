@@ -4,13 +4,13 @@ $('#btn_register').click(function () {
     var password = $('#tb_repass').val();
     var name = $('#tb_name').val();
     var phone = $('#tb_phone').val();
-    var address = $('#tb_user_name').val();
-    var province = $('#province').val();
-    var district = $('#distric').val();
-    var ward = $('#ward').val();
-    var day = $('#s_day').val();
-    var month = $('#s_month').val();
-    var year = $('#s_year').val();
+    var address = $('#add').val();
+    var province = $('#province :selected ').text();
+    var district = $('#distric :selected').text();
+    var ward = $('#ward :selected').text();
+    var day = $('#s_day :selected').val();
+    var month = $('#s_month :selected').val();
+    var year = $('#s_year :selected').val();
     var email = $('#tb_mail').val();
     $.ajax({
         url: '/User/Register/',

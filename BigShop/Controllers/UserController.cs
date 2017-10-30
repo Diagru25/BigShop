@@ -114,16 +114,17 @@ namespace BigShop.Controllers
                         user.UserName = username;
                         user.PassWord = password;
                         user.Name = name;
-                        user.Address = address + "-" + province + "-" + district + "-" + ward;
+                        user.Address = address + "-" + ward + "-" + district + "-" + province;
                         user.Email = email;
                         user.Phone = phone;
                         user.Dayofbirth = Convert.ToDateTime(dob);
+                        user.CreatedDate = DateTime.Now;
 
                         var result = dao.Insert(user);
 
                         data = "Đăng kí thành công";
                     }
-                    catch(Exception ex)
+                    catch(Exception)
                     {
                         data = "Lỗi không xác định ( Bạn hãy kiểm tra lại ngày, tháng, năm )";
                     }

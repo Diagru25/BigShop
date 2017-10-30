@@ -208,19 +208,19 @@ $('#confirm').click(function () {
 
 //Generate DateTime
 $(window).load(function () {
-    var insert = $('#Day > select');
+    var insert = $('#s_day > select');
     for (var i = 1; i <= 31 ; i++) {
         insert.append("<option value ='" + i + "'>" + i + "</option>");
     }
 })
 $(window).load(function () {
-    var insert = $('#Month > select');
+    var insert = $('#s_month > select');
     for (var i = 1; i <= 12 ; i++) {
         insert.append("<option value ='" + i + "'>" + i + "</option>");
     }
 })
 $(window).load(function () {
-    var insert = $('#Year > select');
+    var insert = $('#s_year > select');
     for (var i = new Date().getFullYear() ; i >= 1930 ; i--) {
         insert.append("<option value ='" + i + "'>" + i + "</option>");
     }
