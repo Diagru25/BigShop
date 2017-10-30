@@ -5,10 +5,17 @@
 }
 @section jsUser{
     <script src="/Assets/admin/js/User.js"></script>
+    <script type="text/javascript">
+        $(window).bind("load",function () {
+            var row = "<button class='btn btn-primary'>Thêm mới</button>";
+            $('#dataTables-example_filter > label').css({"float": "left"})
+            $('#dataTables-example_filter').append(row);
+        })
+    </script>
 }
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" >
             <h1 class="page-header">Quản lý người dùng</h1>
         </div>
     </div>
