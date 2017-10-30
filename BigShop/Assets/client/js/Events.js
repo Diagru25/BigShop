@@ -5,21 +5,13 @@ $('#btn_register').click(function () {
     var name = $('#tb_name').val();
     var phone = $('#tb_phone').val();
     var address = $('#add').val();
-<<<<<<< HEAD
     var province = $('#province :selected ').text();
     var district = $('#distric :selected').text();
     var ward = $('#ward :selected').text();
     var day = $('#s_day :selected').val();
     var month = $('#s_month :selected').val();
     var year = $('#s_year :selected').val();
-=======
-    var province = $('#province option:selected').text();
-    var district = $('#distric option:selected').text();
-    var ward = $('#ward option:selected').text();
-    var day = $('#s_day').val();
-    var month = $('#s_month').val();
-    var year = $('#s_year').val();
->>>>>>> 8aa298ae433ec44d9d48b068d2140e07541594fd
+
     var email = $('#tb_mail').val();
     $.ajax({
         url: '/User/Register/',
