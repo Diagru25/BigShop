@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var session = (BigShop.Areas.Admin.Models.AdLoginModel)Session[BigShop.Common.CommonConst.AdminSession];
 }
 @section jsUser{
     <script src="/Assets/admin/js/User.js"></script>
@@ -42,7 +43,14 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
+<<<<<<< HEAD
                                 string temp = item.Type != 0 ? "Admin" : "User";
+=======
+                                string temp;
+                                if (item.Type == 2) { temp = "Super Admin"; }
+                                else if (item.Type == 1) { temp = "Admin"; }
+                                else { temp = "User"; }
+>>>>>>> dbac9edef879b451924b6d8e9ba574919375068a
                                 string temp_block = item.Status == true ? "Khóa" : "Kích hoạt";
                                 <tr>
                                     <td>@item.UserName</td>
@@ -51,12 +59,33 @@
                                     <td class="center">@item.Phone</td>
                                     <td class="center">
                                         @temp |
+<<<<<<< HEAD
                                         @if (item.Type == 0)
+=======
+                                        @if (item.Type == 1 && session.userType == 2)
+>>>>>>> dbac9edef879b451924b6d8e9ba574919375068a
                                         {
-                                            <a class="btn btn-primary lvupuser" data-id="@item.ID">Thăng cấp</a>
+                                            <a class="btn btn-primary lvupuser" data-id="@item.ID" data-action="up">Thăng cấp</a>
+                                            <a class="btn btn-primary lvdwuser" data-id="@item.ID" data-action="down">Hạ cấp</a>
+                                        }
+                                        else if (item.Type == 0 && session.userType > 0)
+                                        {
+                                            <a class="btn btn-primary lvupuser" data-id="@item.ID" data-type="@item.Type" data-action="up">Thăng cấp</a>
                                         }
                                     </td>
-                                    <td><a class="btn btn-danger deleteUser" data-id="@item.ID">Xóa</a> | <a class="btn btn-primary manipulation" data-id="@item.ID">@temp_block</a></td>
+                                    <td>
+                                        @if (item.Type < 2)
+                                        {
+                                            if (session.userType == 2 && item.Type < 2)
+                                            {
+                                                <a class="btn btn-danger deleteUser" data-id="@item.ID">Xóa</a> <span>|</span> <a class="btn btn-primary manipulation" data-id="@item.ID">@temp_block</a>
+                                            }
+                                            else if(session.userType == 1 && item.Type < 1)
+                                            {
+                                                <a class="btn btn-danger deleteUser" data-id="@item.ID">Xóa</a> <span>|</span> <a class="btn btn-primary manipulation" data-id="@item.ID">@temp_block</a>
+                                            }
+                                        }
+                                    </td>
                                 </tr>
                             }
                         </tbody>

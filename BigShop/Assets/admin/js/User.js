@@ -32,7 +32,20 @@
         })
         $('.lvupuser').off('click').on('click', function () {
             $.ajax({
-                data: { id: $(this).data('id') },
+                data: { id: $(this).data('id'), action: $(this).data('action')},
+                url: '/Admin/User/ChangeType',
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.status == true) {
+                        window.location.href = "/Admin/User/Index";
+                    }
+                }
+            })
+        })
+        $('.lvdwuser').off('click').on('click', function () {
+            $.ajax({
+                data: { id: $(this).data('id'), action: $(this).data('action') },
                 url: '/Admin/User/ChangeType',
                 dataType: 'json',
                 type: 'POST',
