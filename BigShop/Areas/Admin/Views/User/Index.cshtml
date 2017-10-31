@@ -42,7 +42,7 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                string temp = item.Type == true ? "Admin" : "User";
+                                string temp = item.Type != 0 ? "Admin" : "User";
                                 string temp_block = item.Status == true ? "Khóa" : "Kích hoạt";
                                 <tr>
                                     <td>@item.UserName</td>
@@ -51,7 +51,7 @@
                                     <td class="center">@item.Phone</td>
                                     <td class="center">
                                         @temp |
-                                        @if (item.Type == false)
+                                        @if (item.Type == 0)
                                         {
                                             <a class="btn btn-primary lvupuser" data-id="@item.ID">Thăng cấp</a>
                                         }

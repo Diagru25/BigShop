@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace BigShop.Areas.Admin.Controllers
 {
-    public class UserController : Controller
+    public class UserController : SecurityController
     {
         // GET: Admin/User
         public ActionResult Index()
@@ -78,6 +78,11 @@ namespace BigShop.Areas.Admin.Controllers
             {
                 status = true
             });
+        }
+
+        public ActionResult PersonalInformation()
+        {
+            return View();
         }
     }
 }
