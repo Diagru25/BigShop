@@ -87,7 +87,14 @@ namespace Model.DAO
                 {
                     if (result.PassWord == passWord)
                     {
-                        if (result.Type == true)
+                        if (result.Type == 2)
+<<<<<<< HEAD
+                        {
+                            return 3;
+                        }
+                        if(result.Type == 1)
+=======
+>>>>>>> 7e9d9e5f3464a6c317ade009eea0177d1aaca104
                         {
                             return 2;
                         }
@@ -123,7 +130,11 @@ namespace Model.DAO
         public bool ChangeType(int id)
         {
             var user = db.Users.Find(id);
-            user.Type = true;
+<<<<<<< HEAD
+            //user.Type = true;
+=======
+            user.Type = 1;
+>>>>>>> 7e9d9e5f3464a6c317ade009eea0177d1aaca104
             db.SaveChanges();
             return true;
         }
