@@ -16,6 +16,11 @@ namespace BigShop.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult Logout()
+        {
+            Session[CommonConst.AdminSession] = null;
+            return RedirectToAction("Index", "Home");
+        }
         [ChildActionOnly]
         public ActionResult acc_cmt()
         {
@@ -63,7 +68,7 @@ namespace BigShop.Areas.Admin.Controllers
                     ViewBag.Notif = "Đăng nhập thất bại";
                 }
            }
-            return View();
+            return View("Index");
         }
         
     }
