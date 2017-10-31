@@ -124,11 +124,11 @@ namespace Model.DAO
         {
             return db.Users.Find(id);
         }
-        public bool ChangeType(int id)
+        public bool ChangeType(int id, int type, string action)
         {
             var user = db.Users.Find(id);
-            //user.Type = true;
-            user.Type = 1;
+            if (action == "up") user.Type +=1;
+            if (action == "down") user.Type-=1;
             db.SaveChanges();
             return true;
         }

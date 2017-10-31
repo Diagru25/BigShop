@@ -493,3 +493,7 @@ div.modal-body > div > span > input{
   top: 0;
   left: 4px;
 }
+.lvupuser, .lvdwuser, .deleteUser,.manipulation{
+    font-size:14px;
+    padding : 3px;
+}
