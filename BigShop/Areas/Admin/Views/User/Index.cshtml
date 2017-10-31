@@ -43,14 +43,10 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-<<<<<<< HEAD
-                                string temp = item.Type != 0 ? "Admin" : "User";
-=======
                                 string temp;
                                 if (item.Type == 2) { temp = "Super Admin"; }
                                 else if (item.Type == 1) { temp = "Admin"; }
                                 else { temp = "User"; }
->>>>>>> dbac9edef879b451924b6d8e9ba574919375068a
                                 string temp_block = item.Status == true ? "Khóa" : "Kích hoạt";
                                 <tr>
                                     <td>@item.UserName</td>
@@ -59,11 +55,8 @@
                                     <td class="center">@item.Phone</td>
                                     <td class="center">
                                         @temp |
-<<<<<<< HEAD
-                                        @if (item.Type == 0)
-=======
                                         @if (item.Type == 1 && session.userType == 2)
->>>>>>> dbac9edef879b451924b6d8e9ba574919375068a
+
                                         {
                                             <a class="btn btn-primary lvupuser" data-id="@item.ID" data-action="up">Thăng cấp</a>
                                             <a class="btn btn-primary lvdwuser" data-id="@item.ID" data-action="down">Hạ cấp</a>
