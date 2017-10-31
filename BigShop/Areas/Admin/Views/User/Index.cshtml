@@ -57,8 +57,8 @@
                                         @temp |
                                         @if (item.Type == 1 && session.userType == 2)
                                         {
-                                            <a class="btn btn-primary lvupuser" data-id="@item.ID" data-type="@item.Type" data-action="up">Thăng cấp</a>
-                                            <a class="btn btn-primary lvdwuser" data-id="@item.ID" data-type="@item.Type" data-action="down">Hạ cấp</a>
+                                            <a class="btn btn-primary lvupuser" data-id="@item.ID" data-action="up">Thăng cấp</a>
+                                            <a class="btn btn-primary lvdwuser" data-id="@item.ID" data-action="down">Hạ cấp</a>
                                         }
                                         else if (item.Type == 0 && session.userType > 0)
                                         {
@@ -70,11 +70,11 @@
                                         {
                                             if (session.userType == 2 && item.Type < 2)
                                             {
-                                                <a class="btn btn-danger deleteUser" data-id="@item.ID" data-type="@item.Type">Xóa</a> <span>|</span> <a class="btn btn-primary manipulation" data-id="@item.ID" data-type="@item.Type">@temp_block</a>
+                                                <a class="btn btn-danger deleteUser" data-id="@item.ID">Xóa</a> <span>|</span> <a class="btn btn-primary manipulation" data-id="@item.ID">@temp_block</a>
                                             }
                                             else if(session.userType == 1 && item.Type < 1)
                                             {
-                                                <a class="btn btn-danger deleteUser" data-id="@item.ID" data-type="@item.Type">Xóa</a> <span>|</span> <a class="btn btn-primary manipulation" data-id="@item.ID" data-type="@item.Type">@temp_block</a>
+                                                <a class="btn btn-danger deleteUser" data-id="@item.ID">Xóa</a> <span>|</span> <a class="btn btn-primary manipulation" data-id="@item.ID">@temp_block</a>
                                             }
                                         }
                                     </td>

@@ -70,9 +70,9 @@ namespace BigShop.Areas.Admin.Controllers
             }
             return View();
         }
-        public JsonResult ChangeType(int id, int type, string action)
+        public JsonResult ChangeType(int id, string action)
         {
-            var result = new UserDao().ChangeType(id,type,action);
+            var result = new UserDao().ChangeType(id,action);
 
             return Json(new
             {

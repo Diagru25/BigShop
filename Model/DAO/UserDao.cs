@@ -124,7 +124,7 @@ namespace Model.DAO
         {
             return db.Users.Find(id);
         }
-        public bool ChangeType(int id, int type, string action)
+        public bool ChangeType(int id, string action)
         {
             var user = db.Users.Find(id);
             if (action == "up") user.Type +=1;
