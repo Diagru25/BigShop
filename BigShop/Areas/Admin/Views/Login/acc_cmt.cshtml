@@ -1,0 +1,7 @@
+﻿
+@{ 
+    var session = (BigShop.Areas.Admin.Models.AdLoginModel)Session[BigShop.Common.CommonConst.AdminSession];
+    string type = session.userType == 2 ? "God" : "Công nhân";
+}
+
+<h6 class="navbar-brand">@session.username (@type) </h6>
