@@ -58,12 +58,12 @@
                                         @if (item.Type == 1 && session.userType == 2)
 
                                         {
-                                            <a class="btn btn-primary lvupuser" data-id="@item.ID" data-action="up">Thăng cấp</a>
-                                            <a class="btn btn-primary lvdwuser" data-id="@item.ID" data-action="down">Hạ cấp</a>
+                                            <a class="btn btn-primary lvupuser" data-id="@item.ID" data-actions="up">Thăng cấp</a>
+                                            <a class="btn btn-primary lvdwuser" data-id="@item.ID" data-actions="down">Hạ cấp</a>
                                         }
                                         else if (item.Type == 0 && session.userType > 0)
                                         {
-                                            <a class="btn btn-primary lvupuser" data-id="@item.ID" data-action="up">Thăng cấp</a>
+                                            <a class="btn btn-primary lvupuser" data-id="@item.ID" data-actions="up">Thăng cấp</a>
                                         }
                                     </td>
                                     <td>

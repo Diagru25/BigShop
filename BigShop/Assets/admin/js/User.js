@@ -32,7 +32,7 @@
         })
         $('.lvupuser').off('click').on('click', function () {
             $.ajax({
-                data: { id: $(this).data('id'), action: $(this).data('action')},
+                data: { id: $(this).data('id'), actions: $(this).data('actions')},
                 url: '/Admin/User/ChangeType',
                 dataType: 'json',
                 type: 'POST',
@@ -45,7 +45,7 @@
         })
         $('.lvdwuser').off('click').on('click', function () {
             $.ajax({
-                data: { id: $(this).data('id'), action: $(this).data('action') },
+                data: { id: $(this).data('id'), actions: $(this).data('actions') },
                 url: '/Admin/User/ChangeType',
                 dataType: 'json',
                 type: 'POST',
