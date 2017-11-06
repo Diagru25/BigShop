@@ -4,15 +4,31 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section jsIndex{
-    @*<script type="text/javascript">
-        $('.row-info > a').hover(function () {
-            $('.row-info').css({ "background-color": "red" });
-        }, function () {
-            $('.row-info').css({ "background-color": "#ffffff" });
-        })
-    </script>*@
     <script type="text/javascript">
-        $('.test').hover(function () { $(this).children("div").css({ "background-color": "red" }); }, function () { $(this).children("div").css({ "background-color": "#ffffff" }); })
+        var check = 0;
+        $('.test').hover(function () {
+            $(this).children("div").css({ "background-color": "#eee" });
+        }, function () {
+            $(this).children("div").css({ "background-color": "#ffffff" });
+        });
+
+        $('.test').click(function () {
+            if (check == 0) {
+                $(this).children("div").children(".s_content").hide();
+                $(this).children("div").children(".s_btn").hide();
+                $(this).children("div").children(".Edit_Content").slideDown();
+            }
+            else {
+                check = 0;
+            }
+        });
+
+        $('.btn_cancel').click(function () {
+            $('.Edit_Content').slideUp();
+            $('.s_content').show();
+            $('.s_btn').show();
+            check = 1;
+        });
     </script>
 }
 <div id="page-wrapper">
@@ -26,16 +42,143 @@
     <div class="row">
         <a role="button" class="test">
             <div class="col-lg-12 row-info">
-                <h6 class="col-lg-4">Tên đăng nhập</h6>
-                <h6 class="col-lg-6">Đây là phần giá trị của tên đăng nhập</h6>
-                <h6 class="col-lg-2"><i class="fa fa-pencil"></i> Chỉnh sửa</h6>
+                <span class="col-lg-3 s_title">Tên đăng nhập</span>
+                <span class="col-lg-7 s_content">Đây là phần giá trị của tên đăng nhập</span>
+                <span class="col-lg-2 s_btn"><i class="fa fa-pencil"></i> Chỉnh sửa</span>
+                <div class="Edit_Content" hidden>
+                    <div class="col-lg-12 e_row">
+                        <div class="col-lg-5">
+                            <span>Tên đăng nhập</span>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 e_row">
+                        <span class="btn btn-primary btn_update">Cập nhật</span>
+                        <span class="btn btn-default btn_cancel">Hủy</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a role="button" class="test">
+            <div class="col-lg-12 row-info">
+                <span class="col-lg-3 s_title">Họ tên</span>
+                <span class="col-lg-7 s_content">Đây là phần giá trị của tên đăng nhập</span>
+                <span class="col-lg-2 s_btn"><i class="fa fa-pencil"></i> Chỉnh sửa</span>
+                <div class="Edit_Content" hidden>
+                    <div class="col-lg-12 e_row">
+                        <div class="col-lg-5">
+                            <span>Họ tên</span>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 e_row">
+                        <span class="btn btn-primary btn_update">Cập nhật</span>
+                        <span class="btn btn-default btn_cancel">Hủy</span>
+                    </div>
+                </div>
             </div>
         </a>
         <a role="button" class="test">
             <div class="col-lg-12 row-info">
-                <h6 class="col-lg-4">Tên đăng nhập</h6>
-                <h6 class="col-lg-6">Đây là phần giá trị của tên đăng nhập</h6>
-                <h6 class="col-lg-2"><i class="fa fa-pencil"></i> Chỉnh sửa</h6>
+                <span class="col-lg-3 s_title">Địa chỉ Email</span>
+                <span class="col-lg-7 s_content">Đây là phần giá trị của tên đăng nhập</span>
+                <span class="col-lg-2 s_btn"><i class="fa fa-pencil"></i> Chỉnh sửa</span>
+                <div class="Edit_Content" hidden>
+                    <div class="col-lg-12 e_row">
+                        <div class="col-lg-5">
+                            <span>Email</span>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 e_row">
+                        <span class="btn btn-primary btn_update">Cập nhật</span>
+                        <span class="btn btn-default btn_cancel">Hủy</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a role="button" class="test">
+            <div class="col-lg-12 row-info">
+                <span class="col-lg-3 s_title">Địa chỉ</span>
+                <span class="col-lg-7 s_content">Đây là phần giá trị của tên đăng nhập</span>
+                <span class="col-lg-2 s_btn"><i class="fa fa-pencil"></i> Chỉnh sửa</span>
+                <div class="Edit_Content" hidden>
+                    <div class="col-lg-12 e_row">
+                        <div class="col-lg-5">
+                            <span>Tên đăng nhập</span>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 e_row">
+                        <span class="btn btn-primary btn_update">Cập nhật</span>
+                        <span class="btn btn-default btn_cancel">Hủy</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a role="button" class="test">
+            <div class="col-lg-12 row-info">
+                <span class="col-lg-3 s_title">Số điện thoại</span>
+                <span class="col-lg-7 s_content">Đây là phần giá trị của tên đăng nhập</span>
+                <span class="col-lg-2 s_btn"><i class="fa fa-pencil"></i> Chỉnh sửa</span>
+                <div class="Edit_Content" hidden>
+                    <div class="col-lg-12 e_row">
+                        <div class="col-lg-5">
+                            <span>Số điện thoại</span>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 e_row">
+                        <span class="btn btn-primary btn_update">Cập nhật</span>
+                        <span class="btn btn-default btn_cancel">Hủy</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a role="button" class="test">
+            <div class="col-lg-12 row-info">
+                <span class="col-lg-3 s_title">Mật khẩu</span>
+                <span class="col-lg-7 s_content">Đây là phần giá trị của tên đăng nhập</span>
+                <span class="col-lg-2 s_btn"><i class="fa fa-pencil"></i> Chỉnh sửa</span>
+                <div class="Edit_Content" hidden>
+                    <div class="col-lg-12 e_row">
+                        <div class="col-lg-5">
+                            <span>Mật khẩu cũ</span>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="password" class="form-control" />
+                        </div>
+                        <br /><br />
+                        <div class="col-lg-5">
+                            <span>Mật khẩu mới</span>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="password" class="form-control" />
+                        </div>
+                        <br /><br />
+                        <div class="col-lg-5">
+                            <span>Xác nhận</span>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 e_row">
+                        <span class="btn btn-primary btn_update">Cập nhật</span>
+                        <span class="btn btn-default btn_cancel">Hủy</span>
+                    </div>
+                </div>
             </div>
         </a>
     </div>

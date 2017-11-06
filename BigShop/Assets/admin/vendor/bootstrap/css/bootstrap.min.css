@@ -7214,13 +7214,27 @@ button.close {
 /*CSS tự viết*/
 .row-info {
     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-.row-info > a {
-    text-decoration: none;
+    padding: 15px 0 15px 0;
 }
 
-.row-info > a:hover{
-    background-color: #f8f8f8;
+    .row-info > span.s_title {
+        font-weight: bold;
+        color: black;
+    }
+
+    .row-info > span.s_content {
+        font-weight: bold;
+        color: #90949c;
+    }
+
+.e_row {
+    margin-top: 20px;
+    display: inline-block;
+    text-align: center;
 }
+.e_row > div > span{
+    float: right; 
+    margin-top: 5px;
+}
+
 /*# sourceMappingURL=bootstrap.min.css.map */
