@@ -23,7 +23,11 @@ namespace BigShop.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var model = new ProductDao().Products();
+            var category = new ProductCategoryDao().ListAll();
+            var brand = new ProductCategorySmallDao().ListAll();
             ViewBag.temp_product = item;
+            ViewBag.category = category;
+            ViewBag.brand = brand;
             return View(model);
         }
 
@@ -111,8 +115,17 @@ namespace BigShop.Areas.Admin.Controllers
             return View();
         }
 
-
-
+        [HttpPost]
+        public JsonResult GetBrand()
+        {
+            List<ProductCategorySmall> data = new ProductCategorySmallDao().ListAll();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetCategory()
+        {
+            List<ProductCategory> data = new ProductCategoryDao().ListAll();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
 
 

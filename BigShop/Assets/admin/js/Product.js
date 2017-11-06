@@ -33,7 +33,46 @@
                     alert("Error: " + err.responseText);
                 }
             });
-        }
+        };
     }
+
 }
 product.init();
+
+
+(function GetCategory() {
+    $.ajax({
+        url: "/Admin/Product/GetCategory/",
+        type: "post",
+        dataType: "json",
+        error: function () {
+            alert('abc');
+        },
+        success: function (data) {
+            var rows = "<option>Sản phẩm</option>";
+            $.each(data, function (i, item) {
+                rows += "<option value=' " + item.ID + "'>" + item.Name + "</option>";
+                $('#category').html(rows);
+            })
+
+        }
+    });
+})();
+$('#category').click(function GetBrand() {
+    $.ajax({
+        url: "/Admin/Product/GetBrand/",
+        type: "post",
+        dataType: "json",
+        error: function () {
+            alert('abc');
+        },
+        success: function (data) {
+            var rows = "<option>Chọn hãng</option>";
+            $.each(data, function (i, item) {
+                rows += "<option value=' " + item.ID + "'>" + item.Name + "</option>";
+                $('#brand').html(rows);
+            })
+
+        }
+    });
+})
