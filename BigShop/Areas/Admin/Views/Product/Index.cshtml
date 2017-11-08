@@ -3,11 +3,10 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    Product temp_product = ViewBag.temp_product;
+    var notif = ViewBag.Notif;
 }
 @section jsProduct{
     <script src="/Assets/admin/js/Product.js"></script>
-    
 }
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -16,39 +15,74 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Sản phẩm</h4>
+                @{
+                    if (notif == "Thêm thành công")
+                    { <div class="alert alert-success">notif</div>}
+                    else if (notif != null)
+                    { 
+                       <div class="alert alert-danger">notif</div>
+                    }
+                }
             </div>
-            <form action="/Admin/Product/Insert" method="post">
+            <form action="/Admin/Product/Insert" method="post" enctype="multipart/form-data">
+
                 <div class="modal-body">
                     <div>
                         Tên sản phẩm
-                        <span><input type="text" name="name"></span>
+                        <span><input type="text" name="name" id="name"></span>
                     </div>
                     <div>
-                        Code
-                        <span><input type="text" name="code"></span>
+                        Loại sản phẩm
+                        <span>
+                            <select class="category" id="category_add" name="categoryid">
+                                <option selected>Loại sản phẩm</option>
+                            </select>
+                        </span>
                     </div>
                     <div>
-                        Metakeyword
-                        <span><input type="text" name="metakeyword"></span>
+                        Hãng
+                        <span>
+                            <select id="brand_add" class="brand" name="brandid"></select>
+                        </span>
                     </div>
                     <div>
-                        Giá
-                        <span><input type="text" name="price"></span>
+                        Giá
+                        <span><input type="text" name="price" id="price"></span>
+                    </div>
+                    <div>
+                        Metatitle
+                        <span><input type="text" name="metatitle" id="metatitle"></span>
+                    </div>
+                    <div>
+                        MetaKeyword
+                        <span><input type="text" name="metakeyword" id="metakeyword"></span>
+                    </div>
+                    <div>
+                        Bảo hành
+                        <span><input type="text" name="warranty" id="warranty"></span>
+                    </div>
+                    <div>
+                        Description
+                        <span><input type="text" name="description" id="description"></span>
                     </div>
                     <div>
                         Số lượng
-                        <span><input type="text" name="quantity"></span>
+                        <span><input type="text" name="quantity" id="quantity"></span>
                     </div>
                     <div>
-                        Ảnh
-                        <span><input type="file" name="image"></span>
+                        Ảnh chính
+                        <span id="main_image" style="display:inline-block"><input type="file" name="file" id="image"></span>
+                    </div>
+                    <div>
+                        Các ảnh khác
+                        <span></span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-success" value="Lưu" />
+                    <input type="submit" class="btn btn-success" value="Lưu" id="submit_add"/>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
-            </form>
+</form>
         </div>
 
     </div>
@@ -59,7 +93,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Quản lý sản phẩm @temp_product.Name</h1>
+            <h1 class="page-header">Quản lý sản phẩm </h1>
         </div>
         <div id="row_filter">
             <label class="col-md-1">
@@ -69,11 +103,12 @@
 
             </div>
             <div class="col-md-2">
-                <select id="category" class="form-control">             
+                <select id="category" class="form-control category">             
                 </select>
             </div>
             <div class="col-md-2">
-                <select class="form-control" id="brand">
+                <select class="form-control brand" id="brand">
+                    <option id="0">Chọn hãng</option>
                 </select>
             </div>
             <div style="float: right">
@@ -103,19 +138,19 @@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.ID</td>
-                                    <td>@item.Name</td>
-                                    <td>@item.Code</td>
-                                    <td class="center">@item.Price.GetValueOrDefault(0).ToString("N0")</td>
-                                    <td class="center">@item.Quantity</td>
-                                    <td style="width: 100px; height: auto"><img src="@item.Image" class="img-responsive" /></td>
-                                    <td><button class="btn btn-primary editadminproduct" onclick="return getDetailProduct(@item.ID)">Sửa</button> | <a class="btn btn-danger deleteadminproduct" data-id="@item.ID" id="adminDelete">Xóa</a></td>
-                                </tr>
-                            }
+                        <tbody id="table">
+                           @foreach (var item in Model)
+                           {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td>@item.Name</td>
+                                <td>@item.Code</td>
+                                <td class="center">@item.Price.GetValueOrDefault(0).ToString("N0")</td>
+                                <td class="center">@item.Quantity</td>
+                                <td style="width: 100px; height: auto"><img src="@item.Image" class="img-responsive" /></td>
+                                <td><button class="btn btn-success btn_image" data-id="@item.ID" >Quản lý ảnh</button> | <button class="btn btn-primary editadminproduct" onclick="return getDetailProduct(@item.ID)">Sửa</button> | <a class="btn btn-danger deleteadminproduct" data-id="@item.ID" id="adminDelete">Xóa</a></td>
+                            </tr>
+                           }
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->
@@ -163,15 +198,40 @@
                         Ảnh
                         <span><input type="file" name="image"></span>
                     </div>
-                    <div>
-                        <span><input type="text" name="ProductID" id="input7"></span>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value="Lưu" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </form>
+        </div>
+
+    </div>
+</div>
+
+
+@* Modal quan ly anh *@
+<div class="modal fade" id="imagemodal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Quản lý ảnh</h4>
+            </div>
+            
+                <div class="modal-body">
+                    <input type="hidden" id="productID" value="0" />
+                    <div id="imgList">
+
+                    </div>
+                    <input id="chooseImg" value="Thêm ảnh" class="btn btn-primary" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" value="Lưu" id="saveImg">Lưu </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+
         </div>
 
     </div>

@@ -20,5 +20,9 @@ namespace Model.DAO
         {
             return db.ProductCategorySmalls.Where(x => x.Status == true).ToList();
         }
+        public List<ProductCategorySmall> ListByCategory(int ctg_id)
+        {
+            return db.ProductCategorySmalls.Where(x => x.Status == true).Where(x=>x.ProductCategoryID == ctg_id).ToList();
+        }
     }
 }
