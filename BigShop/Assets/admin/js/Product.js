@@ -420,7 +420,7 @@ var product = {
         product.regEvents();
     },
     regEvents: function () {
-        $('.deleteadmin').off('click').on('click', function () {
+        $('.deleteadminproduct').off('click').on('click', function () {
             $.ajax({
                 data: { id: $(this).data('id') },
                 url: '/Admin/Product/Delete',
@@ -584,6 +584,8 @@ var image = {
             e.preventDefault();
             $('#imagemodal').modal('show');
             $('#productID').val($(this).data('id'));
+            $('#imgList').html('');
+            image.loadImages();
         })
         $('#chooseImg').off('click').on('click', function (e) {
             e.preventDefault();
@@ -616,7 +618,8 @@ var image = {
                 success: function (response) {
                     if (response.status) {
                         alert('Lưu thành công');
-                        $('imagemodal').modal('hide');
+                        $('#imagemodal').modal('hide');
+                        $('#imgList').html('');
                     }
                     else
                     {
@@ -624,6 +627,26 @@ var image = {
                     }
                 }
             })
+        })
+    },
+    loadImages: function () {
+        $.ajax({
+            url: '/Admin/Product/LoadImages',
+            type: 'GET',
+            data: {
+                id: $('#productID').val()
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.status) {
+                    var data = response.data;
+                    var htmls = '';
+                    $.each(data, function (i, item) {
+                        htmls += '<div style="float: left;"><img src ="' + item + '" width = "50" /><a href="#" class="btnDel"><i class="fa fa-times"></i></a></div>'
+                    })
+                    $('#imgList').html(htmls);
+                }
+            }
         })
     }
 }

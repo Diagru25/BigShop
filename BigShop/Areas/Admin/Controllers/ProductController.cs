@@ -49,7 +49,7 @@ namespace BigShop.Areas.Admin.Controllers
 
         // Thêm 1 sản phẩm
         [HttpPost]
-        public ActionResult Insert(string name, int categoryid, int brandid, string price, string metatitle, string metakeyword, string warranty, string description, int quantity, HttpPostedFileBase file)
+        public ActionResult Insert(string name, int categoryid, int brandid, string price, string metakeyword, string warranty, string description, int quantity, HttpPostedFileBase file)
         {
             var product = new Product();
             try
@@ -60,7 +60,7 @@ namespace BigShop.Areas.Admin.Controllers
                 product.Name = name;
                 product.CategoryID = categoryid;
                 product.BrandID = brandid;
-                product.MetaTitle = metatitle;
+                product.MetaTitle = ConvertToUnSign(name);
                 product.MetaKeywords = System.Convert.ToInt64(metakeyword);
                 product.Warranty = Convert.ToInt32(warranty);
                 product.Price = System.Convert.ToDecimal(price);
@@ -144,17 +144,29 @@ namespace BigShop.Areas.Admin.Controllers
         {
             var product = new ProductDao().GetById(id);
             var images = product.MoreImages;
-            XElement xml = XElement.Parse(images);
-            List<string> listImagesReturn = new List<string>();
+            try
+            {
+                XElement xml = XElement.Parse(images);
+                List<string> listImagesReturn = new List<string>();
 
-            foreach(XElement element in xml.Elements())
-            {
-                listImagesReturn.Add(element.Value);
+                foreach (XElement element in xml.Elements())
+                {
+                    listImagesReturn.Add(element.Value);
+                }
+                return Json(new
+                {
+                    data = listImagesReturn,
+                    status = true
+                }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new
+            catch(Exception)
             {
-                data = listImagesReturn
-            },JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    status = false
+                },JsonRequestBehavior.AllowGet);
+            }
+            
              
         }
         public JsonResult SaveImages(long id, string images)
@@ -205,7 +217,7 @@ namespace BigShop.Areas.Admin.Controllers
     text = text.Replace(" ", "-");
     Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
     string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
-    return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
+    return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D').ToLower();
 }
 
 }
