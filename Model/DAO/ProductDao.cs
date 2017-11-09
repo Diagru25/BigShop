@@ -101,5 +101,12 @@ namespace Model.DAO
                 return db.Products.Where(x => x.CategoryID == cateID).Where(x => x.BrandID == brandID).ToList();
             }
         }
+
+        public void UpdateImages(long productId, string images)
+        {
+            var product = db.Products.Find(productId);
+            product.MoreImages = images;
+            db.SaveChanges();
+        }
     }
 }

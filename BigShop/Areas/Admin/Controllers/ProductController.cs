@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Xml.Linq;
 
 namespace BigShop.Areas.Admin.Controllers
 {
@@ -52,8 +54,8 @@ namespace BigShop.Areas.Admin.Controllers
             var product = new Product();
             try
             {
-                string pic = name.Replace(" ","-").ToLower() + System.IO.Path.GetExtension(file.FileName).ToLower();
-                string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"),pic);
+                string pic = name.Replace(" ", "-").ToLower() + System.IO.Path.GetExtension(file.FileName).ToLower();
+                string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), pic);
                 file.SaveAs(path);
                 product.Name = name;
                 product.CategoryID = categoryid;
@@ -138,34 +140,73 @@ namespace BigShop.Areas.Admin.Controllers
             var data = new ProductDao().GetProductByBrandAndCategory(brandid, cateid);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-
-        // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
-        public static string ConvertToUnSign(string text)
+        public JsonResult LoadImages(long id)
         {
-            for (int i = 33; i < 48; i++)
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
+            var product = new ProductDao().GetById(id);
+            var images = product.MoreImages;
+            XElement xml = XElement.Parse(images);
+            List<string> listImagesReturn = new List<string>();
 
-            for (int i = 58; i < 65; i++)
+            foreach(XElement element in xml.Elements())
             {
-                text = text.Replace(((char)i).ToString(), "");
+                listImagesReturn.Add(element.Value);
             }
-
-            for (int i = 91; i < 97; i++)
+            return Json(new
             {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-            for (int i = 123; i < 127; i++)
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-            text = text.Replace(" ", "-");
-            Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
-            string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
-            return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
+                data = listImagesReturn
+            },JsonRequestBehavior.AllowGet);
+             
         }
+        public JsonResult SaveImages(long id, string images)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var listImages = serializer.Deserialize<List<string>>(images);
 
+            XElement xElement = new XElement("Images");
+
+            foreach (var item in listImages)
+            {
+                xElement.Add(new XElement("Image", item));
+            }
+            ProductDao dao = new ProductDao();
+            try
+            {
+                dao.UpdateImages(id, xElement.ToString());
+                return Json(new { status = true });
+            }
+            catch(Exception ex)
+            {
+                return Json(new { status = false });
+            }
+            
+}
+
+    // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
+    public static string ConvertToUnSign(string text)
+{
+    for (int i = 33; i < 48; i++)
+    {
+        text = text.Replace(((char)i).ToString(), "");
     }
+
+    for (int i = 58; i < 65; i++)
+    {
+        text = text.Replace(((char)i).ToString(), "");
+    }
+
+    for (int i = 91; i < 97; i++)
+    {
+        text = text.Replace(((char)i).ToString(), "");
+    }
+    for (int i = 123; i < 127; i++)
+    {
+        text = text.Replace(((char)i).ToString(), "");
+    }
+    text = text.Replace(" ", "-");
+    Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
+    string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
+    return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
+}
+
+}
 }

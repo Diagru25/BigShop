@@ -479,7 +479,7 @@ product.init();
 
 function GetBrandByCategory(id) {
     $.ajax({
-        url: "/Admin/Product/GetBrand/" + id ,
+        url: "/Admin/Product/GetBrand/" + id,
         type: "POST",
         dataType: "json",
         success: function (data) {
@@ -499,7 +499,7 @@ function GetBrandByCategory(id) {
     })
 }
 
-function GetProduct(brandid,cateid) {
+function GetProduct(brandid, cateid) {
     $.ajax({
         url: "/Admin/Product/GetBrandCategory?brandid=" + brandid + "&cateid=" + cateid,
         type: "POST",
@@ -508,14 +508,14 @@ function GetProduct(brandid,cateid) {
             var rows;
             if (data.length == 0) { rows = "<tr><td class = 'alert alert-danger' colspan='7'>Không có dữ liệu</td></tr>" }
             $.each(data, function (i, item) {
-                rows+= "<tr>" +
+                rows += "<tr>" +
                     "<td>" + item.ID + "</td>" +
                     "<td>" + item.Name + "</td>" +
                     "<td>" + item.Code + "</td>" +
                     "<td class='center'>" + accounting.formatNumber(item.Price) + "</td>" +
                     "<td class='center'>" + item.Quantity + "</td>" +
                     "<td style='width: 100px; height: auto'><img src=" + item.Image + " class='img-responsive' /></td>" +
-                    "<td><button class='btn btn-primary editadminproduct' onclick='return getDetailProduct(" + item.ID + ")'>Sửa</button> | <a class='btn btn-danger deleteadminproduct' data-id='" + item.ID + "' id='adminDelete'>Xóa</a></td></tr>";                  
+                    "<td><button class='btn btn-primary editadminproduct' onclick='return getDetailProduct(" + item.ID + ")'>Sửa</button> | <a class='btn btn-danger deleteadminproduct' data-id='" + item.ID + "' id='adminDelete'>Xóa</a></td></tr>";
             })
             $('#table').html(rows);
         }
@@ -527,7 +527,7 @@ $('#category').change(function () {
     var id = $('#category :selected').val();
     GetBrandByCategory(id);
     change_con();
- 
+
 })
 $('#brand').change(function () {
     change_con();
@@ -545,8 +545,8 @@ function change_con() {
         if ($('#brand :selected').val() == "Tất cả") brandid = 0;
         else brandid = $('#brand :selected').val();
         cateid = $('#category :selected').val();
-    }   
-    GetProduct(brandid,cateid);
+    }
+    GetProduct(brandid, cateid);
 }
 
 function GetBrandByCategoryAdd(id) {
@@ -576,18 +576,54 @@ $('#category_add').change(function () {
 })
 
 var image = {
-    init: function(){
+    init: function () {
         image.registerEvents();
     },
     registerEvents: function () {
-        $('.btn_image').off('cick').on('click', function (e) {
+        $('.btn_image').off('click').on('click', function (e) {
             e.preventDefault();
             $('#imagemodal').modal('show');
             $('#productID').val($(this).data('id'));
         })
-        $('#chooseImg').on('click', function (e) {
+        $('#chooseImg').off('click').on('click', function (e) {
             e.preventDefault();
-            
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#imgList').append('<div style="float: left;"><img src ="' + url + '" width = "50" /><a href="#" class="btnDel"><i class="fa fa-times"></i></a></div>');
+
+                $('.btnDel').off('click').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).parent().remove();
+                })
+            };
+            finder.popup();
+        });
+        $('#saveImg').off('click').on('click', function () {
+            var images = [];
+            var id = $('#productID').val();
+            $.each($('#imgList img'), function (i, item) {
+                images.push($(item).prop('src'));
+            })
+
+            $.ajax({
+                url: '/Admin/Product/SaveImages',
+                type: 'POST',
+                data: {
+                    id:id,
+                    images: JSON.stringify(images)
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.status) {
+                        alert('Lưu thành công');
+                        $('imagemodal').modal('hide');
+                    }
+                    else
+                    {
+                        alert("Lỗi");
+                    }
+                }
+            })
         })
     }
 }
