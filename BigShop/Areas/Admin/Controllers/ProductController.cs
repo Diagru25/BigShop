@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Xml.Linq;
 
 namespace BigShop.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : SecurityController
     {
         private Product item = new Product();
         private BigShopDbContext _context;
@@ -23,11 +25,6 @@ namespace BigShop.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var model = new ProductDao().Products();
-            var category = new ProductCategoryDao().ListAll();
-            var brand = new ProductCategorySmallDao().ListAll();
-            ViewBag.temp_product = item;
-            ViewBag.category = category;
-            ViewBag.brand = brand;
             return View(model);
         }
 
@@ -52,18 +49,30 @@ namespace BigShop.Areas.Admin.Controllers
 
         // Thêm 1 sản phẩm
         [HttpPost]
-        public ActionResult Insert(string name, string code, string metakeyword, string price, string quantity, string image)
+        public ActionResult Insert(string name, int categoryid, int brandid, string price, string metakeyword, string warranty, string description, int quantity, HttpPostedFileBase file)
         {
             var product = new Product();
-            product.Name = name;
-            product.Code = code;
-            product.MetaTitle = ConvertToUnSign(name);
-            product.MetaKeywords = System.Convert.ToInt64(metakeyword);
-            product.Price = System.Convert.ToDecimal(price);
-            product.Image = "/Assets/client/images/Phone/" + image;
-
-            var dao = new ProductDao();
-            dao.Insert(product);
+            try
+            {
+                string pic = name.Replace(" ", "-").ToLower() + System.IO.Path.GetExtension(file.FileName).ToLower();
+                string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), pic);
+                file.SaveAs(path);
+                product.Name = name;
+                product.CategoryID = categoryid;
+                product.BrandID = brandid;
+                product.MetaTitle = ConvertToUnSign(name);
+                product.MetaKeywords = System.Convert.ToInt64(metakeyword);
+                product.Warranty = Convert.ToInt32(warranty);
+                product.Price = System.Convert.ToDecimal(price);
+                product.Description = description;
+                product.Quantity = quantity;
+                product.Image = "/Assets/client/images/" + pic;
+                var dao = new ProductDao();
+                dao.Insert(product);
+            }
+            catch (Exception)
+            {
+            }
 
             return RedirectToAction("Index");
 
@@ -116,9 +125,9 @@ namespace BigShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetBrand()
+        public JsonResult GetBrand(int id)
         {
-            List<ProductCategorySmall> data = new ProductCategorySmallDao().ListAll();
+            List<ProductCategorySmall> data = new ProductCategorySmallDao().ListByCategory(id);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetCategory()
@@ -126,43 +135,90 @@ namespace BigShop.Areas.Admin.Controllers
             List<ProductCategory> data = new ProductCategoryDao().ListAll();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
-
-
-
-
-
-
-
-        // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
-        public static string ConvertToUnSign(string text)
+        public JsonResult GetBrandCategory(int brandid, int cateid)
         {
-            for (int i = 33; i < 48; i++)
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-
-            for (int i = 58; i < 65; i++)
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-
-            for (int i = 91; i < 97; i++)
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-            for (int i = 123; i < 127; i++)
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-            text = text.Replace(" ", "-");
-            Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
-            string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
-            return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
+            var data = new ProductDao().GetProductByBrandAndCategory(brandid, cateid);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult LoadImages(long id)
+        {
+            var product = new ProductDao().GetById(id);
+            var images = product.MoreImages;
+            try
+            {
+                XElement xml = XElement.Parse(images);
+                List<string> listImagesReturn = new List<string>();
 
+                foreach (XElement element in xml.Elements())
+                {
+                    listImagesReturn.Add(element.Value);
+                }
+                return Json(new
+                {
+                    data = listImagesReturn,
+                    status = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception)
+            {
+                return Json(new
+                {
+                    status = false
+                },JsonRequestBehavior.AllowGet);
+            }
+            
+             
+        }
+        public JsonResult SaveImages(long id, string images)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var listImages = serializer.Deserialize<List<string>>(images);
+
+            XElement xElement = new XElement("Images");
+
+            foreach (var item in listImages)
+            {
+                xElement.Add(new XElement("Image", item));
+            }
+            ProductDao dao = new ProductDao();
+            try
+            {
+                dao.UpdateImages(id, xElement.ToString());
+                return Json(new { status = true });
+            }
+            catch(Exception ex)
+            {
+                return Json(new { status = false });
+            }
+            
+}
+
+    // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
+    public static string ConvertToUnSign(string text)
+{
+    for (int i = 33; i < 48; i++)
+    {
+        text = text.Replace(((char)i).ToString(), "");
     }
+
+    for (int i = 58; i < 65; i++)
+    {
+        text = text.Replace(((char)i).ToString(), "");
+    }
+
+    for (int i = 91; i < 97; i++)
+    {
+        text = text.Replace(((char)i).ToString(), "");
+    }
+    for (int i = 123; i < 127; i++)
+    {
+        text = text.Replace(((char)i).ToString(), "");
+    }
+    text = text.Replace(" ", "-");
+    Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
+    string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
+    return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D').ToLower();
+}
+
+}
 }

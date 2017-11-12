@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BigShop.Areas.Admin.Controllers
 {
-    public class SettingController : Controller
+    public class SettingController : SecurityController
     {
         // GET: Admin/Setting
         public ActionResult About()

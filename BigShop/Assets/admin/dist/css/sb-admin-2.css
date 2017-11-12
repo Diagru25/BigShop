@@ -456,6 +456,9 @@ div.modal-body > div > span {
 div.modal-body > div > span > input{
   width: 250px;
 }
+div.modal-body > div > span > select{
+  width: 250px;
+}
 .spinner input {
   text-align: right;
 }
