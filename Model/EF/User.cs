@@ -26,14 +26,15 @@ namespace Model.EF
         [StringLength(50)]
         public string Email { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? Dayofbirth { get; set; }
+
         [StringLength(50)]
         public string Phone { get; set; }
 
         public DateTime? CreatedDate { get; set; }
 
-        public DateTime? Dayofbirth { get; set; }
-
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         public int Type { get; set; }
     }
