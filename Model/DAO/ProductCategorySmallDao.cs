@@ -24,5 +24,12 @@ namespace Model.DAO
         {
             return db.ProductCategorySmalls.Where(x => x.Status == true).Where(x=>x.ProductCategoryID == ctg_id).ToList();
         }
+        public bool DelBrand(int brandid)
+        {
+            var brand = db.ProductCategorySmalls.SingleOrDefault(x=>x.ID == brandid);
+            db.ProductCategorySmalls.Remove(brand);
+            db.SaveChanges();
+            return true;
+        }
     }
 }

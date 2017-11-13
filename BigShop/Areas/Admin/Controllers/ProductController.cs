@@ -109,7 +109,8 @@ namespace BigShop.Areas.Admin.Controllers
         // Trang danh mục sản phẩm
         public ActionResult Category()
         {
-            return View();
+            var model = new ProductCategoryDao().ListAll();
+            return View(model);
         }
 
         // Thống kê sản phẩm bán chạy nhất
@@ -159,15 +160,15 @@ namespace BigShop.Areas.Admin.Controllers
                     status = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return Json(new
                 {
                     status = false
-                },JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet);
             }
-            
-             
+
+
         }
         public JsonResult SaveImages(long id, string images)
         {
@@ -186,39 +187,50 @@ namespace BigShop.Areas.Admin.Controllers
                 dao.UpdateImages(id, xElement.ToString());
                 return Json(new { status = true });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { status = false });
             }
-            
-}
 
-    // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
-    public static string ConvertToUnSign(string text)
-{
-    for (int i = 33; i < 48; i++)
-    {
-        text = text.Replace(((char)i).ToString(), "");
-    }
+        }
 
-    for (int i = 58; i < 65; i++)
-    {
-        text = text.Replace(((char)i).ToString(), "");
-    }
+        //Xóa Brand trng category
 
-    for (int i = 91; i < 97; i++)
-    {
-        text = text.Replace(((char)i).ToString(), "");
-    }
-    for (int i = 123; i < 127; i++)
-    {
-        text = text.Replace(((char)i).ToString(), "");
-    }
-    text = text.Replace(" ", "-");
-    Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
-    string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
-    return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D').ToLower();
-}
+        public JsonResult DeleteBrand(int brandid, int cateid)
+        {
+            ProductDao pd = new ProductDao();
+            ProductCategorySmallDao psd = new ProductCategorySmallDao();
+            pd.delBrand(brandid, cateid);
+            psd.DelBrand(brandid);           
+            return Json(new { status = true},JsonRequestBehavior.AllowGet);
+        }
 
-}
+        // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
+        public static string ConvertToUnSign(string text)
+        {
+            for (int i = 33; i < 48; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
+
+            for (int i = 58; i < 65; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
+
+            for (int i = 91; i < 97; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
+            for (int i = 123; i < 127; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
+            text = text.Replace(" ", "-");
+            Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
+            string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
+            return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D').ToLower();
+        }
+
+    }
 }

@@ -1,7 +1,11 @@
-﻿
+﻿@model List<Model.EF.ProductCategory>
+@using Model.EF
 @{
     ViewBag.Title = "Category";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsProduct{
+    <script src="/Assets/admin/js/Category.js"></script>
 }
 
 <div id="page-wrapper">
@@ -29,8 +33,18 @@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            
+                        <tbody id="cate_Table">
+                            @foreach(var item in Model)
+                            {
+                                var block = item.Status == true ? "Khóa" : "Kích hoạt";
+                                <tr>
+                                    <td><a href="#" class="viewBrand" data-id="@item.ID">@item.Name</a></td>
+                                    <td>@item.ID</td>
+                                    <td>@item.MetaTitle</td>
+                                    <td><a class="btn btn-danger change_status" data-id="@item.ID">@block</a></td>
+                                    <td><a class="btn btn-success cateDel" data-id="@item.ID">Xóa</a></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->
@@ -60,14 +74,7 @@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <th>aaaaaaaaa</th>
-                                <th>aaaaaaaaa</th>
-                                <th>aaaaaaaaa</th>
-                                <th>aaaaaaaaa</th>
-                                <th>aaaaaaaaa</th>
-                            </tr>
+                        <tbody id="brandTB">
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->
