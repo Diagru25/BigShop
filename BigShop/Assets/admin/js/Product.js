@@ -646,7 +646,7 @@ var image = {
         })
     }
 }
-image.init
+image.init();
 
 // Danh muc sản phẩm
 

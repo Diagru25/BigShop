@@ -6,6 +6,13 @@
 }
 @section jsProduct{
     <script src="/Assets/admin/js/Category.js"></script>
+<script type="text/javascript">
+        $(window).bind("load",function () {
+            var row = "<button class='btn btn-primary' data-toggle='modal' data-target='#Category_Modal_Insert'>Thêm mới mặt hàng</button>";
+            $('#dataTables-example_filter > label').css({"float": "left"})
+            $('#dataTables-example_filter').append(row);
+        })
+</script>
 }
 
 <div id="page-wrapper">
@@ -34,14 +41,15 @@
                             </tr>
                         </thead>
                         <tbody id="cate_Table">
-                            @foreach(var item in Model)
+                            @foreach (var item in Model)
                             {
                                 var block = item.Status == true ? "Khóa" : "Kích hoạt";
+                                var statuscl = item.Status == true ? "btn-danger" : "btn-success";
                                 <tr>
                                     <td><a href="#" class="viewBrand" data-id="@item.ID">@item.Name</a></td>
                                     <td>@item.ID</td>
                                     <td>@item.MetaTitle</td>
-                                    <td><a class="btn btn-danger change_status" data-id="@item.ID">@block</a></td>
+                                    <td><a class="btn @statuscl change_status" data-id="@item.ID">@block</a></td>
                                     <td><a class="btn btn-success cateDel" data-id="@item.ID">Xóa</a></td>
                                 </tr>
                             }
@@ -59,8 +67,8 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    Hãng sản xuất
+                <div class="panel-heading" style="height:60px;">
+                    Hãng sản xuất <a class="btn btn-success" style="float:right;" data-toggle="modal" data-target="#Brand_Add_Modal">Thêm mới nhãn hiệu</a>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -74,8 +82,7 @@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
-                        <tbody id="brandTB">
-                        </tbody>
+                        <tbody id="brandTB"></tbody>
                     </table>
                     <!-- /.table-responsive -->
                 </div>
@@ -103,7 +110,40 @@
                     </div>
                     <div>
                         Số thứ tự
-                        <span><input type="password" name="" value="1"></span>
+                        <span><input type="text" name="" value="1"></span>
+                    </div>
+                    <div>
+                        Mô tả
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Lưu" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="Brand_Add_Modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sản phẩm</h4>
+            </div>
+            <form action="#" method="post">
+                <div class="modal-body">
+                    <div>
+                        Hãng
+                        <span><input type="text" name=""></span>
+                    </div>
+                    <div>
+                        Số thứ tự
+                        <span><input type="text" name="" value="1"></span>
                     </div>
                     <div>
                         Mô tả

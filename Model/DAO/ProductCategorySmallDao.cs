@@ -31,5 +31,15 @@ namespace Model.DAO
             db.SaveChanges();
             return true;
         }
+        public void ChangeStatus(int id)
+        {
+            var brand = db.ProductCategorySmalls.SingleOrDefault(x => x.ID == id);
+            brand.Status = !brand.Status;
+            db.SaveChanges();
+        }
+        public List<ProductCategorySmall> ListByCategoryAdmin(int ctg_id)
+        {
+            return db.ProductCategorySmalls.Where(x => x.ProductCategoryID == ctg_id).ToList();
+        }
     }
 }

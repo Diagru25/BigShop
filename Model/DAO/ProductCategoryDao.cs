@@ -20,5 +20,22 @@ namespace Model.DAO
         {
             return db.ProductCategories.Where(x => x.Status == true).OrderBy(x => x.DisplayOrder).ToList();
         }
+        public void DelCategory(int id)
+        {
+            var cate = db.ProductCategories.SingleOrDefault(x => x.ID == id);
+            db.ProductCategories.Remove(cate);
+            db.SaveChanges();
+        }
+
+        public void ChangeStatus(int id)
+        {
+            var cate = db.ProductCategories.SingleOrDefault(x => x.ID == id);
+            cate.Status = !cate.Status;
+            db.SaveChanges();
+        }
+        public List<ProductCategory> ListAllAdmin()
+        {
+            return db.ProductCategories.OrderBy(x => x.DisplayOrder).ToList();
+        }
     }
 }

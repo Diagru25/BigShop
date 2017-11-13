@@ -109,7 +109,7 @@ namespace BigShop.Areas.Admin.Controllers
         // Trang danh mục sản phẩm
         public ActionResult Category()
         {
-            var model = new ProductCategoryDao().ListAll();
+            var model = new ProductCategoryDao().ListAllAdmin();
             return View(model);
         }
 
@@ -128,12 +128,12 @@ namespace BigShop.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GetBrand(int id)
         {
-            List<ProductCategorySmall> data = new ProductCategorySmallDao().ListByCategory(id);
+            List<ProductCategorySmall> data = new ProductCategorySmallDao().ListByCategoryAdmin(id);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetCategory()
         {
-            List<ProductCategory> data = new ProductCategoryDao().ListAll();
+            List<ProductCategory> data = new ProductCategoryDao().ListAllAdmin();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetBrandCategory(int brandid, int cateid)
@@ -205,6 +205,24 @@ namespace BigShop.Areas.Admin.Controllers
             return Json(new { status = true},JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult BrandStatus(int id)
+        {
+            ProductCategorySmallDao psd = new ProductCategorySmallDao();
+            psd.ChangeStatus(id);
+            return Json(new { status = true});
+        }
+        public JsonResult DelCategory(int id)
+        {
+            ProductCategoryDao pd = new ProductCategoryDao();
+            pd.DelCategory(id);
+            return Json(new { status = true });
+        }
+        public JsonResult CateStatus(int id)
+        {
+            ProductCategoryDao pd = new ProductCategoryDao();
+            pd.ChangeStatus(id);
+            return Json(new { status = true });
+        }
         // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
         public static string ConvertToUnSign(string text)
         {
