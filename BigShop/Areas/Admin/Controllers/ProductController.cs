@@ -193,18 +193,6 @@ namespace BigShop.Areas.Admin.Controllers
             }
 
         }
-
-<<<<<<< HEAD
-        // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
-        public static string ConvertToUnSign(string text)
-        {
-            for (int i = 33; i < 48; i++)
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-
-            for (int i = 58; i < 65; i++)
-=======
         //Xóa Brand trng category
 
         public JsonResult DeleteBrand(int brandid, int cateid)
@@ -237,20 +225,6 @@ namespace BigShop.Areas.Admin.Controllers
         // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
         public static string ConvertToUnSign(string text)
         {
-            for (int i = 33; i < 48; i++)
->>>>>>> 8af0b97fc13d3d6868ae24368b3ecdd90224acf6
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-
-<<<<<<< HEAD
-=======
-            for (int i = 58; i < 65; i++)
-            {
-                text = text.Replace(((char)i).ToString(), "");
-            }
-
->>>>>>> 8af0b97fc13d3d6868ae24368b3ecdd90224acf6
             for (int i = 91; i < 97; i++)
             {
                 text = text.Replace(((char)i).ToString(), "");
