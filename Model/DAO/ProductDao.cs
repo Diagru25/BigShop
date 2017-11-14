@@ -41,7 +41,7 @@ namespace Model.DAO
             }
             else
             {
-                return db.Products.Where(x => x.CategoryID == id && x.MetaKeywords == sid).ToList();
+                return db.Products.Where(x => x.CategoryID == id && x.BrandID == sid).ToList();
             }
         }
 

@@ -26,16 +26,16 @@
             @foreach (var item in Model)
             {
                 var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
-                <div class="col-md-4 chain-grid">
+                <div class="col-md-4 chain-grid" style="margin-bottom: 10px; height: 350px">
                     <a href="@url"><img class="img-responsive chain" src="@item.Image" alt=" " /></a>
                     <span class="star"> </span>
                     <div class="grid-chain-bottom">
-                        <h6><a href="@url" style="font-size: 15px;">Samsung Galaxy J7 Pro</a></h6>
+                        <h6 style="height: 44px"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
                         <div class="star-price">
                             <div class="dolor-grid">
-                                <span style="font-size: 15px;color: #c10017; height: 20px;">7.900.000₫</span>
+                                <span style="font-size: 15px;color: #c10017; height: 20px;">@item.Price.GetValueOrDefault(0).ToString("N0")₫</span>
                             </div>
-                            <a href="#" title="Thêm vào giỏ hàng"><span style="background: url(/Assets/client/images/img-sprite.png) -172px -28px;width: 26px;height: 26px;display: inline-block;vertical-align: middle; float: right;"></span></a>
+                            <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)" style="width: 15px; float: right"><span class="add_to_cart"></span></button>
                             <div class="clearfix"> </div>
                         </div>
                     </div>
@@ -72,27 +72,37 @@
         @{ Html.RenderAction("LeftMenu", "Home");}
         <!--initiate accordion-->
         <script type="text/javascript">
-        $(function () {
-            var menu_ul = $('.menu > li > ul'),
-                   menu_a = $('.menu > li > a');
-            menu_ul.hide();
-            menu_a.click(function (e) {
-                e.preventDefault();
-                var link = $(this).attr('href');
-                if (link != '#') {
-                    window.location.href = link;
-                }
-                else if (!$(this).hasClass('active')) {
-                    menu_a.removeClass('active');
-                    menu_ul.filter(':visible').slideUp('normal');
-                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
-                } else {
-                    $(this).removeClass('active');
-                    $(this).next().stop(true, true).slideUp('normal');
-                }
-            });
+            function GetQuantityCartItem(productid) {
+                $.ajax({
+                    url: '/Cart/Add_Item/' + productid,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert('Thêm vào giỏ hàng thành công');
+                    }
+                });
+            }
+            $(function () {
+                var menu_ul = $('.menu > li > ul'),
+                       menu_a = $('.menu > li > a');
+                menu_ul.hide();
+                menu_a.click(function (e) {
+                    e.preventDefault();
+                    var link = $(this).attr('href');
+                    if (link != '#') {
+                        window.location.href = link;
+                    }
+                    else if (!$(this).hasClass('active')) {
+                        menu_a.removeClass('active');
+                        menu_ul.filter(':visible').slideUp('normal');
+                        $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                    } else {
+                        $(this).removeClass('active');
+                        $(this).next().stop(true, true).slideUp('normal');
+                    }
+                });
 
-        });
+            });
         </script>
         <div class=" chain-grid menu-chain">
             <a href="single.html"><img class="img-responsive " src="images/Hot.png" alt=" " /></a>

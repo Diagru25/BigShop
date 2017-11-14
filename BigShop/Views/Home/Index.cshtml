@@ -86,7 +86,7 @@
                 <h6><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
                 <div class="star-price">
                     <div class="dolor-grid">
-                        <span class="product_price_bot">7.900.000₫</span>
+                        <span class="product_price_bot">@item.Price.GetValueOrDefault(0).ToString("N0")₫</span>
                     </div>
                     <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)"><span class="add_to_cart"></span></button>
                     <div class="clearfix"> </div>
