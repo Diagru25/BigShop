@@ -3,6 +3,7 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Model.EF.Product> RelatedProduct = ViewBag.RelatedProduct;
+    List<string> image = ViewBag.image;
 }
 <script>
     jQuery(document).ready(function ($) {
@@ -32,14 +33,13 @@
                             <img class="etalage_source_image" src="@Model.Image" class="img-responsive" title="" />
                         </a>
                     </li>
-                    <li>
-                        <img class="etalage_thumb_image" src="/Assets/client/images/TV_BigPic/Pic2.jpg" class="img-responsive" />
-                        <img class="etalage_source_image" src="/Assets/client/images/TV_BigPic/Pic2.jpg" class="img-responsive" title="" />
-                    </li>
-                    <li>
-                        <img class="etalage_thumb_image" src="/Assets/client/images/TV_BigPic/Pic3.jpg" class="img-responsive" />
-                        <img class="etalage_source_image" src="/Assets/client/images/TV_BigPic/Pic3.jpg" class="img-responsive" />
-                    </li>
+                    @foreach (var item in image)
+                    {
+                        <li>
+                            <img class="etalage_thumb_image" src="@item" class="img-responsive" />
+                            <img class="etalage_source_image" src="@item" class="img-responsive" title="" />
+                        </li>
+                    }
                 </ul>
                 <div class="clearfix"> </div>
             </div>
@@ -48,7 +48,7 @@
 
                 <h4>@Model.Name</h4>
                 <div class="cart-b">
-                    <div class="left-n ">@Model.Price₫</div>
+                    <div class="left-n ">@Model.Price.GetValueOrDefault(0).ToString("N0")₫</div>
                     <a class="now-get get-cart-in" onclick="return GetQuantityCartItem(@Model.ID)">Đặt ngay</a>
                     <div class="clearfix"></div>
                 </div>
@@ -76,7 +76,7 @@
         <ul id="flexiselDemo1">
             @foreach (var item in RelatedProduct)
             {
-                <li><img src="@item.Image" /><div class="grid-flex"><a href="#">@item.Name</a><p>@item.Price₫</p></div></li>
+                <li><img src="@item.Image" /><div class="grid-flex"><a href="#">@item.Name</a><p>@item.Price.GetValueOrDefault(0).ToString("N0")₫</p></div></li>
             }
         </ul>
         <script type="text/javascript">

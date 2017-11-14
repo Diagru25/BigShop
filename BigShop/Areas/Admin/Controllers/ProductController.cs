@@ -159,15 +159,15 @@ namespace BigShop.Areas.Admin.Controllers
                     status = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return Json(new
                 {
                     status = false
-                },JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet);
             }
-            
-             
+
+
         }
         public JsonResult SaveImages(long id, string images)
         {
@@ -186,39 +186,39 @@ namespace BigShop.Areas.Admin.Controllers
                 dao.UpdateImages(id, xElement.ToString());
                 return Json(new { status = true });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { status = false });
             }
-            
-}
 
-    // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
-    public static string ConvertToUnSign(string text)
-{
-    for (int i = 33; i < 48; i++)
-    {
-        text = text.Replace(((char)i).ToString(), "");
-    }
+        }
 
-    for (int i = 58; i < 65; i++)
-    {
-        text = text.Replace(((char)i).ToString(), "");
-    }
+        // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
+        public static string ConvertToUnSign(string text)
+        {
+            for (int i = 33; i < 48; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
 
-    for (int i = 91; i < 97; i++)
-    {
-        text = text.Replace(((char)i).ToString(), "");
-    }
-    for (int i = 123; i < 127; i++)
-    {
-        text = text.Replace(((char)i).ToString(), "");
-    }
-    text = text.Replace(" ", "-");
-    Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
-    string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
-    return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D').ToLower();
-}
+            for (int i = 58; i < 65; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
 
-}
+            for (int i = 91; i < 97; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
+            for (int i = 123; i < 127; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
+            text = text.Replace(" ", "-");
+            Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
+            string strFormD = text.Normalize(System.Text.NormalizationForm.FormD);
+            return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D').ToLower();
+        }
+
+    }
 }
