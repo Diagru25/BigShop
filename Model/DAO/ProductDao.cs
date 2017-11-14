@@ -119,5 +119,16 @@ namespace Model.DAO
             db.SaveChanges();
             return true;
         }
+        public List<Product> GetProductByBrand(long id)
+        {
+            return  db.Products.Where(x => x.BrandID == id).ToList();
+        }
+
+        public void ChangeStatus(long id)
+        {
+            var pro = db.Products.SingleOrDefault(x => x.ID == id);
+            pro.Status = !pro.Status;
+            db.SaveChanges();
+        }
     }
 }

@@ -27,7 +27,7 @@
                 success: function (res) {
                     if (res.status == true) {
                         alert('Thành công');
-                        //
+                        window.location.href = '/Admin/Product/Category';
                     }
                 }
             })
@@ -103,4 +103,29 @@ $('.viewBrand').off('click').on('click', (function () {
     })
     
 }))
+
+$('#SaveCate').click(function () {
+    $.ajax({
+        url: '/Admin/Product/AddCategory',
+        data: { CateName: $('#CateName').val(), CateSeq: $('#CateSeq').val() },
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            alert(data);
+            window.location.href = '/Admin/Product/Category';
+        }
+    })
+})
+$('#SaveBrand').click(function () {
+    $.ajax({
+        url: '/Admin/Product/AddBrand',
+        data: { BrandName: $('#BrandName').val(), BrandSeq: $('#BrandSeq').val(), CateID: $('#brandTB').data('id') },
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            alert(data);
+            window.location.href = '/Admin/Product/Category';
+        }
+    })
+})
 

@@ -27,7 +27,7 @@ namespace Model.DAO
             db.SaveChanges();
         }
 
-        public void ChangeStatus(int id)
+        public void ChangeStatus(long id)
         {
             var cate = db.ProductCategories.SingleOrDefault(x => x.ID == id);
             cate.Status = !cate.Status;
@@ -36,6 +36,19 @@ namespace Model.DAO
         public List<ProductCategory> ListAllAdmin()
         {
             return db.ProductCategories.OrderBy(x => x.DisplayOrder).ToList();
+        }
+        public bool Insert(ProductCategory pc)
+        {
+            try
+            {
+                db.ProductCategories.Add(pc);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

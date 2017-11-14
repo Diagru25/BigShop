@@ -31,7 +31,7 @@ namespace Model.DAO
             db.SaveChanges();
             return true;
         }
-        public void ChangeStatus(int id)
+        public void ChangeStatus(long id)
         {
             var brand = db.ProductCategorySmalls.SingleOrDefault(x => x.ID == id);
             brand.Status = !brand.Status;
@@ -40,6 +40,19 @@ namespace Model.DAO
         public List<ProductCategorySmall> ListByCategoryAdmin(int ctg_id)
         {
             return db.ProductCategorySmalls.Where(x => x.ProductCategoryID == ctg_id).ToList();
+        }
+        public bool Insert(ProductCategorySmall pcs)
+        {
+            try
+            {
+                db.ProductCategorySmalls.Add(pcs);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
