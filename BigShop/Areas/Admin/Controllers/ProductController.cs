@@ -125,22 +125,26 @@ namespace BigShop.Areas.Admin.Controllers
             return View();
         }
 
+        //Lấy brand theo cate
         [HttpPost]
         public JsonResult GetBrand(int id)
         {
             List<ProductCategorySmall> data = new ProductCategorySmallDao().ListByCategoryAdmin(id);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        //Lấy cate
         public JsonResult GetCategory()
         {
             List<ProductCategory> data = new ProductCategoryDao().ListAllAdmin();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        //Lấy sp theo brand cate
         public JsonResult GetBrandCategory(int brandid, int cateid)
         {
             var data = new ProductDao().GetProductByBrandAndCategory(brandid, cateid);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        //Load Images xml
         public JsonResult LoadImages(long id)
         {
             var product = new ProductDao().GetById(id);
@@ -170,6 +174,7 @@ namespace BigShop.Areas.Admin.Controllers
 
 
         }
+        // Save Images XML
         public JsonResult SaveImages(long id, string images)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -204,24 +209,91 @@ namespace BigShop.Areas.Admin.Controllers
             psd.DelBrand(brandid);           
             return Json(new { status = true},JsonRequestBehavior.AllowGet);
         }
-
+        // Thay đổi status
         public JsonResult BrandStatus(int id)
         {
             ProductCategorySmallDao psd = new ProductCategorySmallDao();
             psd.ChangeStatus(id);
+            ProductDao pd = new ProductDao();
+
+            var product = pd.GetProductByBrand(id);
+            foreach(var item in product)
+            {
+                pd.ChangeStatus(item.ID);
+            }
+
             return Json(new { status = true});
         }
+        //Xóa cate
         public JsonResult DelCategory(int id)
         {
             ProductCategoryDao pd = new ProductCategoryDao();
             pd.DelCategory(id);
             return Json(new { status = true });
         }
+        // Thay đổi cate status
         public JsonResult CateStatus(int id)
         {
-            ProductCategoryDao pd = new ProductCategoryDao();
-            pd.ChangeStatus(id);
+            ProductCategoryDao pcd = new ProductCategoryDao();
+            ProductCategorySmallDao pcsd = new ProductCategorySmallDao();
+            ProductDao pd = new ProductDao();
+            
+            var brand = pcsd.ListByCategoryAdmin(id);
+            foreach(var item in brand)
+            {
+                pcsd.ChangeStatus(item.ID);
+                var product = pd.GetProductByBrand(item.ID).ToList();
+                foreach(var item2 in product)
+                {
+                    pd.ChangeStatus(item2.ID);
+                }
+            }
+
+            pcd.ChangeStatus(id);
             return Json(new { status = true });
+        }
+        // Thêm cate
+        public JsonResult AddCategory(string CateName, int CateSeq)
+        {
+            string data = "";
+            ProductCategory pc = new ProductCategory();
+            ProductCategoryDao pcd = new ProductCategoryDao();
+            try
+            {
+                pc.Name = CateName.ToUpper();
+                pc.DisplayOrder = CateSeq;
+                pc.MetaTitle = ConvertToUnSign(CateName);
+                pc.Status = false;
+                pcd.Insert(pc);
+                data = "Thêm thành công";
+            }
+            catch
+            {
+                data = "Lỗi";
+            }
+            return Json(data,JsonRequestBehavior.AllowGet);
+        }
+        //Thêm Brand
+        public JsonResult AddBrand(string BrandName,int BrandSeq, int CateID)
+        {
+            string data = "";
+            ProductCategorySmall pcs = new ProductCategorySmall();
+            ProductCategorySmallDao pcsd = new ProductCategorySmallDao();
+            try
+            {
+                pcs.Name = BrandName.ToUpper();
+                pcs.DisplayOrder = BrandSeq;
+                pcs.MetaTitle = ConvertToUnSign(BrandName);
+                pcs.ProductCategoryID = CateID;
+                pcs.Status = false;
+                pcsd.Insert(pcs);
+                data = "Thêm thành công";
+            }
+            catch
+            {
+                data = "Lỗi";
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
         public static string ConvertToUnSign(string text)
