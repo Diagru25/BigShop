@@ -108,5 +108,16 @@ namespace Model.DAO
             product.MoreImages = images;
             db.SaveChanges();
         }
+
+        public bool delBrand(int brandid, int cateid)
+        {
+            var pro = db.Products.Where(x => x.BrandID == brandid && x.CategoryID == cateid).ToList();
+            foreach(var item in pro)
+            {
+                db.Products.Remove(item);
+            }
+            db.SaveChanges();
+            return true;
+        }
     }
 }

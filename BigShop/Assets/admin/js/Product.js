@@ -462,16 +462,12 @@ product.init();
         url: "/Admin/Product/GetCategory/",
         type: "post",
         dataType: "json",
-        error: function () {
-            alert('abc');
-        },
         success: function (data) {
             var rows = "<option>Sản phẩm</option>";
             $.each(data, function (i, item) {
                 rows += "<option value=" + item.ID + ">" + item.Name + "</option>";
                 $('.category').html(rows);
             })
-
         }
     });
 })();
@@ -651,6 +647,10 @@ var image = {
     }
 }
 image.init();
+
+// Danh muc sản phẩm
+
+
 
 
 

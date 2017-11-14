@@ -109,7 +109,8 @@ namespace BigShop.Areas.Admin.Controllers
         // Trang danh mục sản phẩm
         public ActionResult Category()
         {
-            return View();
+            var model = new ProductCategoryDao().ListAllAdmin();
+            return View(model);
         }
 
         // Thống kê sản phẩm bán chạy nhất
@@ -127,12 +128,12 @@ namespace BigShop.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GetBrand(int id)
         {
-            List<ProductCategorySmall> data = new ProductCategorySmallDao().ListByCategory(id);
+            List<ProductCategorySmall> data = new ProductCategorySmallDao().ListByCategoryAdmin(id);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetCategory()
         {
-            List<ProductCategory> data = new ProductCategoryDao().ListAll();
+            List<ProductCategory> data = new ProductCategoryDao().ListAllAdmin();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetBrandCategory(int brandid, int cateid)
@@ -193,6 +194,7 @@ namespace BigShop.Areas.Admin.Controllers
 
         }
 
+<<<<<<< HEAD
         // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
         public static string ConvertToUnSign(string text)
         {
@@ -202,10 +204,53 @@ namespace BigShop.Areas.Admin.Controllers
             }
 
             for (int i = 58; i < 65; i++)
+=======
+        //Xóa Brand trng category
+
+        public JsonResult DeleteBrand(int brandid, int cateid)
+        {
+            ProductDao pd = new ProductDao();
+            ProductCategorySmallDao psd = new ProductCategorySmallDao();
+            pd.delBrand(brandid, cateid);
+            psd.DelBrand(brandid);           
+            return Json(new { status = true},JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult BrandStatus(int id)
+        {
+            ProductCategorySmallDao psd = new ProductCategorySmallDao();
+            psd.ChangeStatus(id);
+            return Json(new { status = true});
+        }
+        public JsonResult DelCategory(int id)
+        {
+            ProductCategoryDao pd = new ProductCategoryDao();
+            pd.DelCategory(id);
+            return Json(new { status = true });
+        }
+        public JsonResult CateStatus(int id)
+        {
+            ProductCategoryDao pd = new ProductCategoryDao();
+            pd.ChangeStatus(id);
+            return Json(new { status = true });
+        }
+        // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
+        public static string ConvertToUnSign(string text)
+        {
+            for (int i = 33; i < 48; i++)
+>>>>>>> 8af0b97fc13d3d6868ae24368b3ecdd90224acf6
             {
                 text = text.Replace(((char)i).ToString(), "");
             }
 
+<<<<<<< HEAD
+=======
+            for (int i = 58; i < 65; i++)
+            {
+                text = text.Replace(((char)i).ToString(), "");
+            }
+
+>>>>>>> 8af0b97fc13d3d6868ae24368b3ecdd90224acf6
             for (int i = 91; i < 97; i++)
             {
                 text = text.Replace(((char)i).ToString(), "");
