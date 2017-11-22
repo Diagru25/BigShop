@@ -1,5 +1,6 @@
 ﻿@{
     var session = (BigShop.Models.LoginModel)Session[BigShop.Common.CommonConst.UserSession];
+    var product = (List<BigShop.Models.CartItem>)Session[BigShop.Common.CommonConst.CartSession];
 }
 <!DOCTYPE html>
 <html>
@@ -68,7 +69,15 @@
                             <li><a href="/dang-xuat">Đăng xuất</a></li>
                         </ul>
                     }
-                    <div class="cart"><a href="/gio-hang"><span> </span>Giỏ hàng</a></div>
+                    @if (product == null)
+                    {
+                        <div class="cart"><a href="/gio-hang"><span> </span>Giỏ hàng (0) san pham</a></div>
+                    }
+                    else
+                    {
+                        <div class="cart"><a href="/gio-hang"><span> </span>Giỏ hàng (@product.Count) san pham</a></div>
+                    }
+                    
                     <div class="clearfix"> </div>
                 </div>
                 <div class="clearfix"> </div>

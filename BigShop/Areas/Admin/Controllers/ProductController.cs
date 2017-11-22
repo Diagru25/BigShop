@@ -198,6 +198,11 @@ namespace BigShop.Areas.Admin.Controllers
             }
 
         }
+<<<<<<< HEAD
+=======
+        //Xóa Brand trng category
+
+>>>>>>> 4f2181d47235a3ec0a472affde9927a1decc5981
         public JsonResult DeleteBrand(int brandid, int cateid)
         {
             ProductDao pd = new ProductDao();
@@ -295,6 +300,10 @@ namespace BigShop.Areas.Admin.Controllers
         // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
         public static string ConvertToUnSign(string text)
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4f2181d47235a3ec0a472affde9927a1decc5981
             for (int i = 33; i < 48; i++)
             {
                 text = text.Replace(((char)i).ToString(), "");
@@ -303,6 +312,10 @@ namespace BigShop.Areas.Admin.Controllers
             {
                 text = text.Replace(((char)i).ToString(), "");
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4f2181d47235a3ec0a472affde9927a1decc5981
             for (int i = 91; i < 97; i++)
             {
                 text = text.Replace(((char)i).ToString(), "");

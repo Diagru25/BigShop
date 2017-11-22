@@ -16,7 +16,7 @@
                 }
             })
         })
-        $('#btnDes').off('click').on('click', function () {
+        $('.btnDes').off('click').on('click', function () {
             $.ajax({
                 data: { id: $(this).data('id') },
                 url: '/Cart/Desquantity',
@@ -29,7 +29,7 @@
                 }
             })
         })
-        $('#btnIden').off('click').on('click', function () {
+        $('.btnIden').off('click').on('click', function () {
             $.ajax({
                 data: { id: $(this).data('id') },
                 url: '/Cart/Idenquantity',

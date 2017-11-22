@@ -46,7 +46,7 @@
                                 var block = item.Status == true ? "Khóa" : "Kích hoạt";
                                 var statuscl = item.Status == true ? "btn-danger" : "btn-success";
                                 <tr>
-                                    <td><a href="#" class="viewBrand" data-id="@item.ID">@item.Name</a></td>
+                                    <td><a role="button" class="viewBrand" data-id="@item.ID">@item.Name</a></td>
                                     <td>@item.ID</td>
                                     <td>@item.MetaTitle</td>
                                     <td><a class="btn @statuscl change_status" data-id="@item.ID">@block</a></td>
