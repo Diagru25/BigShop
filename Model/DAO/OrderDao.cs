@@ -18,9 +18,10 @@ namespace Model.DAO
 
         public long Insert(Order item)
         {
-            db.Orders.Add(item);
-            db.SaveChanges();
-            return item.ID;
+                db.Orders.Add(item);
+                db.SaveChanges();
+                return item.ID;
+            
         }
     }
 }

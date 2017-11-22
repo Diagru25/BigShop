@@ -21,7 +21,7 @@ namespace Model.EF
         [StringLength(50)]
         public string ShipMobile { get; set; }
 
-        [StringLength(50)]
+        [StringLength(250)]
         public string ShipAdress { get; set; }
 
         [StringLength(50)]

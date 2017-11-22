@@ -44,15 +44,9 @@ $('#btn_pay').click(function () {
         data: { email: email, name: name, province: province, district: district, ward: ward, address: address, phone: phone },
         type: 'POST',
         dataType: 'json',
-        success: function (data) {
-            if (data == "Đăng kí thành công") {
-                $('#concard').addClass('alert alert-success');
-                $('#concard').html(data);
-            }
-            else {
-                $('#concard').addClass('alert alert-danger');
-                $('#concard').html(data);
-            }
+        success: function () {
+            alert("Thanh toán thành công");
+            window.location.href = '/Home/Index';
         }
     });
 })
