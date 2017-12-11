@@ -46,7 +46,20 @@ namespace Model.DAO
             }
             db.SaveChanges();
         }
+        public List<TopOrder> Top()
+        {
+            var ord = from q in db.OrderDetails
+                      join p in db.Products on q.ProductID equals p.ID
+                      select new OrderDetailView() { Name = p.Name, ProductID = q.ProductID, OrderID = q.OrderID, Quantity = q.Quantity, Price = q.Price };
+            var list = from item in ord
+                       group item by item.Name into g
+                       select new { name = g.Key, quantity = g.Sum(x => x.Quantity) };
+            var result = from q in list
+                         join p in ord on q.name equals p.Name
+                         select new TopOrder() { ID = p.ProductID, Name = p.Name, Price = p.Price, Quantity = q.quantity, Revenue = p.Price * q.quantity };
+            return result.ToList();     
+        }
     }
-
+        
 
 }

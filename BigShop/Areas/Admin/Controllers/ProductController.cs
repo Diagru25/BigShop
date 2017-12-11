@@ -293,6 +293,11 @@ namespace BigShop.Areas.Admin.Controllers
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Top()
+        {
+            var data = new OrderDetailDao().Top();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         // chuyển chuỗi có dấu thành meta-title (vũ tuấn sơn ==> vu-tuan-son)
         public static string ConvertToUnSign(string text)
         {

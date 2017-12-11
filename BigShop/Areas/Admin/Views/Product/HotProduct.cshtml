@@ -4,14 +4,22 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section jsChart{
-    <script src="/Assets/admin/js/mdb.js"></script>
+    <script src="/Assets/admin/js/Chart/Chart.bundle.js"></script>
+    <script src="/Assets/admin/js/Chart/utils.js"></script>
+}
+@section jsChartjs{    
     <script src="/Assets/admin/js/Chart.js"></script>
 }
 
 <div id="page-wrapper">
 
     @* Chart *@
-    <div style="display: block; width: 300px ; height: 300px ;"><canvas id="pieChart"></canvas></div>
+    <div style="display: block; width: 500px ;">
+        <canvas id="chart-area" />
+    </div>
+    <div style="display: block; width: 500px ;">
+        <canvas id="chart-area-revenue" />
+    </div>
 
 
     <div class="row">
