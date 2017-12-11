@@ -134,7 +134,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="/Admin/Home/HasReadAll" >Đánh dấu tất cả đã đọc</a>
+                                    <a href="/Admin/Home/HasReadAll">Đánh dấu tất cả đã đọc</a>
                                 </li>
                             </ul>
                         </div>
@@ -172,7 +172,7 @@
                                                     <td>@content</td>
                                                 </tr>
                                             }
-                                            else if(item.Status == 1)
+                                            else if (item.Status == 1)
                                             {
                                                 <tr id=@rowid role="button" onclick="getFBDetail(@item.ID);">
                                                     <td><input class="checkfb" type="checkbox" data-id="@item.ID" /></td>
@@ -249,22 +249,19 @@
                                             <th>Tên khách hàng</th>
                                             <th>Email</th>
                                             <th>Địa Chỉ</th>
-                                            <th>Số lượng</th>
-                                            <th>Đơn giá</th>
-                                            <th>Thành tiền</th>
+                                            <th>Giá trị đơn hàng</th>
+                                            <th>Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in NewOrder)
-                                        {
+                                        {                                            
                                             <tr class="row_order" data-id="@item.ID" role="button">
                                                 <td><input type="checkbox" class="check" data-id="@item.ID" /></td>
                                                 <td>@item.ShipName</td>
                                                 <td>@item.ShipEmail</td>
                                                 <td>@item.ShipAdress</td>
-                                                <td>4 chiếc</td>
-                                                <td>6000000</td>
-                                                <td>24000000</td>
+                                                <td>@item.OrderValue.ToString("N0")₫</td>
                                             </tr>
                                         }
                                     </tbody>
@@ -293,20 +290,7 @@
                                             <th>Giá</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tb_detail">
-                                        @*@foreach (var item in NewOrder)
-                                        {
-                                            <tr>
-                                                <td class="check" data-id="@item.ID"><input type="checkbox" /></td>
-                                                <td>@item.ShipName</td>
-                                                <td>@item.ShipEmail</td>
-                                                <td>@item.ShipAdress</td>
-                                                <td>4 chiếc</td>
-                                                <td>6000000</td>
-                                                <td>24000000</td>
-                                            </tr>
-                                        }*@
-                                    </tbody>
+                                    <tbody id="tb_detail"></tbody>
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
@@ -336,19 +320,19 @@
                 <h4 class="modal-title">Feedback</h4>
             </div>
 
-                <div class="modal-body">
-                    <div>
-                        <label id="fb_title"></label>
-                    </div>
-                    <div>Nội dung</div>
-                    <div>
-                        
-                        <textarea id="fb_content" rows="5" cols="72"></textarea>
-                    </div>
+            <div class="modal-body">
+                <div>
+                    <label id="fb_title"></label>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <div>Nội dung</div>
+                <div>
+
+                    <textarea id="fb_content" rows="5" cols="72"></textarea>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
         </div>
 
     </div>

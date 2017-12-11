@@ -43,7 +43,7 @@ namespace BigShop.Areas.Admin.Controllers
         public JsonResult ChangeStatus(int id)
         {
             var dao = new OrderDao();
-            dao.ChangeStatus(id);
+            dao.ChangeStatus(id,1);
             return Json(new { status = true });
         }
         public JsonResult GetFBByID(int id)
