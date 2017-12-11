@@ -31,7 +31,7 @@ $('#btn_register').click(function () {
     });
 })
 // sự kiện khi bấm submit của Payment
-$('#btn_pay').click(function () {
+$('#btn_pay').off('click').click(function () {
     var name = $('#tb_name').val();
     var phone = $('#tb_phone').val();
     var address = $('#add').val();
@@ -40,10 +40,11 @@ $('#btn_pay').click(function () {
     var ward = $('#ward option:selected').text();
     var email = $('#tb_mail').val();
     $.ajax({
-        url: '/Cart/Payment/',
+        url: '/Cart/Payment',
         data: { email: email, name: name, province: province, district: district, ward: ward, address: address, phone: phone },
         type: 'POST',
         dataType: 'json',
+        error: alert('loi'),
         success: function () {
             alert("Thanh toán thành công");
             window.location.href = '/Home/Index';

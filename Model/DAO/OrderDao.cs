@@ -23,5 +23,15 @@ namespace Model.DAO
                 return item.ID;
             
         }
+        public List<Order> NewOrder()
+        {
+            return db.Orders.Where(x => x.Status == null).ToList();
+        }
+        public void ChangeStatus(long id)
+        {
+            var ord = db.Orders.SingleOrDefault(x => x.ID == id);
+            ord.Status = 1;
+            db.SaveChanges();
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model.EF.OverView;
 
 namespace Model.DAO
 {
@@ -28,6 +29,13 @@ namespace Model.DAO
             {
                 return false;
             }
+        }
+        public List<OrderDetailView> GetOrderByID(long id)
+        {
+            var list = from q in db.OrderDetails
+                       join p in db.Products on q.ProductID equals p.ID where q.OrderID == id
+                       select new OrderDetailView(){Name = p.Name,ProductID = q.ProductID, OrderID = q.OrderID,Quantity = q.Quantity,Price = q.Price};
+            return list.ToList();
         }
 
     }
