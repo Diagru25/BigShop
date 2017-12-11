@@ -66,13 +66,21 @@ $('#btn_confirm').click(function () {
     window.location.href = '/Admin/Order/Index';
 })
 
-('#btn_del').click(function () {
+function delOrder(id) {
+    $.ajax({
+        url: '/Admin/Order/DelOrder/' + id,
+        dataType: 'json',
+        type: 'POST'
+    })
+}
+
+$('#btn_del').click(function () {
     var listCheckBox = document.getElementsByClassName('check');
     var count = 0;
     for (var i = 0; i < listCheckBox.length; i++) {
         if (listCheckBox[i].checked == true) {
             var id = listCheckBox[i].getAttribute("data-id");
-
+            delOrder(id);
             count++;
         }
     }

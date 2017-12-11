@@ -25,5 +25,10 @@ namespace BigShop.Areas.Admin.Controllers
             new OrderDao().ChangeStatus(id, status);
             return Json(new { status = true });
         }
+        public JsonResult DelOrder(long id)
+        {
+            new OrderDao().DelOrder(id);
+            return Json(new { status = true });
+        }
     }
 }

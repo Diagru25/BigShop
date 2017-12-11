@@ -37,7 +37,15 @@ namespace Model.DAO
                        select new OrderDetailView(){Name = p.Name,ProductID = q.ProductID, OrderID = q.OrderID,Quantity = q.Quantity,Price = q.Price};
             return list.ToList();
         }
-
+        public void DelOrderDetail(long id)
+        {
+            var list = db.OrderDetails.Where(x => x.OrderID == id);
+            foreach(var item in list)
+            {
+                db.OrderDetails.Remove(item);
+            }
+            db.SaveChanges();
+        }
     }
 
 

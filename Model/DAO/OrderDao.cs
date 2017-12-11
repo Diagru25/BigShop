@@ -45,5 +45,12 @@ namespace Model.DAO
             ord.Status = status;
             db.SaveChanges();
         }
+        public void DelOrder(long id)
+        {
+            var dt = db.Orders.SingleOrDefault(x => x.ID == id);
+            new OrderDetailDao().DelOrderDetail(id);
+            db.Orders.Remove(dt);
+            db.SaveChanges();
+        }
     }
 }
