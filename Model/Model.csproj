@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DAO\CartDao.cs" />
     <Compile Include="DAO\DistrictDao.cs" />
+    <Compile Include="DAO\FeedBackDao.cs" />
     <Compile Include="DAO\MenuDao.cs" />
     <Compile Include="DAO\OrderDao.cs" />
     <Compile Include="DAO\OrderDetailDao.cs" />
@@ -74,6 +75,9 @@
     <Compile Include="EF\MenuType.cs" />
     <Compile Include="EF\Order.cs" />
     <Compile Include="EF\OrderDetail.cs" />
+    <Compile Include="EF\OverView\TopOrder.cs" />
+    <Compile Include="EF\OverView\OrderDetailView.cs" />
+    <Compile Include="EF\OverView\OrderView.cs" />
     <Compile Include="EF\Product.cs" />
     <Compile Include="EF\ProductCategory.cs" />
     <Compile Include="EF\ProductCategorySmall.cs" />
