@@ -141,7 +141,7 @@
                                 <td>@item.ID</td>
                                 <td>@item.Name</td>
                                 <td>@item.Code</td>
-                                <td class="center">@item.Price.GetValueOrDefault(0).ToString("N0")</td>
+                                <td class="center">@item.Price.ToString("N0")</td>
                                 <td class="center">@item.Quantity</td>
                                 <td style="width: 100px; height: auto"><img src="@item.Image" class="img-responsive" /></td>
                                 <td><button class="btn btn-success btn_image" data-id="@item.ID" >Quản lý ảnh</button> | <button class="btn btn-primary editadminproduct" onclick="return getDetailProduct(@item.ID)">Sửa</button> | <a class="btn btn-danger deleteadminproduct" data-id="@item.ID" id="adminDelete">Xóa</a></td>

@@ -1,7 +1,10 @@
 ﻿
+@using Model.EF
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var NewOrder = ViewBag.NewOrder;
+    var FBack = ViewBag.FBack;
 }
 @section jsIndex{
     <script src="/Assets/admin/js/Event.js"></script>
@@ -23,7 +26,7 @@
                             <i class="fa fa-comments fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">26</div>
+                            <div class="huge" id="countFB">@FBack.Count</div>
                             <div>Phản hồi</div>
                         </div>
                     </div>
@@ -67,7 +70,7 @@
                             <i class="fa fa-shopping-cart fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">124</div>
+                            <div class="huge">@NewOrder.Count</div>
                             <div>Đơn hàng mới</div>
                         </div>
                     </div>
@@ -118,17 +121,20 @@
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
                                 <li>
-                                    <a href="#">Hiển thị tất cả</a>
+                                    <a role="button" id="listall">Hiển thị tất cả</a>
                                 </li>
                                 <li>
-                                    <a href="#">Mới nhất(Chưa đọc)</a>
+                                    <a role="button" id="listnew">Chưa đọc</a>
                                 </li>
                                 <li>
-                                    <a href="#">Cũ hơn(đã đọc)</a>
+                                    <a role="button" id="listold">Đã đọc</a>
+                                </li>
+                                <li>
+                                    <a role="button" id="listspam">Spam</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#">Đánh dấu tất cả đã đọc</a>
+                                    <a href="/Admin/Home/HasReadAll">Đánh dấu tất cả đã đọc</a>
                                 </li>
                             </ul>
                         </div>
@@ -144,15 +150,49 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Người gửi</th>
+                                            <th>Số đt</th>
+                                            <th>Ngày</th>
                                             <th>Nội dung</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" /></td>
-                                            <td>Vũ Tuấn Sơn</td>
-                                            <td>Đây là nội dung phản hồi 1 mà tao chưa làm. bây giờ ở bên client phải có 1 trang phản hồi nữa</td>
-                                        </tr>
+                                    <tbody id="tb_FB">
+                                        @foreach (var item in FBack)
+                                        {
+                                            string rowid = "row" + item.ID;
+                                            string content;
+                                            if (item.Content.Length > 30) { content = item.Content.Substring(0, 29) + "...."; }
+                                            else { content = item.Content; }
+                                            if (item.Status == null)
+                                            {
+                                                <tr id=@rowid role="button" style="font-weight:700;" onclick="getFBDetail(@item.ID);">
+                                                    <td><input class="checkfb" type="checkbox" data-id="@item.ID" /></td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Phone</td>
+                                                    <td>@item.CreatedDate</td>
+                                                    <td>@content</td>
+                                                </tr>
+                                            }
+                                            else if (item.Status == 1)
+                                            {
+                                                <tr id=@rowid role="button" onclick="getFBDetail(@item.ID);">
+                                                    <td><input class="checkfb" type="checkbox" data-id="@item.ID" /></td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Phone</td>
+                                                    <td>@item.CreatedDate</td>
+                                                    <td>@content</td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr id=@rowid role="button" style="background-color:#de8888;color:white;" onclick="getFBDetail(@item.ID);">
+                                                    <td><input class="checkfb" type="checkbox" data-id="@item.ID" /></td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Phone</td>
+                                                    <td>@item.CreatedDate</td>
+                                                    <td>@content</td>
+                                                </tr>
+                                            }
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -162,8 +202,8 @@
                     </div>
                     <!-- /.row -->
                     <div style="float: right">
-                        <button class="btn btn-danger">Xóa</button>
-                        <button class="btn btn-primary">Duyệt</button>
+                        <button id="del_feetback" class="btn btn-danger">Xóa</button>
+                        <button id="spam_feedback" class="btn btn-warning">Đánh dấu spam</button>
                     </div>
 
                 </div>
@@ -208,22 +248,22 @@
                                             <th>#</th>
                                             <th>Tên khách hàng</th>
                                             <th>Email</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th>Đơn giá</th>
-                                            <th>Thành tiền</th>
+                                            <th>Địa Chỉ</th>
+                                            <th>Giá trị đơn hàng</th>
+                                            <th>Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" /></td>
-                                            <td>Vũ Tuấn Sơn</td>
-                                            <td>diagru2510@gmail.com</td>
-                                            <td>IP6</td>
-                                            <td>4 chiếc</td>
-                                            <td>6000000</td>
-                                            <td>24000000</td>
-                                        </tr>
+                                        @foreach (var item in NewOrder)
+                                        {                                            
+                                            <tr class="row_order" data-id="@item.ID" role="button">
+                                                <td><input type="checkbox" class="check" data-id="@item.ID" /></td>
+                                                <td>@item.ShipName</td>
+                                                <td>@item.ShipEmail</td>
+                                                <td>@item.ShipAdress</td>
+                                                <td>@item.OrderValue.ToString("N0")₫</td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -233,17 +273,69 @@
                     </div>
                     <!-- /.row -->
                     <div style="float: right">
-                        <button class="btn btn-danger">Xóa</button>
-                        <button class="btn btn-primary">Duyệt</button>
+                        <button class="btn btn-danger" id="btn_del">Xóa</button>
+                        <button class="btn btn-primary" id="btn_confirm">Duyệt</button>
                     </div>
                 </div>
                 <!-- /.panel-body -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tb_detail"></tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.col-lg-4 (nested) -->
+                    </div>
+                    <!-- /.row -->
+                </div>
             </div>
+
             <!-- /.panel -->
         </div>
         <!-- /.col-lg-8 -->
     </div>
     <!-- /.row -->
+</div>
+
+
+@* Modal feedback *@
+
+<div class="modal fade" id="fbDetailModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Feedback</h4>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <label id="fb_title"></label>
+                </div>
+                <div>Nội dung</div>
+                <div>
+
+                    <textarea id="fb_content" rows="5" cols="72"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 

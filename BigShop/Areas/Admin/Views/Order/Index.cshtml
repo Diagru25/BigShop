@@ -1,0 +1,116 @@
+﻿@using Model.EF
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var Order = ViewBag.Order;
+}
+@section jsIndex{
+    <script src="/Assets/admin/js/Order.js"></script>
+}
+<div id="page-wrapper">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    ĐƠN HÀNG
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-bordered table-hover table-striped" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Mã</th>
+                                <th>Tên khách hàng</th>
+                                <th>Email</th>
+                                <th>Địa chỉ</th>
+                                <th>Giá trị đơn hàng</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Order)
+                            {
+                                string status;
+                                string alert;
+                                if (item.Status == null) { status = "Chờ xét duyệt"; alert = "alert-warning"; }
+                                else if (item.Status == 1) { status = "Đang tiến hành"; alert = "alert-info"; }
+                                else { status = "Đã hoàn thành"; alert = "alert-success"; }
+                                <tr class="row_order"  role="button" data-id="@item.ID">
+                                    @if (item.Status == null || item.Status == 1)
+                                    {
+                                    <td><input type="checkbox" class="check" data-id="@item.ID" /></td>}
+                                    else
+                                    {<td></td>}
+                                    <td>@item.ID</td>
+                                    <td>@item.ShipName</td>
+                                    <td>@item.ShipEmail</td>
+                                    <td>@item.ShipAdress</td>
+                                    <td>@item.OrderValue.ToString("N0")₫</td>
+                                    <td class="alert @alert">@status</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div style="float: right">
+        <button class="btn btn-success" id="btn_done">Đã hoàn thành</button>
+        <button class="btn btn-primary" id="btn_confirm">Duyệt</button>
+        <button class="btn btn-danger" id="btn_del">Xóa</button>
+    </div>
+</div>
+
+@* Modal detail *@
+
+<div class="modal fade" id="orderDetail" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="ord_title">Feedback</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12" style="width:500px;">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tb_detail">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.col-lg-4 (nested) -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

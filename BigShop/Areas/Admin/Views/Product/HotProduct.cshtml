@@ -3,8 +3,25 @@
     ViewBag.Title = "HotProduct";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@section jsChart{
+    <script src="/Assets/admin/js/Chart/Chart.bundle.js"></script>
+    <script src="/Assets/admin/js/Chart/utils.js"></script>
+}
+@section jsChartjs{    
+    <script src="/Assets/admin/js/Chart.js"></script>
+}
 
 <div id="page-wrapper">
+
+    @* Chart *@
+    <div style="display: block; width: 500px ;">
+        <canvas id="chart-area" />
+    </div>
+    <div style="display: block; width: 500px ;">
+        <canvas id="chart-area-revenue" />
+    </div>
+
+
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Thống kê sản phẩm hot</h1>
@@ -32,14 +49,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <tr>
-                                    <td>13</td>
-                                    <td>éc éc</td>
-                                    <td>con card</td>
-                                    <td class="center">vài củ</td>
-                                    <td style="width: 100px; height: auto"><img src="" class="img-responsive" /></td>
-                                    <td>6000</td>
-                                </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>éc éc</td>
+                                <td>con card</td>
+                                <td class="center">vài củ</td>
+                                <td style="width: 100px; height: auto"><img src="" class="img-responsive" /></td>
+                                <td>6000</td>
+                            </tr>
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->
