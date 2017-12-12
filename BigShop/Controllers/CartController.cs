@@ -150,7 +150,7 @@ namespace BigShop.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Payment(string email, string name, string province, string district , string ward, string address, string phone)
+        public JsonResult Payment(string email, string name, string province, string district , string ward, string address, string phone)
         {
             var order = new Order();
             order.ShipName = name;
@@ -177,7 +177,11 @@ namespace BigShop.Controllers
             {
 
             }
-            return RedirectToAction("Index", "Home");
+            return Json(new
+            {
+                status = true
+            });
+           // return RedirectToAction("Index", "Home");
         }
 
         // hàm này để đây và không có tác dụng gì

@@ -44,9 +44,11 @@ $('#btn_pay').click(function () {
         data: { email: email, name: name, province: province, district: district, ward: ward, address: address, phone: phone },
         type: 'POST',
         dataType: 'json',
-        success: function () {
-            alert("Thanh toán thành công");
-            window.location.href = '/Home/Index';
+        success: function (res) {
+            if (res.status == true) {
+                alert("Thanh toán thành công");
+                window.location.href = '/Home/Index';
+            }
         }
     });
 })

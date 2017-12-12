@@ -38,6 +38,7 @@ namespace Model.EF
         public int Quantity { get; set; }
 
         public long? CategoryID { get; set; }
+
         public long? BrandID { get; set; }
 
         [Column(TypeName = "ntext")]
@@ -60,7 +61,7 @@ namespace Model.EF
         [StringLength(10)]
         public string MetaDiscriptions { get; set; }
 
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
 
         public DateTime? TopHot { get; set; }
 
