@@ -115,7 +115,7 @@
         <div class="row_pay">
             <div class="col_sp">@item.Product.Name</div>
             <div class="col_num">@item.Quantity</div>
-            <div class="col_cost">@((item.Product.Price * item.Quantity).GetValueOrDefault(0).ToString("N0"))₫</div>
+            <div class="col_cost">@((item.Product.Price * item.Quantity).ToString("N0"))₫</div>
         </div>
     }
     <div id="cl">Giao hàng tiêu chuẩn</div>
@@ -123,7 +123,7 @@
     <div class="title_in" style="height: 60px !important; border-bottom: 1px solid #daa6a6;">
         <div id="row_temp">
             <div class="title_payment">Tạm tính</div>
-            <div class="money_last" id="pro_cost">@Model.Sum(x => x.Product.Price * x.Quantity).GetValueOrDefault(0).ToString("N0")₫</div>
+            <div class="money_last" id="pro_cost">@Model.Sum(x => x.Product.Price * x.Quantity).ToString("N0")₫</div>
         </div>
         <div id="row_trans">
             <div class="title_payment">Phí vận chuyển</div>
@@ -137,7 +137,7 @@
                     <strong>Tổng tiền</strong> <br>
                     <span>(Tổng số tiền thanh toán)</span>
                 </td>
-                <td colspan="2" id="total_pay" style="">@Model.Sum(x => x.Product.Price * x.Quantity).GetValueOrDefault(0).ToString("N0")₫</td>
+                <td colspan="2" id="total_pay" style="">@Model.Sum(x => x.Product.Price * x.Quantity).ToString("N0")₫</td>
             </tr>
         </table>
     </div>

@@ -56,8 +56,9 @@ namespace Model.DAO
                        select new { name = g.Key, quantity = g.Sum(x => x.Quantity) };
             var result = from q in list
                          join p in ord on q.name equals p.Name
-                         select new TopOrder() { ID = p.ProductID, Name = p.Name, Price = p.Price, Quantity = q.quantity, Revenue = p.Price * q.quantity };
-            return result.ToList();     
+                         select new TopOrder() { ID = p.ProductID, Name = q.name, Price = p.Price, Quantity = q.quantity, Revenue = p.Price * q.quantity };
+            var last_result = result.Distinct().OrderByDescending(x => x.Quantity);
+            return last_result.ToList();     
         }
     }
         

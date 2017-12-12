@@ -52,8 +52,8 @@ namespace BigShop.Areas.Admin.Controllers
         public ActionResult Insert(string name, int categoryid, int brandid, string price, string metakeyword, string warranty, string description, int quantity, HttpPostedFileBase file)
         {
             var product = new Product();
-            try
-            {
+            //try
+            //{
                 string pic = name.Replace(" ", "-").ToLower() + System.IO.Path.GetExtension(file.FileName).ToLower();
                 string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), pic);
                 file.SaveAs(path);
@@ -69,10 +69,11 @@ namespace BigShop.Areas.Admin.Controllers
                 product.Image = "/Assets/client/images/" + pic;
                 var dao = new ProductDao();
                 dao.Insert(product);
-            }
-            catch (Exception)
-            {
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ex.ToString();
+            //}
 
             return RedirectToAction("Index");
 

@@ -26,7 +26,7 @@
                         <a class="name" style="text-decoration: none;">@item.Product.Name</a><br>
                         <button type="button" class="btn btn-danger aDelete" data-id="@item.Product.ID">Xóa</button>
                     </div>
-                    <div class="col_price"><p>@item.Product.Price.GetValueOrDefault(0).ToString("N0")₫</p></div>
+                    <div class="col_price"><p>@item.Product.Price.ToString("N0")₫</p></div>
                     <div class="btn_quantity">
                         <span><button type="button" class="btn btn-default btnDes" data-id="@item.Product.ID">-</button></span>
                         <span><input type="text" name="quantity" value="@item.Quantity" disabled /></span>
@@ -38,7 +38,7 @@
         <div class="payment">
             <div class="pay_info">
                 Tổng tiền
-                <span style="padding-left: 100px;">@Model.Sum(x => x.Product.Price * x.Quantity).GetValueOrDefault(0).ToString("N0")₫</span>
+                <span style="padding-left: 100px;">@Model.Sum(x => x.Product.Price * x.Quantity).ToString("N0")₫</span>
             </div>
             <button class="btn btn-primary btn-block" id="btnPayment">Tiến hành đặt hàng</button>
             <button type="button" class="btn btn-primary btn-block" id="btnContinue">Tiếp tục mua hàng</button>

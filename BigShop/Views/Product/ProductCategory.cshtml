@@ -33,7 +33,7 @@
                         <h6 style="height: 44px"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
                         <div class="star-price">
                             <div class="dolor-grid">
-                                <span style="font-size: 15px;color: #c10017; height: 20px;">@item.Price.GetValueOrDefault(0).ToString("N0")₫</span>
+                                <span style="font-size: 15px;color: #c10017; height: 20px;">@item.Price.ToString("N0")₫</span>
                             </div>
                             <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)" style="width: 15px; float: right"><span class="add_to_cart"></span></button>
                             <div class="clearfix"> </div>

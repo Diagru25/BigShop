@@ -71,6 +71,17 @@ var cate = {
 
 cate.init();
 
+$.formattedDate = function (dateToFormat) {
+    var dateObject = new Date(dateToFormat);
+    var day = dateObject.getDate();
+    var month = dateObject.getMonth() + 1;
+    var year = dateObject.getFullYear();
+    day = day < 10 ? "0" + day : day;
+    month = month < 10 ? "0" + month : month;
+    var formattedDate = day + "/" + month + "/" + year;
+    return formattedDate;
+};
+
 $('.viewBrand').off('click').on('click', (function () {
     var id = $(this).data('id');
     $.ajax({
@@ -86,7 +97,7 @@ $('.viewBrand').off('click').on('click', (function () {
                     if (item.Status == true) { status = 'Khóa'; button_type = 'btn-danger'; }
                     else { status = 'Kích hoạt'; button_type = 'btn-success';}
                     rows += "<tr>" +
-                       "<td>" + item.Name + "</td><td>" + i + "</td><td>" + item.CreatedDate + "</td><td>" + "<a class = 'btn " + button_type + " br_status' data-id=" + item.ID + ">" + status +"</a>" + "</td>" +
+                       "<td>" + item.Name + "</td><td>" + i + "</td><td>" + $.formattedDate(new Date(parseInt(item.CreatedDate.substr(6)))) + "</td><td>" + "<a class = 'btn " + button_type + " br_status' data-id=" + item.ID + ">" + status + "</a>" + "</td>" +
                        "<td>" + "<a class='btn btn-danger delBrand' data-id=" + item.ID + " > Xóa</a>" + "</td>"
                         + "</tr>";
                         });
