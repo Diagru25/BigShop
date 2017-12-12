@@ -44,18 +44,11 @@ $('#btn_pay').off('click').click(function () {
         data: { email: email, name: name, province: province, district: district, ward: ward, address: address, phone: phone },
         type: 'POST',
         dataType: 'json',
-<<<<<<< HEAD
         success: function (res) {
             if (res.status == true) {
                 alert("Thanh toán thành công");
                 window.location.href = '/Home/Index';
             }
-=======
-        error: alert('loi'),
-        success: function () {
-            alert("Thanh toán thành công");
-            window.location.href = '/Home/Index';
->>>>>>> 9831115e8f2acbb234b179e3527ae76f0fc3a1d0
         }
     });
 })

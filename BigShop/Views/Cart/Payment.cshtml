@@ -125,10 +125,10 @@
             <div class="title_payment">Tạm tính</div>
             <div class="money_last" id="pro_cost">@Model.Sum(x => x.Product.Price * x.Quantity).ToString("N0")₫</div>
         </div>
-        <div id="row_trans">
+        @*<div id="row_trans">
             <div class="title_payment">Phí vận chuyển</div>
             <div class="money_last" id="trans_cost">15000</div>
-        </div>
+        </div>*@
     </div>
     <div class="title_in" style="height: 60px !important; ">
         <table style="width: 100%; line-height: 30px; ">
