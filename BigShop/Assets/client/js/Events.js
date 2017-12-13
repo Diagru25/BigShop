@@ -52,6 +52,25 @@ $('#btn_pay').off('click').click(function () {
         }
     });
 })
+// sự kiện khi bấm nút submit của Phản hồi
+$('#btn_feedback').off('click').click(function () {
+    var name = $('#tb_fb_name').val();
+    var content = $('#tb_fb_content').val();
+    var email = $('#tb_fb_email').val();
+    $.ajax({
+        url: '/Home/FeedBack',
+        data: { email: email, name: name, content: content},
+        type: 'POST',
+        dataType: 'json',
+        success: function (res) {
+            if (res.status == true) {
+                alert("Gửi phản hòi thành công");
+                window.location.href = '/Home/Index';
+            }
+        }
+    });
+})
+
 // sự kiện nút xác nhận thanh toán
 //$('#confirm_pay').click(function () {
 //    var check = $('#confirm_pay').is(":checked");

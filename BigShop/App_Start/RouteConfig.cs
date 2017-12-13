@@ -41,12 +41,12 @@ namespace BigShop
                 namespaces: new[] { "BigShop.Controllers" }
             );
 
-          //  routes.MapRoute(
-          //    name: "Add Cart",
-          //    url: "them-gio-hang",
-          //    defaults: new { controller = "Cart", action = "AddItem", id = UrlParameter.Optional },
-          //    namespaces: new[] { "BigShop.Controllers" }
-          //);
+            //  routes.MapRoute(
+            //    name: "Add Cart",
+            //    url: "them-gio-hang",
+            //    defaults: new { controller = "Cart", action = "AddItem", id = UrlParameter.Optional },
+            //    namespaces: new[] { "BigShop.Controllers" }
+            //);
 
             routes.MapRoute(
               name: "Cart",
@@ -63,11 +63,18 @@ namespace BigShop
           );
 
             routes.MapRoute(
-             name: "Register",
-             url: "dang-ki",
-             defaults: new { controller = "User", action = "Register", id = UrlParameter.Optional },
-             namespaces: new[] { "BigShop.Controllers" }
+                 name: "Register",
+                 url: "dang-ki",
+                 defaults: new { controller = "User", action = "Register", id = UrlParameter.Optional },
+                 namespaces: new[] { "BigShop.Controllers" }
          );
+
+            routes.MapRoute(
+                name: "FeedBack",
+                url: "phan-hoi",
+                defaults: new { controller = "Home", action = "FeedBack", id = UrlParameter.Optional },
+                namespaces: new[] { "BigShop.Controllers" }
+          );
 
             routes.MapRoute(
                 name: "Default",

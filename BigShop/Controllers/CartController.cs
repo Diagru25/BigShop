@@ -132,7 +132,7 @@ namespace BigShop.Controllers
             if (islogin != null)
             {
                 var temp = (Account)islogin;
-                //ViewBag.User = new UserDao().GetById(temp.UserID);
+                ViewBag.User = new UserDao().GetById(temp.UserID);
 
                 // laays thoong tin province
                 ViewBag.province = new ProvinceDao().LoadAll();

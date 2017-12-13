@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "FeedBack";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsCart{
+    <script src="/Assets/client/js/Validate.js"></script>
+    <script src="/Assets/client/js/Events.js"></script>
+}
+<div class="container">
+    <div id="register_form">
+        <div id="base_info">
+            <div id="concard"></div>
+            <div class="form_title">Thông tin phản hồi</div>
+            <div class="main_form">
+                <div class="fb_field_row">
+                    <div class="fb_field_title">
+                        <label>Họ tên</label>
+                    </div>
+                    <div class="fb_field_box" id="fb_name">
+                        <input id="tb_fb_name" type="text" name="name" class="form-control" placeholder="Họ tên đầy đủ" />
+                    </div>
+                    <div id="status_name" class="status"></div>
+                    <div id="check_name" class="field_check"></div>
+                </div>
+                <div class="fb_field_row">
+                    <div class="fb_field_title">
+                        <label>Email</label>
+                    </div>
+                    <div class="fb_field_box" id="fb_email">
+                        <input id="tb_fb_email" type="text" name="email" class="form-control" placeholder="Example@mail.com" />
+                    </div>
+                    <div id="status_mail" class="status"></div>
+                    <div id="check_mail" class="field_check"></div>
+                </div>
+                <div class="fb_field_row">
+                    <div class="fb_field_title">
+                        <label>Nội dung</label>
+                    </div>
+                    <div class="fb_field_box" id="fb_content">
+                        <textarea style="height: 80px;" class="form-control" id="tb_fb_content"></textarea>
+                    </div>
+                    <div id="status_mail" class="status"></div>
+                    <div id="check_mail" class="field_check"></div>
+                </div>
+                <div style="margin-left:165px;">
+                    <input type="submit" class="btn btn-success" value="Gửi phản hồi" id="btn_feedback">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

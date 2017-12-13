@@ -7,6 +7,8 @@ namespace BigShop.Models
 {
     public class Account
     {
+        public long UserID { get; set; }
+
         public string UserName { get; set; }
 
         public string PassWord { get; set; }

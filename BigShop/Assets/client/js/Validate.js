@@ -47,7 +47,6 @@ $('#tb_name').blur(function () {
         $('#status_name').append('<img src="/Assets/client/images/tick.png" class="img-responsive">');
         $('#tg_name').attr('value', "*");
     }
-
 })
 $('#tb_name').focus(function () {
     $('#check_name').text('');

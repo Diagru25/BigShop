@@ -2001,3 +2001,23 @@ div.row_pay > div{
     padding: 0;
     background-color: #FFF;
 }
+.fb_field_title{
+	width: 180px;
+	display: block;
+	text-align: left;
+    margin-left: 150px;
+	font-size: 13px;
+}
+.fb_field_row{
+	margin: 10px;
+	padding: 2px;
+}
+.fb_field_box{
+	width: 320px;
+	display: block;
+    margin-left: 150px;
+}
+.fb_field_box > input,textarea,select{
+	width: 100%;
+	padding: 0 5px;
+}

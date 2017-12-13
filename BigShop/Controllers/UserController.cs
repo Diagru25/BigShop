@@ -50,6 +50,7 @@ namespace BigShop.Controllers
                     var user_session = new Account();
                     user_session.UserName = user.UserName;
                     user_session.PassWord = user.PassWord;
+                    user_session.UserID = user.ID;
                     user_session.Role = new UserDao().GetRoleByUserName(user.UserName);
                     Session.Add(CommonConst.UserSession, user_session);
 

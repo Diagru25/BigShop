@@ -82,6 +82,10 @@ namespace Model.EF
                 .Property(e => e.TagID)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<FeedBack>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Footer>()
                 .Property(e => e.ID)
                 .IsUnicode(false);

@@ -51,5 +51,19 @@ namespace Model.DAO
             db.FeedBacks.Remove(fb);
             db.SaveChanges();
         }
+
+        public int Insert(FeedBack item)
+        {
+            try
+            {
+                db.FeedBacks.Add(item);
+                db.SaveChanges();
+                return item.ID;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }
