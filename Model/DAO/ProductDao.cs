@@ -89,7 +89,10 @@ namespace Model.DAO
             // hôm sau m chỉnh cho nó hết điều kiện :))
 
             var product = db.Products.Find(item.ID);
-            product = item;
+            product.Name = item.Name;
+            product.Price = item.Price;
+            product.Quantity = item.Quantity;
+            product.Image = item.Image;
             db.SaveChanges();
             return true;
         }

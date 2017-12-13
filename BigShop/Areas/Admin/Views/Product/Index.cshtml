@@ -6,6 +6,7 @@
     var notif = ViewBag.Notif;
 }
 @section jsProduct{
+    <script src="/Assets/admin/js/Currency.js"></script>
     <script src="/Assets/admin/js/Product.js"></script>
 }
 <div class="modal fade" id="myModal" role="dialog">
@@ -46,12 +47,12 @@
                         </span>
                     </div>
                     <div>
-                        Giá
-                        <span><input type="text" name="price" id="price"></span>
+                        Code
+                        <span><input type="text" name="code" id="price"></span>
                     </div>
                     <div>
-                        MetaKeyword
-                        <span><input type="text" name="metakeyword" id="metakeyword"></span>
+                        Giá
+                        <span><input type="text" name="price" id="price"></span>
                     </div>
                     <div>
                         Bảo hành
@@ -68,6 +69,7 @@
                     <div>
                         Ảnh chính
                         <span id="main_image" style="display:inline-block"><input type="file" name="file" id="image"></span>
+                        <div style="width:100px; height:100px; margin: 20px 0 0 260px; " id="addimg"></div>
                     </div>
                     <div>
                         Các ảnh khác
@@ -144,7 +146,7 @@
                                 <td class="center">@item.Price.ToString("N0")</td>
                                 <td class="center">@item.Quantity</td>
                                 <td style="width: 100px; height: auto"><img src="@item.Image" class="img-responsive" /></td>
-                                <td><button class="btn btn-success btn_image" data-id="@item.ID" >Quản lý ảnh</button> | <button class="btn btn-primary editadminproduct" onclick="return getDetailProduct(@item.ID)">Sửa</button> | <a class="btn btn-danger deleteadminproduct" data-id="@item.ID" id="adminDelete">Xóa</a></td>
+                                <td><button class="btn btn-success btn_image" data-id="@item.ID" >Quản lý ảnh</button> | <button class="btn btn-primary editadminproduct" data-id="@item.ID" >Sửa</button> | <a class="btn btn-danger deleteadminproduct" data-id="@item.ID" id="adminDelete">Xóa</a></td>
                             </tr>
                            }
                         </tbody>
@@ -168,19 +170,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Sản phẩm</h4>
             </div>
-            <form action="/Admin/Product/Edit" method="post">
+            <form action="/Admin/Product/Edit" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
+                    <input type="hidden" name="ProductID" id="input0" />
                     <div>
                         Tên sản phẩm
                         <span><input type="text" name="name" id="input1"></span>
-                    </div>
-                    <div>
-                        Metatitle
-                        <span><input type="text" name="metatitle" id="input2"></span>
-                    </div>
-                    <div>
-                        Metakeyword
-                        <span><input type="text" name="metakeyword" id="input3"></span>
                     </div>
                     <div>
                         Giá
@@ -191,12 +186,13 @@
                         <span><input type="text" name="quantity" id="input5"></span>
                     </div>
                     <div>
-                        Ảnh
-                        <span><input type="file" name="image"></span>
+                        Ảnh chính
+                        <span id="main_image" style="display:inline-block"><input type="file" name="file" id="imageEdit"></span>
+                        <div style="width:100px; height:100px; margin: 20px 0 0 260px; " id="editimg"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-success" value="Lưu" />
+                    <input type="submit" class="btn btn-success" value="Lưu" id="edit_Save" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </form>
