@@ -49,11 +49,11 @@ namespace BigShop.Areas.Admin.Controllers
 
         // Thêm 1 sản phẩm
         [HttpPost]
-        public ActionResult Insert(string name, int categoryid, int brandid, string price, string metakeyword, string warranty, string description, int quantity, HttpPostedFileBase file)
+        public ActionResult Insert(string name, int categoryid, int brandid, string code, string price, string warranty, string description, int quantity, HttpPostedFileBase file)
         {
             var product = new Product();
-            //try
-            //{
+            try
+            {
                 string pic = name.Replace(" ", "-").ToLower() + System.IO.Path.GetExtension(file.FileName).ToLower();
                 string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), pic);
                 file.SaveAs(path);
@@ -61,39 +61,51 @@ namespace BigShop.Areas.Admin.Controllers
                 product.CategoryID = categoryid;
                 product.BrandID = brandid;
                 product.MetaTitle = ConvertToUnSign(name);
-                product.MetaKeywords = System.Convert.ToInt64(metakeyword);
                 product.Warranty = Convert.ToInt32(warranty);
                 product.Price = System.Convert.ToDecimal(price);
                 product.Description = description;
                 product.Quantity = quantity;
+                product.Code = code;
                 product.Image = "/Assets/client/images/" + pic;
                 var dao = new ProductDao();
                 dao.Insert(product);
-            //}
-            //catch (Exception ex)
-            //{
-            //    ex.ToString();
-            //}
+                System.IO.File.Delete(System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), file.FileName));
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
 
             return RedirectToAction("Index");
 
         }
 
         [HttpPost]
-        public ActionResult Edit(string name, string code, string metakeyword, string price, string quantity, string image, long ProductID)
+        public ActionResult Edit(string name, string price, string quantity, long ProductID, HttpPostedFileBase file)
         {
             var product = new ProductDao().GetById(ProductID);
             product.Name = name;
-            product.Code = code;
-            product.MetaKeywords = System.Convert.ToInt64(metakeyword);
             product.Price = System.Convert.ToDecimal(price);
+            product.MetaTitle = ConvertToUnSign(name);
             product.Quantity = Convert.ToInt32(quantity);
-            // ảnh
-
-            // thích thì kiểm tra bên hàm của productDao()
+            string pic = name.Replace(" ", "-").ToLower() + System.IO.Path.GetExtension(file.FileName).ToLower();
+            string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), pic);
+            file.SaveAs(path);
+            product.Image = "/Assets/client/images/" + pic;
+            System.IO.File.Delete(System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), file.FileName));
             var result = new ProductDao().Edit(product);
 
-            return View();
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult LoadEditImg()
+        {
+            HttpPostedFileBase file = Request.Files[0];
+            string pic = file.FileName;
+            string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), pic);
+            file.SaveAs(path);
+
+            return Json(pic, JsonRequestBehavior.AllowGet);
         }
 
         // Xóa 1 sản phẩm
@@ -205,8 +217,8 @@ namespace BigShop.Areas.Admin.Controllers
             ProductDao pd = new ProductDao();
             ProductCategorySmallDao psd = new ProductCategorySmallDao();
             pd.delBrand(brandid, cateid);
-            psd.DelBrand(brandid);           
-            return Json(new { status = true},JsonRequestBehavior.AllowGet);
+            psd.DelBrand(brandid);
+            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
         }
         // Thay đổi status
         public JsonResult BrandStatus(int id)
@@ -216,12 +228,12 @@ namespace BigShop.Areas.Admin.Controllers
             ProductDao pd = new ProductDao();
 
             var product = pd.GetProductByBrand(id);
-            foreach(var item in product)
+            foreach (var item in product)
             {
                 pd.ChangeStatus(item.ID);
             }
 
-            return Json(new { status = true});
+            return Json(new { status = true });
         }
         //Xóa cate
         public JsonResult DelCategory(int id)
@@ -236,13 +248,13 @@ namespace BigShop.Areas.Admin.Controllers
             ProductCategoryDao pcd = new ProductCategoryDao();
             ProductCategorySmallDao pcsd = new ProductCategorySmallDao();
             ProductDao pd = new ProductDao();
-            
+
             var brand = pcsd.ListByCategoryAdmin(id);
-            foreach(var item in brand)
+            foreach (var item in brand)
             {
                 pcsd.ChangeStatus(item.ID);
                 var product = pd.GetProductByBrand(item.ID).ToList();
-                foreach(var item2 in product)
+                foreach (var item2 in product)
                 {
                     pd.ChangeStatus(item2.ID);
                 }
@@ -270,10 +282,10 @@ namespace BigShop.Areas.Admin.Controllers
             {
                 data = "Lỗi";
             }
-            return Json(data,JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         //Thêm Brand
-        public JsonResult AddBrand(string BrandName,int BrandSeq, int CateID)
+        public JsonResult AddBrand(string BrandName, int BrandSeq, int CateID)
         {
             string data = "";
             ProductCategorySmall pcs = new ProductCategorySmall();

@@ -17,24 +17,67 @@ var product = {
                 }
             })
         })
-        function getDetailProduct(id) {
+        $('.editadminproduct').off('click').on('click', function () {
+            var ProductID = $(this).data('id');
             $.ajax({
-                url: '/Admin/Product/Get/' + id,
+                url: '/Admin/Product/Get',
+                data: { id: $(this).data('id') },
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
+                    $('#input0').val(ProductID);
                     $("#input1").val(data.Name);
-                    $("#input2").val(data.Metatitle);
-                    $("#input3").val(data.Metakeyword);
-                    $("#input4").val(data.Price);
+                    $("#input4").val(accounting.formatNumber(data.Price));
                     $("#input5").val(data.Quantity);
-                    $("#editModel").modal('show');
+                    $("#editimg").html('<img src="http://localhost:64898' + data.Image + '"class="img-responsive"/>');
+                    $('#editModel').modal('show');
                 },
                 error: function (err) {
                     alert("Error: " + err.responseText);
                 }
             });
-        };
+        });
+
+        $('#imageEdit').change(function () {
+            var file = $('#imageEdit').get(0);
+
+            var formData = new FormData();
+            for (var i = 0; i < file.files.length; i++) {
+                formData.append(file.files[i].name, file.files[i]);
+            }
+            $.ajax({
+                url: '/Admin/Product/LoadEditImg',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (pic) {
+                    $("#editimg").html('<img src="http://localhost:64898/Assets/client/images/' + pic + '"class="img-responsive"/>');
+                }
+
+            })
+        });
+        $('#image').change(function () {
+            var file = $('#image').get(0);
+
+            var formData = new FormData();
+            for (var i = 0; i < file.files.length; i++) {
+                formData.append(file.files[i].name, file.files[i]);
+            }
+            $.ajax({
+                url: '/Admin/Product/LoadEditImg',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (pic) {
+                    $("#addimg").html('<img src="http://localhost:64898/Assets/client/images/' + pic + '"class="img-responsive"/>');
+                }
+
+            })
+        });
     }
 
 }
@@ -95,7 +138,7 @@ function GetProduct(brandid, cateid) {
                     "<td class='center'>" + accounting.formatNumber(item.Price) + '₫' + "</td>" +
                     "<td class='center'>" + item.Quantity + "</td>" +
                     "<td style='width: 100px; height: auto'><img src=" + item.Image + " class='img-responsive' /></td>" +
-                    "<td><button class='btn btn-primary editadminproduct' onclick='return getDetailProduct(" + item.ID + ")'>Sửa</button> | <a class='btn btn-danger deleteadminproduct' data-id='" + item.ID + "' id='adminDelete'>Xóa</a></td></tr>";
+                    "<td><button class='btn btn-success btn_image' data-id='" + item.ID + "' >Quản lý ảnh</button> |<button class='btn btn-primary editadminproduct' data-id='" + item.ID + "')'>Sửa</button> | <a class='btn btn-danger deleteadminproduct' data-id='" + item.ID + "' id='adminDelete'>Xóa</a></td></tr>";
             })
             $('#table').html(rows);
         }
@@ -114,7 +157,7 @@ $('#brand').change(function () {
 })
 
 function change_con() {
-    var id = $('#category :selected').val();
+    var id = $('#category :selected').text();
     var brandid, cateid;
 
     if (id == "Sản phẩm") {
@@ -122,7 +165,7 @@ function change_con() {
         brandid = 0;
     }
     else {
-        if ($('#brand :selected').val() == "Tất cả") brandid = 0;
+        if ($('#brand :selected').text() == "Tất cả") brandid = 0;
         else brandid = $('#brand :selected').val();
         cateid = $('#category :selected').val();
     }
@@ -153,7 +196,7 @@ function GetBrandByCategoryAdd(id) {
 $('#category_add').change(function () {
     var id = $('#category_add :selected').val();
     GetBrandByCategoryAdd(id);
-})
+});
 
 var image = {
     init: function () {
