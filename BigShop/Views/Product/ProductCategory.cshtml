@@ -5,6 +5,7 @@
     string CategoryName = ViewBag.CategoryName;
     long id = ViewBag.id;
     long sid = ViewBag.sid;
+    int total_page = ViewBag.total_page;
 }
 
 @section jsCart{
@@ -114,7 +115,29 @@
         <div class=" chain-grid menu-chain">
             <a href="single.html"><img class="img-responsive " src="images/Hot.png" alt=" " /></a>
         </div>
-        <a class="view-all all-product" href="product.html">Xem tất cả sản phẩm<span> </span></a>
+        @*<a class="view-all all-product" href="product.html">Xem tất cả sản phẩm<span> </span></a>*@
+    </div>
+    <div class="col-lg-12" style="float: right">
+        <div class="col-md-6" style="float: right">
+            <ul class="pagination" style="float: right">
+                <li><a href="#"><<</a></li>
+                @for (int i = 1; i <= total_page; i++)
+                {
+
+                    if (Request["page_index"] == i.ToString())
+                    {
+                        <li><a href="/Product/ProductCategory?id=@id&sid=@sid&page_index=@i" style="background-color:#4f7dbf;">@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Product/ProductCategory?id=@id&sid=@sid&page_index=@i">@i</a></li>
+                    }
+
+                }
+                <li><a href="#">>></a></li>
+            </ul>
+        </div>
     </div>
     <div class="clearfix"> </div>
 </div>
+

@@ -93,6 +93,20 @@ namespace Model.DAO
             db.SaveChanges();
             return true;
         }
+
+        // add vao gio hang thi tru so luong di 1
+        public bool Add_Cart(long id, int c)
+        {
+            var p = db.Products.Find(id);
+            // c = 0 la giam so luong
+            if (c == 0)
+                p.Quantity -= 1;
+            //c = 1 la tang so luong san pham
+            else
+                p.Quantity += 1;
+            db.SaveChanges();
+            return true;
+        }
         public bool Delete(long id)
         {
             var item = db.Products.Find(id);

@@ -173,7 +173,10 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    alert('Thêm vào giỏ hàng thành công');
+                    if(data == true)
+                        alert("Thêm vào giỏ hàng thành công");
+                    else
+                        alert("Hết hàng");
                 }
             });
         }

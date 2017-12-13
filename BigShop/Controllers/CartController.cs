@@ -43,30 +43,32 @@ namespace BigShop.Controllers
         public JsonResult Idenquantity(long id)
         {
             var session = (List<CartItem>)Session[CommonConst.CartSession];
-
+            int q = 0;
             foreach (var item in session)
             {
-                if (item.Product.ID == id)
+                if (item.Product.ID == id && new ProductDao().GetById(id).Quantity > 0)
                 {
                     item.Quantity += 1;
+                    new ProductDao().Add_Cart(id, 0);
+                    q = item.Quantity;
                     break;
                 }
             }
             //SaveDb();
-            return Json(new
-            {
-                status = true
-            });
+            return Json(q, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Desquantity(long id)
         {
             var session = (List<CartItem>)Session[CommonConst.CartSession];
+            int q = 0;
 
             foreach (var item in session)
             {
                 if (item.Product.ID == id && item.Quantity > 0)
                 {
                     item.Quantity -= 1;
+                    new ProductDao().Add_Cart(id, 1);
+                    q = item.Quantity;
                     if (item.Quantity == 0)
                     {
                         session.Remove(item);
@@ -76,13 +78,13 @@ namespace BigShop.Controllers
 
             }
             //SaveDb();
-            return Json(new
-            {
-                status = true
-            });
+            return Json(q, JsonRequestBehavior.AllowGet);
+            
         }
         public ActionResult Add_Item(long id)
         {
+            bool check = true;
+
             var cart = Session[CommonConst.CartSession];
 
             if (cart != null)
@@ -95,6 +97,7 @@ namespace BigShop.Controllers
                     {
                         if (item.Product.ID == id)
                         {
+                            new ProductDao().Add_Cart(id, 0);
                             item.Quantity += 1;
                         }
                     }
@@ -102,27 +105,44 @@ namespace BigShop.Controllers
                 else
                 {
                     var item = new CartItem();
-
-                    item.Product = new ProductDao().GetById(id);
-                    item.Quantity = 1;
-                    list.Add(item);
+                    Product p = new ProductDao().GetById(id);
+                    if (p.Quantity > 0)
+                    {
+                        new ProductDao().Add_Cart(id, 0);
+                        item.Product = p ;
+                        item.Quantity = 1;
+                        list.Add(item);
+                    }
+                    else
+                    {
+                        check = false;
+                    }
                 }
                 Session[CommonConst.CartSession] = list;
             }
             else
             {
+                var list = new List<CartItem>();
                 var item = new CartItem();
 
-                item.Product = new ProductDao().GetById(id);
-                item.Quantity = 1;
-                var list = new List<CartItem>();
-                list.Add(item);
+                Product p = new ProductDao().GetById(id);
+                if (p.Quantity > 0)
+                {
+                    new ProductDao().Add_Cart(id, 0);
+                    item.Product = p;
+                    item.Quantity = 1;
+                    list.Add(item);
+                }
+                else
+                {
+                    check = false;
+                }
 
                 Session[CommonConst.CartSession] = list;
             }
             var _cart = (List<CartItem>)Session[CommonConst.CartSession];
-            var lo = _cart.Sum(x => x.Quantity);
-            return Json(lo, JsonRequestBehavior.AllowGet);
+            //var lo = _cart.Sum(x => x.Quantity);
+            return Json(check, JsonRequestBehavior.AllowGet);
         }
         [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
@@ -203,8 +223,8 @@ namespace BigShop.Controllers
         public JsonResult GetProvince()
         {
             List<province> data = new ProvinceDao().LoadAll();
-
-            return Json(data, JsonRequestBehavior.AllowGet);
+            var result = Json(data, JsonRequestBehavior.AllowGet);
+            return result;
         }
         public JsonResult GetDistrictByProvinceId(string id)
         {

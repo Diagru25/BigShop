@@ -29,7 +29,7 @@
                     <div class="col_price"><p>@item.Product.Price.ToString("N0")₫</p></div>
                     <div class="btn_quantity">
                         <span><button type="button" class="btn btn-default btnDes" data-id="@item.Product.ID">-</button></span>
-                        <span><input type="text" name="quantity" value="@item.Quantity" disabled /></span>
+                        <span><input type="text" name="quantity" value="@item.Quantity" id="tb_quantity" disabled /></span>
                         <span><button type="button" class="btn btn-default btnIden" data-id="@item.Product.ID">+</button></span>
                     </div>
                 </div>

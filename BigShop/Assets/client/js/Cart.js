@@ -22,8 +22,11 @@
                 url: '/Cart/Desquantity',
                 dataType: 'json',
                 type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
+                success: function (data) {
+                    if (data > 0) {
+                        $('#tb_quantity').val(data.toString());
+                    }
+                    else {
                         window.location.href = "gio-hang";
                     }
                 }
@@ -35,9 +38,13 @@
                 url: '/Cart/Idenquantity',
                 dataType: 'json',
                 type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
-                        window.location.href = "gio-hang";
+                success: function (data) {
+                    if (data > 0) {
+                        $('#tb_quantity').val(data.toString());
+                    }
+                    else
+                    {
+                        alert("Hết hàng");
                     }
                 }
             })

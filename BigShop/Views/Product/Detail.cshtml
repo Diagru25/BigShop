@@ -18,8 +18,7 @@
                 alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
             }
         });
-
-    });
+    })
 </script>
 <div class="container">
 
@@ -48,7 +47,7 @@
 
                 <h4>@Model.Name</h4>
                 <div class="cart-b">
-                    <div class="left-n ">@Model.Price.GetValueOrDefault(0).ToString("N0")₫</div>
+                    <div class="left-n ">@Model.Price.ToString("N0")₫</div>
                     <a class="now-get get-cart-in" onclick="return GetQuantityCartItem(@Model.ID)">Đặt ngay</a>
                     <div class="clearfix"></div>
                 </div>
@@ -76,7 +75,7 @@
         <ul id="flexiselDemo1">
             @foreach (var item in RelatedProduct)
             {
-                <li><img src="@item.Image" /><div class="grid-flex"><a href="#">@item.Name</a><p>@item.Price.GetValueOrDefault(0).ToString("N0")₫</p></div></li>
+                <li><img src="@item.Image" /><div class="grid-flex"><a href="#">@item.Name</a><p>@item.Price.ToString("N0")₫</p></div></li>
             }
         </ul>
         <script type="text/javascript">
@@ -125,7 +124,10 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function (data) {
-                        alert('Thêm vào giỏ hàng thành công');
+                        if(data == true)
+                            alert("Thêm vào giỏ hàng thành công");
+                        else
+                            alert("Hết hàng");
                     }
                 });
             }

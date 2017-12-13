@@ -1,4 +1,5 @@
 ﻿using Model.DAO;
+using Model.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +31,9 @@ namespace BigShop.Controllers
             return View(model);
         }
 
-        public ActionResult ProductCategory(long id, long sid)
+        public ActionResult ProductCategory(long id, long sid, int page_index = 1)
         {
+            
             var dao = new ProductDao();
 
             var model = dao.GetListByCategoryId(id, sid, 0);
@@ -40,7 +42,18 @@ namespace BigShop.Controllers
             ViewBag.id = id;
             ViewBag.sid = sid;
 
-            return View(model);
+            int page_size = 1;
+            int total_page = (model.Count % page_size == 0) ? (model.Count / page_size) : (model.Count / page_size + 1);
+            ViewBag.total_page = total_page;
+
+            List<Product> _model = new List<Product>();
+
+            for(int i = (page_index-1)*page_size; i<=(page_index*page_size)-1; i++)
+            {
+                _model.Add(model[i]);
+            }
+
+            return View(_model);
         }
 
         public JsonResult ProductCategory_Sort(long id, long sid, int con = 0)
