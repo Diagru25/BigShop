@@ -26,9 +26,11 @@ namespace Model.EF
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductCategorySmall> ProductCategorySmalls { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserInRole> UserInRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -182,6 +184,10 @@ namespace Model.EF
 
             modelBuilder.Entity<User>()
                 .Property(e => e.PassWord)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<UserInRole>()
+                .Property(e => e.UserName)
                 .IsUnicode(false);
         }
     }

@@ -3,6 +3,13 @@
     ViewBag.Title = "ProductCategory";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string CategoryName = ViewBag.CategoryName;
+    long id = ViewBag.id;
+    long sid = ViewBag.sid;
+}
+
+@section jsCart{
+    <script src="/Assets/admin/js/Currency.js"></script>
+    <script src="/Assets/client/js/Events.js"></script>
 }
 
 <div class="container">
@@ -12,17 +19,17 @@
                 <a href="#"><h4>@CategoryName</h4></a>
                 <ul class="w_nav">
                     <li>Sắp xếp : </li>
-                    <li><a class="active" href="#">Phổ biến</a></li> |
-                    <li><a href="#">Mới </a></li> |
-                    <li><a href="#">Giá: Thấp - Cao </a></li> |
-                    <li><a href="#">Giá: Cao - Thấp </a></li>
+                    <li><a class="active" role="button" id="Sort_Common" data-id="@id" data-sid="@sid">Phổ biến</a></li> |
+                    <li><a role="button" id="Sort_New" data-id="@id" data-sid="@sid">Mới </a></li> |
+                    <li><a role="button" id="Sort_Low_High" data-id="@id" data-sid="@sid">Giá: Thấp - Cao </a></li> |
+                    <li><a role="button" id="Sort_High_Low" data-id="@id" data-sid="@sid">Giá: Cao - Thấp </a></li>
                     <div class="clearfix"> </div>
                 </ul>
                 <div class="clearfix"> </div>
             </div>
         </div>
         <div class="product" style="margin-bottom: 5px"></div>
-        <div class="product-left">
+        <div class="product-left" id="aaaaa">
             @foreach (var item in Model)
             {
                 var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;

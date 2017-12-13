@@ -117,3 +117,135 @@ $('#distric').click(function () {
     var id = $('#distric option:selected').val();
     GetWardByDistrictId(id);
 })
+// sự kiện nút sắp xếp theo phổ biến
+$('#Sort_Common').click(function () {
+    var id = $(this).data('id');
+    var sid = $(this).data('sid'); 
+    $.ajax({
+        url: '/Product/ProductCategory_Sort',
+        data: { id: id, sid: sid, con: 1 },
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('.product-left').empty();
+            var rows = "";
+            $.each(data, function (i, item) {
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                rows += "<div class='col-md-4 chain-grid' style='margin-bottom: 10px; height: 350px'>" +
+                    "<a href='" + url + "'><img class='img-responsive chain' src='" + item.Image + "' alt=' ' /></a>" +
+                    "<span class='star'> </span>" +
+                    "<div class='grid-chain-bottom'>" +
+                        "<h6 style='height: 44px'><a href='" + url + "' style='font-size: 15px;'>" + item.Name + "</a></h6>" +
+                        "<div class='star-price'>" +
+                            "<div class='dolor-grid'>" +
+                                "<span style='font-size: 15px;color: #c10017; height: 20px;'>" + accounting.formatNumber(item.Price) + '₫' + "</span>" +
+                            "</div>" +
+                            "<button title='Thêm vào giỏ hàng' class='btn' onclick='return GetQuantityCartItem(" + item.ID + ")' style='width: 15px; float: right'><span class='add_to_cart'></span></button>" +
+                            "<div class='clearfix'> </div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>";
+                $('.product-left').html(rows);
+            })
+        }
+    });
+})
+// sự kiện nút sắp xếp theo mới
+$('#Sort_New').click(function () {
+    var id = $(this).data('id');
+    var sid = $(this).data('sid'); 
+    $.ajax({
+        url: '/Product/ProductCategory_Sort',
+        data: { id: id, sid: sid, con: 2 },
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('.product-left').empty();
+            var rows = "";
+            $.each(data, function (i, item) {
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                rows += "<div class='col-md-4 chain-grid' style='margin-bottom: 10px; height: 350px'>" +
+                    "<a href='" + url + "'><img class='img-responsive chain' src='" + item.Image + "' alt=' ' /></a>" +
+                    "<span class='star'> </span>" +
+                    "<div class='grid-chain-bottom'>" +
+                        "<h6 style='height: 44px'><a href='" + url + "' style='font-size: 15px;'>" + item.Name + "</a></h6>" +
+                        "<div class='star-price'>" +
+                            "<div class='dolor-grid'>" +
+                                "<span style='font-size: 15px;color: #c10017; height: 20px;'>" + accounting.formatNumber(item.Price) + '₫' + "</span>" +
+                            "</div>" +
+                            "<button title='Thêm vào giỏ hàng' class='btn' onclick='return GetQuantityCartItem(" + item.ID + ")' style='width: 15px; float: right'><span class='add_to_cart'></span></button>" +
+                            "<div class='clearfix'> </div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>";
+                $('.product-left').html(rows);
+            })
+        }
+    });
+})
+// sự kiện nút sáp xếp theo giá thấp - cao
+$('#Sort_Low_High').click(function () {
+    var id = $(this).data('id');
+    var sid = $(this).data('sid');
+    $.ajax({
+        url: '/Product/ProductCategory_Sort',
+        data: { id: id, sid: sid, con: 3 },
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('.product-left').empty();
+            var rows = "";
+            $.each(data, function (i, item) {
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                rows += "<div class='col-md-4 chain-grid' style='margin-bottom: 10px; height: 350px'>" +
+                    "<a href='" + url + "'><img class='img-responsive chain' src='" + item.Image + "' alt=' ' /></a>" +
+                    "<span class='star'> </span>" +
+                    "<div class='grid-chain-bottom'>" +
+                        "<h6 style='height: 44px'><a href='" + url + "' style='font-size: 15px;'>" + item.Name + "</a></h6>" +
+                        "<div class='star-price'>" +
+                            "<div class='dolor-grid'>" +
+                                "<span style='font-size: 15px;color: #c10017; height: 20px;'>" + accounting.formatNumber(item.Price) + '₫' + "</span>" +
+                            "</div>" +
+                            "<button title='Thêm vào giỏ hàng' class='btn' onclick='return GetQuantityCartItem(" + item.ID + ")' style='width: 15px; float: right'><span class='add_to_cart'></span></button>" +
+                            "<div class='clearfix'> </div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>";
+                $('.product-left').html(rows);
+            })
+        }
+    });
+})
+// sự kiện nút sắp xếp theo giá cao - thấp
+$('#Sort_High_Low').click(function () {
+    var id = $(this).data('id');
+    var sid = $(this).data('sid'); 
+    $.ajax({
+        url: '/Product/ProductCategory_Sort',
+        data: { id: id, sid: sid, con: 4 },
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('.product-left').empty();
+            var rows = "";
+            $.each(data, function (i, item) {
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                rows += "<div class='col-md-4 chain-grid' style='margin-bottom: 10px; height: 350px'>" +
+                    "<a href='" + url + "'><img class='img-responsive chain' src='" + item.Image + "' alt=' ' /></a>" +
+                    "<span class='star'> </span>" +
+                    "<div class='grid-chain-bottom'>" +
+                        "<h6 style='height: 44px'><a href='" + url + "' style='font-size: 15px;'>" + item.Name + "</a></h6>" +
+                        "<div class='star-price'>" +
+                            "<div class='dolor-grid'>" +
+                                "<span style='font-size: 15px;color: #c10017; height: 20px;'>" + accounting.formatNumber(item.Price) + '₫' + "</span>" +
+                            "</div>" +
+                            "<button title='Thêm vào giỏ hàng' class='btn' onclick='return GetQuantityCartItem(" + item.ID + ")' style='width: 15px; float: right'><span class='add_to_cart'></span></button>" +
+                            "<div class='clearfix'> </div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>";
+                $('.product-left').html(rows);
+            })
+        }
+    });
+})

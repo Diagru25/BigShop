@@ -33,15 +33,34 @@ namespace Model.DAO
             return db.Products.Where(x => x.Code == item.Code && x.ID != item.ID).ToList();
         }
 
-        public List<Product> GetListByCategoryId(long id, long sid)
+        public List<Product> GetListByCategoryId(long id, long sid, int con )
         {
+
             if (sid == 0)
             {
-                return db.Products.Where(x => x.CategoryID == id).ToList();
+                if(con == 1)
+                    return db.Products.Where(x => x.CategoryID == id).OrderBy(x=>x.ViewCount).ToList();
+                else if(con == 2)
+                    return db.Products.Where(x => x.CategoryID == id).OrderBy(x => x.CreatedDate).ToList();
+                else if (con == 3)
+                    return db.Products.Where(x => x.CategoryID == id).OrderBy(x => x.Price).ToList();
+                else if (con == 4)
+                    return db.Products.Where(x => x.CategoryID == id).OrderByDescending(x => x.CreatedDate).ToList();
+                else
+                    return db.Products.Where(x => x.CategoryID == id).ToList();
             }
             else
             {
-                return db.Products.Where(x => x.CategoryID == id && x.BrandID == sid).ToList();
+                if(con == 1)
+                    return db.Products.Where(x => x.CategoryID == id && x.BrandID == sid).OrderBy(x=>x.ViewCount).ToList();
+                else if (con == 2)
+                    return db.Products.Where(x => x.CategoryID == id && x.BrandID == sid).OrderBy(x => x.CreatedDate).ToList();
+                else if (con == 3)
+                    return db.Products.Where(x => x.CategoryID == id && x.BrandID == sid).OrderBy(x => x.Price).ToList();
+                else if (con == 4)
+                    return db.Products.Where(x => x.CategoryID == id && x.BrandID == sid).OrderByDescending(x => x.Price).ToList();
+                else 
+                    return db.Products.Where(x => x.CategoryID == id && x.BrandID == sid).ToList();
             }
         }
 

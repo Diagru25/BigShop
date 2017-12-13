@@ -34,11 +34,22 @@ namespace BigShop.Controllers
         {
             var dao = new ProductDao();
 
-            var model = dao.GetListByCategoryId(id, sid);
+            var model = dao.GetListByCategoryId(id, sid, 0);
 
             ViewBag.CategoryName = dao.GetNameCategory(id, sid);
+            ViewBag.id = id;
+            ViewBag.sid = sid;
 
             return View(model);
+        }
+
+        public JsonResult ProductCategory_Sort(long id, long sid, int con = 0)
+        {
+            var dao = new ProductDao();
+
+            var data = dao.GetListByCategoryId(id, sid, con);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public List<string> LoadImage(long id)

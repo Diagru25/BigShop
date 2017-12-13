@@ -132,5 +132,16 @@ namespace Model.DAO
             db.SaveChanges();
             return true;
         }
+
+        public List<string> GetRoleByUserName(string user_name)
+        {
+            var item = from a in db.Roles
+                       join b in db.UserInRoles
+                       on a.ID equals b.RoleID
+                       where (b.UserName == user_name)
+                       select a.Name;
+
+            return item.ToList();
+        }
     }
 }

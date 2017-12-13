@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BigShop.Common;
 using BigShop.Models;
 using Model.EF_province;
+using FlatShop.Models.Security;
 
 namespace BigShop.Controllers
 {
@@ -15,10 +16,10 @@ namespace BigShop.Controllers
         public ActionResult Index()
         {
             var islogin = Session[CommonConst.UserSession];
-            var temp = (LoginModel)islogin;
-            if(temp != null)
-                ViewBag.Is_Login = temp.UserID;
-            else
+            var temp = (Account)islogin;
+            //if(temp != null)
+                //ViewBag.Is_Login = temp.UserID;
+            //else
                 ViewBag.Is_Login = 0;
             var cart = Session[CommonConst.CartSession];
             var list = new List<CartItem>();
@@ -123,15 +124,15 @@ namespace BigShop.Controllers
             var lo = _cart.Sum(x => x.Quantity);
             return Json(lo, JsonRequestBehavior.AllowGet);
         }
-
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult Payment()
         {
             var islogin = Session[CommonConst.UserSession];
             if (islogin != null)
             {
-                var temp = (LoginModel)islogin;
-                ViewBag.User = new UserDao().GetById(temp.UserID);
+                var temp = (Account)islogin;
+                //ViewBag.User = new UserDao().GetById(temp.UserID);
 
                 // laays thoong tin province
                 ViewBag.province = new ProvinceDao().LoadAll();
