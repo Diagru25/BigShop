@@ -21,6 +21,11 @@ namespace Model.DAO
             return db.Products.Where(x => x.Code == "A01").OrderBy(x => x.CreatedDate).Take(4).ToList();
         }
 
+        public List<Product> GetNewProduct()
+        {
+            return db.Products.OrderBy(x => x.CreatedDate).Take(4).ToList();
+        }
+
         public Product GetById(long id)
         {
             return db.Products.Find(id);
