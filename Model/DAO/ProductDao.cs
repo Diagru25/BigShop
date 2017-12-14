@@ -171,5 +171,14 @@ namespace Model.DAO
             pro.Status = !pro.Status;
             db.SaveChanges();
         }
+        public List<Product> Search(List<string> model)
+        {
+            List<Product> result = db.Products.ToList();
+            foreach(var item in model)
+            {
+                result = result.Where(x => x.Name.Contains(item)||x.MetaTitle.Contains(item)).ToList();
+            }
+            return result;
+        }
     }
 }
