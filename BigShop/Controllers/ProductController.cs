@@ -37,7 +37,7 @@ namespace BigShop.Controllers
             var dao = new ProductDao();
 
             int total_page = 1;
-            int page_size = 1;
+            int page_size = 2;
             List<Product> model = new List<Product>();
 
             if (con != 0)

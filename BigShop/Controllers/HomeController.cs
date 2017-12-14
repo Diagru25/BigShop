@@ -22,7 +22,7 @@ namespace BigShop.Controllers
 
             var model = dao.GetNewPhone();
 
-            ViewBag.Hot = new OrderDetailDao().Top().Take(3);
+            ViewBag.Hot = new OrderDetailDao().Top().Take(4);
 
             ViewBag.NewTV = dao.GetNew(1);
 
