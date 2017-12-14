@@ -1,13 +1,128 @@
-﻿@model List<string>
+﻿@model List<Model.EF.Product>
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    string a = ViewBag.a;
+    int total_page = ViewBag.total_page;
+    string text = ViewBag.text;
 }
 
-<h2>@a</h2>
-@foreach(var item in Model)
-{
-    <p>@item</p><br />
+
+@section jsCart{
+    <script src="/Assets/admin/js/Currency.js"></script>
+    <script src="/Assets/client/js/Events.js"></script>
 }
+
+<div class="container">
+    <div class="women-product">
+        <div class=" w_content">
+            <div class="women">
+                <ul class="w_nav">
+                    <li>Sắp xếp : </li>
+                    <li><a class="active" role="button">Phổ biến</a></li> |
+                    <li><a role="button" id="Sort_New">Mới </a></li> |
+                    <li><a role="button" id="Sort_Low_High">Giá: Thấp - Cao </a></li> |
+                    <li><a href="#">Giá: Cao - Thấp </a></li>
+                    <div class="clearfix"> </div>
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="product" style="margin-bottom: 5px"></div>
+        <div class="product-left" id="aaaaa">
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                    <div class="col-md-4 chain-grid" style="margin-bottom: 10px; height: 350px">
+                        <a href="@url"><img class="img-responsive chain" src="@item.Image" alt=" " /></a>
+                        <span class="star"> </span>
+                        <div class="grid-chain-bottom">
+                            <h6 style="height: 44px"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
+                            <div class="star-price">
+                                <div class="dolor-grid">
+                                    <span style="font-size: 15px;color: #c10017; height: 20px;">@item.Price.ToString("N0")₫</span>
+                                </div>
+                                <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)" style="width: 15px; float: right"><span class="add_to_cart"></span></button>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-danger">Không có sản phẩm nào phù hợp</div>
+            }
+            <!--<div class="clearfix"> </div>-->
+        </div>
+        <!-- grids_of_4-->
+        <div class="clearfix"> </div>
+    </div>
+
+    <div class="sub-cate">
+        @{ Html.RenderAction("LeftMenu", "Home");}
+        <!--initiate accordion-->
+        <script type="text/javascript">
+            function GetQuantityCartItem(productid) {
+                $.ajax({
+                    url: '/Cart/Add_Item/' + productid,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert('Thêm vào giỏ hàng thành công');
+                    }
+                });
+            }
+            $(function () {
+                var menu_ul = $('.menu > li > ul'),
+                       menu_a = $('.menu > li > a');
+                menu_ul.hide();
+                menu_a.click(function (e) {
+                    e.preventDefault();
+                    var link = $(this).attr('href');
+                    if (link != '#') {
+                        window.location.href = link;
+                    }
+                    else if (!$(this).hasClass('active')) {
+                        menu_a.removeClass('active');
+                        menu_ul.filter(':visible').slideUp('normal');
+                        $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                    } else {
+                        $(this).removeClass('active');
+                        $(this).next().stop(true, true).slideUp('normal');
+                    }
+                });
+
+            });
+        </script>
+        <div class=" chain-grid menu-chain">
+            <a href="single.html"><img class="img-responsive " src="images/Hot.png" alt=" " /></a>
+        </div>
+        @*<a class="view-all all-product" href="product.html">Xem tất cả sản phẩm<span> </span></a>*@
+    </div>
+    <div class="col-lg-12" style="float: right">
+        <div class="col-md-6" style="float: right">
+            <ul class="pagination" style="float: right">
+                <li><a href="#"><<</a></li>
+                @for (int i = 1; i <= total_page; i++)
+                {
+
+                    if (Request["page_index"] == i.ToString() || i == 1)
+                    {
+                        <li><a href="/Product/Search?text=@text&page_index=@i" style="background-color:#4f7dbf;">@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Product/Search?text=@text&page_index=@i">@i</a></li>
+                    }
+
+                }
+                <li><a href="#">>></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+
 

@@ -43,14 +43,14 @@ namespace BigShop.Controllers
             if (con != 0)
             {
                 CommonConst._con = con;
-            }           
+            }
             if (CommonConst._con != 0)
             {
-                model = dao.GetListByCategoryId(id, sid, CommonConst._con);             
+                model = dao.GetListByCategoryId(id, sid, CommonConst._con);
             }
             else
             {
-                model = dao.GetListByCategoryId(id, sid, con);               
+                model = dao.GetListByCategoryId(id, sid, con);
             }
             ViewBag.CategoryName = dao.GetNameCategory(id, sid);
             ViewBag.id = id;
@@ -60,10 +60,12 @@ namespace BigShop.Controllers
             ViewBag.total_page = total_page;
 
             List<Product> _model = new List<Product>();
-
-            for (int i = (page_index - 1) * page_size; i <= (page_index * page_size) - 1; i++)
+            if (model.Count > 0)
             {
-                _model.Add(model[i]);
+                for (int i = (page_index - 1) * page_size; i <= (page_index * page_size) - 1; i++)
+                {
+                    _model.Add(model[i]);
+                }
             }
 
             return View(_model);
@@ -98,14 +100,29 @@ namespace BigShop.Controllers
                 return listImagesReturn;
             }
         }
-        [HttpPost]
-        public ActionResult Search(string text)
+        public ActionResult Search(string text, int page_index = 1)
         {
-            ViewBag.a = text;
+            int total_page = 1;
+            int page_size = 1;
+
             string[] term = text.Split(' ');
             List<string> ls = term.ToList();
             var model = new ProductDao().Search(ls);
-            return View(model);
+
+            total_page = (model.Count % page_size == 0) ? (model.Count / page_size) : (model.Count / page_size + 1);
+            ViewBag.total_page = total_page;
+            ViewBag.text = text;
+
+            List<Product> _model = new List<Product>();
+            if (model.Count > 0)
+            {
+                for (int i = (page_index - 1) * page_size; i <= (page_index * page_size) - 1; i++)
+                {
+                    _model.Add(model[i]);
+                }
+            }
+
+            return View(_model);
         }
     }
 }
