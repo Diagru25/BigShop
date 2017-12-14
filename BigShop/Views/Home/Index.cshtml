@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var NewPro = ViewBag.NewPro;
 }
 <div class="container">
     <div class="shoes-grid">
@@ -102,62 +103,24 @@
     <a class="view-all" href="product.html">Xem tất cả<span> </span></a>
 </div>
 <div class="product-left">
-    <div class="col-md-4 chain-grid">
-        <a href="single.html"><img style="height: 210px;" class="img-responsive chain" src="/Assets/client/images/New/New1.jpg" alt=" " /></a>
-        <span class="star"> </span>
-        <div class="grid-chain-bottom">
-            <h6><a href="single.html" style="font-size: 15px;">Samsung Galaxy J7 Pro</a></h6>
-            <div class="star-price">
-                <div class="dolor-grid">
-                    <span class="product_price_bot">7.900.000₫</span>
+    @foreach (var item in NewPro)
+    {
+        var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+        <div class="col-md-4 chain-grid">
+            <a href="@url"><img style="height: 210px;" class="img-responsive chain" src="@item.Image" alt=" " /></a>
+            <span class="star"> </span>
+            <div class="grid-chain-bottom">
+                <h6 style="height: 44px;"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
+                <div class="star-price">
+                    <div class="dolor-grid">
+                        <span class="product_price_bot">@item.Price.ToString("N0")₫</span>
+                    </div>
+                    <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)"><span class="add_to_cart"></span></button>
+                    <div class="clearfix"> </div>
                 </div>
-                <a href="#" title="Thêm vào giỏ hàng"><span class="add_to_cart"></span></a>
-                <div class="clearfix"> </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 chain-grid">
-        <a href="single.html"><img style="height: 210px;" class="img-responsive chain" src="/Assets/client/images/New/New2.jpg" alt=" " /></a>
-        <span class="star"> </span>
-        <div class="grid-chain-bottom">
-            <h6><a href="single.html">Iphone 6 Plus</a></h6>
-            <div class="star-price">
-                <div class="dolor-grid">
-                    <span class="product_price_bot">7.900.000₫</span>
-                </div>
-                <a href="#" title="Thêm vào giỏ hàng"><span class="add_to_cart"></span></a>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 chain-grid">
-        <a href="single.html"><img class="img-responsive chain" src="/Assets/client/images/New/New3.png" alt=" " /></a>
-        <span class="star"> </span>
-        <div class="grid-chain-bottom">
-            <h6><a href="single.html">Asus Zenfone 4 Max Pro</a></h6>
-            <div class="star-price">
-                <div class="dolor-grid">
-                    <span class="product_price_bot">7.900.000₫</span>
-                </div>
-                <a href="#" title="Thêm vào giỏ hàng"><span class="add_to_cart"></span></a>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 chain-grid grid-top-chain">
-        <a href="single.html"><img class="img-responsive chain" src="/Assets/client/images/New/New4.png" alt=" " /></a>
-        <span class="star"> </span>
-        <div class="grid-chain-bottom">
-            <h6><a href="single.html">SS Galaxy J7 Prime</a></h6>
-            <div class="star-price">
-                <div class="dolor-grid">
-                    <span class="product_price_bot">7.900.000₫</span>
-                </div>
-                <a href="#" title="Thêm vào giỏ hàng"><span class="add_to_cart"></span></a>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
+    }
 
     <div class="clearfix"> </div>
 </div>

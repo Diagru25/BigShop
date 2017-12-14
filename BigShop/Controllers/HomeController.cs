@@ -17,6 +17,8 @@ namespace BigShop.Controllers
 
             var model = dao.GetNewPhone();
 
+            ViewBag.NewPro = dao.GetNewProduct();
+
             return View(model);
         }
 
