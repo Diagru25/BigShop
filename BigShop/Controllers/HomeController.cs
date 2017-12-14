@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BigShop.ServiceReference1;
 
 namespace BigShop.Controllers
 {
@@ -13,6 +14,11 @@ namespace BigShop.Controllers
         // GET: Home
         public ActionResult Index()
         {
+
+            //ServiceReference2.WebService1SoapClient s = new ServiceReference2.WebService1SoapClient();
+            //var a = s.Tesst();
+
+
             var dao = new ProductDao();
 
             var model = dao.GetNewPhone();

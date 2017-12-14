@@ -1,4 +1,5 @@
-﻿using Model.DAO;
+﻿using BigShop.Common;
+using Model.DAO;
 using Model.EF;
 using System;
 using System.Collections.Generic;
@@ -30,25 +31,37 @@ namespace BigShop.Controllers
 
             return View(model);
         }
-
-        public ActionResult ProductCategory(long id, long sid, int page_index = 1)
+        public ActionResult ProductCategory(long id, long sid, int page_index = 1, int con = 0)
         {
-            
+
             var dao = new ProductDao();
 
-            var model = dao.GetListByCategoryId(id, sid, 0);
+            int total_page = 1;
+            int page_size = 1;
+            List<Product> model = new List<Product>();
 
+            if (con != 0)
+            {
+                CommonConst._con = con;
+            }           
+            if (CommonConst._con != 0)
+            {
+                model = dao.GetListByCategoryId(id, sid, CommonConst._con);             
+            }
+            else
+            {
+                model = dao.GetListByCategoryId(id, sid, con);               
+            }
             ViewBag.CategoryName = dao.GetNameCategory(id, sid);
             ViewBag.id = id;
             ViewBag.sid = sid;
 
-            int page_size = 1;
-            int total_page = (model.Count % page_size == 0) ? (model.Count / page_size) : (model.Count / page_size + 1);
+            total_page = (model.Count % page_size == 0) ? (model.Count / page_size) : (model.Count / page_size + 1);
             ViewBag.total_page = total_page;
 
             List<Product> _model = new List<Product>();
 
-            for(int i = (page_index-1)*page_size; i<=(page_index*page_size)-1; i++)
+            for (int i = (page_index - 1) * page_size; i <= (page_index * page_size) - 1; i++)
             {
                 _model.Add(model[i]);
             }
@@ -84,6 +97,15 @@ namespace BigShop.Controllers
             {
                 return listImagesReturn;
             }
+        }
+        [HttpPost]
+        public ActionResult Search(string text)
+        {
+            ViewBag.a = text;
+            string[] term = text.Split(' ');
+            List<string> ls = term.ToList();
+            var model = new ProductDao().Search(ls);
+            return View(model);
         }
     }
 }
