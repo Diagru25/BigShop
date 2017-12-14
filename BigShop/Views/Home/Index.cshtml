@@ -3,6 +3,9 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var NewPro = ViewBag.NewPro;
+    var NewTV = ViewBag.NewTV;
+    var NewLap = ViewBag.NewLap;
+    var Hot = ViewBag.Hot;
 }
 <div class="container">
     <div class="shoes-grid">
@@ -43,38 +46,54 @@
 </div>
     </a>
 <!---->
-<div class="shoes-grid-left">
-    <a href="single.html">
-        <div class="col-md-6 con-sed-grid">
-            <img class="img-responsive shoe-left" src="/Assets/client/images/TV1.png" alt=" " />
-            <img src="/Assets/client/images/Logo/Sony.png" style="padding-top: 3px;">
-            <div class="product_name">Internet TV 40"</div>
-            <span class="product_price">10.900.000₫</span>
-            <div class="clearfix"> </div>
+<div class="products">
+    <h5 class="latest-product">Sản phẩm hot nhất</h5>
+    <a class="view-all" href="/Product/ProductCategory?id=0&sid=0">Xem tất cả<span> </span></a>
+</div>
+@foreach (var item in Hot)
+{
+    var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+    <div class="shoes-grid-left">
+        <a href="@url">
+            <div class="col-md-6 con-sed-grid">
+                <img class="img-responsive shoe-left" src="@item.Image" alt=" " />
+                <div class="product_name">@item.Name</div>
+                <span class="product_price">@item.Price.ToString("N0")₫</span>
+                <div class="clearfix"> </div>
+            </div>
+        </a>
+    </div>
+}
+
+<div class="products">
+    <h5 class="latest-product">Sản phẩm mới</h5>
+    <a class="view-all" href="/Product/ProductCategory?id=0&sid=0">Xem tất cả<span> </span></a>
+</div>
+<div class="product-left">
+    @foreach (var item in NewPro)
+    {
+        var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+        <div class="col-md-4 chain-grid">
+            <a href="@url"><img style="height: 210px;" class="img-responsive chain" src="@item.Image" alt=" " /></a>
+            <span class="star"> </span>
+            <div class="grid-chain-bottom">
+                <h6 style="height: 44px;"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
+                <div class="star-price">
+                    <div class="dolor-grid">
+                        <span class="product_price_bot">@item.Price.ToString("N0")₫</span>
+                    </div>
+                    <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)"><span class="add_to_cart"></span></button>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
         </div>
-    </a>
-    <a href="single.html">
-        <div class="col-md-6 con-sed-grid">
-            <img class="img-responsive shoe-left" src="/Assets/client/images/TV1.png" alt=" " />
-            <img src="/Assets/client/images/Logo/Sony.png" style="padding-top: 3px;">
-            <div class="product_name">Internet TV 40"</div>
-            <span class="product_price">10.900.000₫</span>
-            <div class="clearfix"> </div>
-        </div>
-    </a>
-    <a href="single.html">
-        <div class="col-md-6 con-sed-grid">
-            <img class="img-responsive shoe-left" src="/Assets/client/images/TV1.png" alt=" " />
-            <img src="/Assets/client/images/Logo/Sony.png" style="padding-top: 3px;">
-            <div class="product_name">Internet TV 40"</div>
-            <span class="product_price">10.900.000₫</span>
-            <div class="clearfix"> </div>
-        </div>
-    </a>
+    }
+
+    <div class="clearfix"> </div>
 </div>
 <div class="products">
     <h5 class="latest-product">Điện thoại</h5>
-    <a class="view-all" href="product.html">Xem tất cả</a>
+    <a class="view-all" href="/Product/ProductCategory?id=5&sid=0">Xem tất cả</a>
 </div>
 <div class="product-left">
     @foreach (var item in Model)
@@ -99,15 +118,15 @@
     <!--/them-gio-hang?productid=***item.ID&quantity=1-->
 </div>
 <div class="products">
-    <h5 class="latest-product">Sản phẩm mới</h5>
-    <a class="view-all" href="product.html">Xem tất cả<span> </span></a>
+    <h5 class="latest-product">Tivi</h5>
+    <a class="view-all" href="/Product/ProductCategory?id=1&sid=0">Xem tất cả</a>
 </div>
 <div class="product-left">
-    @foreach (var item in NewPro)
+    @foreach (var item in NewTV)
     {
         var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
         <div class="col-md-4 chain-grid">
-            <a href="@url"><img style="height: 210px;" class="img-responsive chain" src="@item.Image" alt=" " /></a>
+            <a href="@url"><img class="img-responsive chain" src="@item.Image" alt=" " /></a>
             <span class="star"> </span>
             <div class="grid-chain-bottom">
                 <h6 style="height: 44px;"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
@@ -121,8 +140,34 @@
             </div>
         </div>
     }
-
     <div class="clearfix"> </div>
+    <!--/them-gio-hang?productid=***item.ID&quantity=1-->
+</div>
+<div class="products">
+    <h5 class="latest-product">Laptop</h5>
+    <a class="view-all" href="/Product/ProductCategory?id=2&sid=0">Xem tất cả</a>
+</div>
+<div class="product-left">
+    @foreach (var item in NewLap)
+    {
+        var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+        <div class="col-md-4 chain-grid">
+            <a href="@url"><img class="img-responsive chain" src="@item.Image" alt=" " /></a>
+            <span class="star"> </span>
+            <div class="grid-chain-bottom">
+                <h6 style="height: 44px;"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
+                <div class="star-price">
+                    <div class="dolor-grid">
+                        <span class="product_price_bot">@item.Price.ToString("N0")₫</span>
+                    </div>
+                    <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)"><span class="add_to_cart"></span></button>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="clearfix"> </div>
+    <!--/them-gio-hang?productid=***item.ID&quantity=1-->
 </div>
 <div class="clearfix"> </div>
     </div>

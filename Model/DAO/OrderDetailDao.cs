@@ -34,7 +34,7 @@ namespace Model.DAO
         {
             var list = from q in db.OrderDetails
                        join p in db.Products on q.ProductID equals p.ID where q.OrderID == id
-                       select new OrderDetailView(){Name = p.Name,ProductID = q.ProductID, OrderID = q.OrderID,Quantity = q.Quantity,Price = q.Price};
+                       select new OrderDetailView(){Name = p.Name,ProductID = q.ProductID, OrderID = q.OrderID,Quantity = q.Quantity,Price = q.Price,MetaTitle = p.MetaTitle,Image = p.Image};
             return list.ToList();
         }
         public void DelOrderDetail(long id)
@@ -50,13 +50,13 @@ namespace Model.DAO
         {
             var ord = from q in db.OrderDetails
                       join p in db.Products on q.ProductID equals p.ID
-                      select new OrderDetailView() { Name = p.Name, ProductID = q.ProductID, OrderID = q.OrderID, Quantity = q.Quantity, Price = q.Price };
+                      select new OrderDetailView() { Name = p.Name, ProductID = q.ProductID, OrderID = q.OrderID, Quantity = q.Quantity, Price = q.Price,MetaTitle = p.MetaTitle,Image = p.Image };
             var list = from item in ord
                        group item by item.Name into g
                        select new { name = g.Key, quantity = g.Sum(x => x.Quantity) };
             var result = from q in list
                          join p in ord on q.name equals p.Name
-                         select new TopOrder() { ID = p.ProductID, Name = q.name, Price = p.Price, Quantity = q.quantity, Revenue = p.Price * q.quantity };
+                         select new TopOrder() { ID = p.ProductID, Name = q.name, Price = p.Price, Quantity = q.quantity, Revenue = p.Price * q.quantity,MetaTitle = p.MetaTitle,Image = p.Image };
             var last_result = result.Distinct().OrderByDescending(x => x.Quantity);
             return last_result.ToList();     
         }

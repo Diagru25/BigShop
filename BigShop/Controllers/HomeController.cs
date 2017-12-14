@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BigShop.ServiceReference1;
 
 namespace BigShop.Controllers
 {
@@ -23,7 +22,15 @@ namespace BigShop.Controllers
 
             var model = dao.GetNewPhone();
 
+            ViewBag.Hot = new OrderDetailDao().Top().Take(3);
+
+            ViewBag.NewTV = dao.GetNew(1);
+
             ViewBag.NewPro = dao.GetNewProduct();
+
+            ViewBag.NewLap = dao.GetNew(2);
+
+
 
             return View(model);
         }

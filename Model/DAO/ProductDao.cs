@@ -20,6 +20,10 @@ namespace Model.DAO
         {
             return db.Products.Where(x => x.Code == "A01").OrderBy(x => x.CreatedDate).Take(4).ToList();
         }
+        public List<Product> GetNew(long id)
+        {
+            return db.Products.Where(x => x.CategoryID == id).OrderBy(x => x.CreatedDate).Take(4).ToList();
+        }
 
         public List<Product> GetNewProduct()
         {

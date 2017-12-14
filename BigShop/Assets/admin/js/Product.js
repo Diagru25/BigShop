@@ -4,20 +4,25 @@ var product = {
         product.regEvents();
     },
     regEvents: function () {
-        $('.deleteadminproduct').off('click').on('click', function () {
-            $.ajax({
-                data: { id: $(this).data('id') },
-                url: '/Admin/Product/Delete',
-                dataType: 'json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
-                        window.location.href = "/Admin/Product/Index";
+        $('#dataTables-example').on('click', '.deleteadminproduct', function () {
+            var id = $(this).data('id');
+            $('#confirm_delete').modal('show');
+            $('#btn_ok').click(function () {
+                $.ajax({
+                    data: { id: id  },
+                    url: '/Admin/Product/Delete',
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.status == true) {
+                            window.location.href = "/Admin/Product/Index";
+                        }
                     }
-                }
+                })
             })
+            
         })
-        $('.editadminproduct').off('click').on('click', function () {
+        $('#dataTables-example').on('click', '.editadminproduct', function () {
             var ProductID = $(this).data('id');
             $.ajax({
                 url: '/Admin/Product/Get',
@@ -134,7 +139,6 @@ function GetProduct(brandid, cateid) {
                 rows += "<tr>" +
                     "<td>" + item.ID + "</td>" +
                     "<td>" + item.Name + "</td>" +
-                    "<td>" + item.Code + "</td>" +
                     "<td class='center'>" + accounting.formatNumber(item.Price) + '₫' + "</td>" +
                     "<td class='center'>" + item.Quantity + "</td>" +
                     "<td style='width: 100px; height: auto'><img src=" + item.Image + " class='img-responsive' /></td>" +
@@ -165,7 +169,7 @@ function change_con() {
         brandid = 0;
     }
     else {
-        if ($('#brand :selected').text() == "Tất cả") brandid = 0;
+        if ($('#brand :selected').text() == "Tất cả" || $('#brand :selected').text() == "Chọn hãng") brandid = 0;
         else brandid = $('#brand :selected').val();
         cateid = $('#category :selected').val();
     }
@@ -198,82 +202,70 @@ $('#category_add').change(function () {
     GetBrandByCategoryAdd(id);
 });
 
-var image = {
-    init: function () {
-        image.registerEvents();
-    },
-    registerEvents: function () {
-        $('.btn_image').off('click').on('click', function (e) {
-            e.preventDefault();
-            $('#imagemodal').modal('show');
-            $('#productID').val($(this).data('id'));
-            $('#imgList').html('');
-            image.loadImages();
-        })
-        $('#chooseImg').off('click').on('click', function (e) {
-            e.preventDefault();
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (url) {
-                $('#imgList').append('<div style="float: left;"><img src ="' + url + '" width = "50" /><a href="#" class="btnDel"><i class="fa fa-times"></i></a></div>');
+$('#dataTables-example').on("click", ".btn_image", function () {
+    $('#imagemodal').modal('show');
+    $('#productID').val($(this).data('id'));
+    $('#imgList').html('');
+    loadImages();
+})
+$('#chooseImg').off('click').on('click', function () {
+    var finder = new CKFinder();
+    finder.selectActionFunction = function (url) {
+        $('#imgList').append('<div style="float: left;"><img src ="' + url + '" width = "50" /><a href="#" class="btnDel"><i class="fa fa-times"></i></a></div>');
 
-                $('.btnDel').off('click').on('click', function (e) {
-                    e.preventDefault();
-                    $(this).parent().remove();
-                })
-            };
-            finder.popup();
-        });
-        $('#saveImg').off('click').on('click', function () {
-            var images = [];
-            var id = $('#productID').val();
-            $.each($('#imgList img'), function (i, item) {
-                images.push($(item).prop('src'));
-            })
-
-            $.ajax({
-                url: '/Admin/Product/SaveImages',
-                type: 'POST',
-                data: {
-                    id:id,
-                    images: JSON.stringify(images)
-                },
-                dataType: "json",
-                success: function (response) {
-                    if (response.status) {
-                        alert('Lưu thành công');
-                        $('#imagemodal').modal('hide');
-                        $('#imgList').html('');
-                    }
-                    else
-                    {
-                        alert("Lỗi");
-                    }
-                }
-            })
+        $('.btnDel').off('click').on('click', function () {
+            $(this).parent().remove();
         })
-    },
-    loadImages: function () {
-        $.ajax({
-            url: '/Admin/Product/LoadImages',
-            type: 'GET',
-            data: {
-                id: $('#productID').val()
-            },
-            dataType: "json",
-            success: function (response) {
-                if (response.status) {
-                    var data = response.data;
-                    var htmls = '';
-                    $.each(data, function (i, item) {
-                        htmls += '<div style="float: left;"><img src ="' + item + '" width = "50" /><a href="#" class="btnDel"><i class="fa fa-times"></i></a></div>'
-                    })
-                    $('#imgList').html(htmls);
-                }
+    };
+    finder.popup();
+});
+$('#saveImg').off('click').on('click', function () {
+    var images = [];
+    var id = $('#productID').val();
+    $.each($('#imgList img'), function (i, item) {
+        images.push($(item).prop('src'));
+    })
+
+    $.ajax({
+        url: '/Admin/Product/SaveImages',
+        type: 'POST',
+        data: {
+            id: id,
+            images: JSON.stringify(images)
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response.status) {
+                alert('Lưu thành công');
+                $('#imagemodal').modal('hide');
+                $('#imgList').html('');
             }
-        })
-    }
+            else {
+                alert("Lỗi");
+            }
+        }
+    })
+})
+function loadImages() {
+    $.ajax({
+        url: '/Admin/Product/LoadImages',
+        type: 'GET',
+        data: {
+            id: $('#productID').val()
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response.status) {
+                var data = response.data;
+                var htmls = '';
+                $.each(data, function (i, item) {
+                    htmls += '<div style="float: left;"><img src ="' + item + '" width = "50" /><a href="#" class="btnDel"><i class="fa fa-times"></i></a></div>'
+                })
+                $('#imgList').html(htmls);
+            }
+        }
+    })
 }
-image.init();
 
 // Danh muc sản phẩm
 

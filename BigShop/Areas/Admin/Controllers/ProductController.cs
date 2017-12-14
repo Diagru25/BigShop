@@ -49,7 +49,7 @@ namespace BigShop.Areas.Admin.Controllers
 
         // Thêm 1 sản phẩm
         [HttpPost]
-        public ActionResult Insert(string name, int categoryid, int brandid, string code, string price, string warranty, string description, int quantity, HttpPostedFileBase file)
+        public ActionResult Insert(string name, int categoryid, int brandid, string price, string warranty, string description, int quantity, HttpPostedFileBase file)
         {
             var product = new Product();
             try
@@ -65,7 +65,6 @@ namespace BigShop.Areas.Admin.Controllers
                 product.Price = System.Convert.ToDecimal(price);
                 product.Description = description;
                 product.Quantity = quantity;
-                product.Code = code;
                 product.Image = "/Assets/client/images/" + pic;
                 var dao = new ProductDao();
                 dao.Insert(product);
@@ -88,11 +87,14 @@ namespace BigShop.Areas.Admin.Controllers
             product.Price = System.Convert.ToDecimal(price);
             product.MetaTitle = ConvertToUnSign(name);
             product.Quantity = Convert.ToInt32(quantity);
-            string pic = name.Replace(" ", "-").ToLower() + System.IO.Path.GetExtension(file.FileName).ToLower();
-            string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), pic);
-            file.SaveAs(path);
-            product.Image = "/Assets/client/images/" + pic;
-            System.IO.File.Delete(System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), file.FileName));
+            if(file != null)
+            {
+                string pic = name.Replace(" ", "-").ToLower() + System.IO.Path.GetExtension(file.FileName).ToLower();
+                string path = System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), pic);
+                file.SaveAs(path);
+                product.Image = "/Assets/client/images/" + pic;
+                System.IO.File.Delete(System.IO.Path.Combine(Server.MapPath("/Assets/client/images"), file.FileName));
+            }
             var result = new ProductDao().Edit(product);
 
             return RedirectToAction("Index");

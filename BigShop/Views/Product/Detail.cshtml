@@ -10,7 +10,7 @@
 
         $('#etalage').etalage({
             thumb_image_width: 300,
-            thumb_image_height: 400,
+            thumb_image_height: 300,
             source_image_width: 900,
             source_image_height: 1200,
             show_hint: true,
@@ -75,7 +75,8 @@
         <ul id="flexiselDemo1">
             @foreach (var item in RelatedProduct)
             {
-                <li><img src="@item.Image" /><div class="grid-flex"><a href="#">@item.Name</a><p>@item.Price.ToString("N0")₫</p></div></li>
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                <li><img src="@item.Image" /><div class="grid-flex"><a href="@url">@item.Name</a><p>@item.Price.ToString("N0")₫</p></div></li>
             }
         </ul>
         <script type="text/javascript">

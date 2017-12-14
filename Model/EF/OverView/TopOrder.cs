@@ -13,5 +13,7 @@ namespace Model.EF.OverView
         public decimal? Price { get; set; }
         public int? Quantity { get; set; }
         public decimal? Revenue { get; set; }
+        public string MetaTitle { get; set; }
+        public string Image { get; set; }
     }
 }
