@@ -31,48 +31,34 @@
         </div>
         <div class="product" style="margin-bottom: 5px"></div>
         <div class="product-left" id="aaaaa">
-            @foreach (var item in Model)
+            @if (Model.Count > 0)
             {
-                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
-                <div class="col-md-4 chain-grid" style="margin-bottom: 10px; height: 350px">
-                    <a href="@url"><img class="img-responsive chain" src="@item.Image" alt=" " /></a>
-                    <span class="star"> </span>
-                    <div class="grid-chain-bottom">
-                        <h6 style="height: 44px"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
-                        <div class="star-price">
-                            <div class="dolor-grid">
-                                <span style="font-size: 15px;color: #c10017; height: 20px;">@item.Price.ToString("N0")₫</span>
+                foreach (var item in Model)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                    <div class="col-md-4 chain-grid" style="margin-bottom: 10px; height: 350px">
+                        <a href="@url"><img class="img-responsive chain" src="@item.Image" alt=" " /></a>
+                        <span class="star"> </span>
+                        <div class="grid-chain-bottom">
+                            <h6 style="height: 44px"><a href="@url" style="font-size: 15px;">@item.Name</a></h6>
+                            <div class="star-price">
+                                <div class="dolor-grid">
+                                    <span style="font-size: 15px;color: #c10017; height: 20px;">@item.Price.ToString("N0")₫</span>
+                                </div>
+                                <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)" style="width: 15px; float: right"><span class="add_to_cart"></span></button>
+                                <div class="clearfix"> </div>
                             </div>
-                            <button title="Thêm vào giỏ hàng" class="btn" onclick="return GetQuantityCartItem(@item.ID)" style="width: 15px; float: right"><span class="add_to_cart"></span></button>
-                            <div class="clearfix"> </div>
                         </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-danger">Không có sản phầm</div>
             }
             <!--<div class="clearfix"> </div>-->
         </div>
-        <!-- grids_of_4
-        @foreach (var item in Model)
-        {
-            <div class="grid-product">
-                <div class="  product-grid">
-                    <div class="content_box">
-                        <a href="chi-tiet/@item.MetaTitle-@item.ID">
-                            <div class="left-grid-view grid-view-left">
-                                <img src="@item.Image" class="img-responsive watch-right" alt="" />
-                                <div class="mask">
-                                    <div class="info">Quick View</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <h4><a href="#">@item.Name</a></h4>
-                    <p>It is a long established fact that a reader</p>
-                    Rs. 499
-                </div>
-            </div>
-        }
-        -->
+        <!-- grids_of_4-->
         <div class="clearfix"> </div>
     </div>
 
@@ -123,7 +109,6 @@
                 <li><a href="#"><<</a></li>
                 @for (int i = 1; i <= total_page; i++)
                 {
-
                     if (Request["page_index"] == i.ToString())
                     {
                         <li><a href="/Product/ProductCategory?id=@id&sid=@sid&page_index=@i" style="background-color:#4f7dbf;">@i</a></li>

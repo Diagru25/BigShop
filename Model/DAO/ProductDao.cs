@@ -177,10 +177,17 @@ namespace Model.DAO
         }
         public List<Product> Search(List<string> model)
         {
-            List<Product> result = db.Products.ToList();
+            List<Product> result = new List<Product>();
             foreach(var item in model)
             {
-                result = result.Where(x => x.Name.Contains(item)||x.MetaTitle.Contains(item)).ToList();
+                var temp = db.Products.Where(x => x.Name.Contains(item) || x.MetaTitle.Contains(item)).ToList();
+                foreach(var item1 in temp)
+                {
+                    if(result.Any(x=>x.ID == item1.ID) == false)
+                    {
+                        result.Add(item1);
+                    }
+                }
             }
             return result;
         }
