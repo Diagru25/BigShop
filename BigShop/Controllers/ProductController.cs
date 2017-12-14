@@ -125,7 +125,14 @@ namespace BigShop.Controllers
             {
                 for (int i = (page_index - 1) * page_size; i <= (page_index * page_size) - 1; i++)
                 {
-                    _model.Add(model[i]);
+                    try
+                    {
+                        _model.Add(model[i]);
+                    }
+                    catch
+                    {
+                    
+                    }
                 }
             }
 
